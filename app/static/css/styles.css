@@ -12,9 +12,13 @@ html, body
     padding: 0;
 }
 
+
+
+
 header
 {
-    background-color: white;
+    background: linear-gradient(to left, white, rgb(255, 240, 212));
+    width: 100%;
 }
 
 header .container
@@ -25,27 +29,175 @@ header .container
     justify-content: space-between;
 
     margin: auto;
-    padding: 20px;
 }
 
-header .container img
+.logo
 {
-    width: 6%;
     cursor: pointer;
+    font-size: 24px;
+    margin: 0;
 }
+
+header .container nav ul
+{
+    list-style: none;
+    display: flex;
+    gap: 4rem;
+}
+
+header .container nav ul li
+{
+    background: whitesmoke;
+    position: relative;
+    border-radius: 6px;
+    padding: 8px 15px 8px 15px;
+    margin: 0;
+    cursor: pointer;
+    transition: 0.3s all ease-in-out;
+}
+
+header .container nav ul li:hover
+{
+    transform: scale(1.05);
+    color: white;
+    background: orange;
+    box-shadow: 0 0 5px whitesmoke;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 main
 {
     background: whitesmoke;
+    width: 60%;
+    margin: auto;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 footer
 {
     margin-top: auto;
-    text-align: center;
     background-color: white;
  
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+footer .container
+{
+    width: 75%;
+    margin: auto;
+    
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+footer .container div
+{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+
+
+
+
+
+
+
+
+#homeButton
+{
+    border: none;
+    padding: 8px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s all ease-in-out;
+    background: whitesmoke;
+    color: orange;
+}
+
+#homeButton:hover
+{
+    transform: scale(1.05);
+    color: white;
+    background: orange;
+    box-shadow: 0 0 5px whitesmoke;
+}
+
+
+.authButton
+{
+    border: none;
+    padding: 8px 15px 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: orange;
+    transition: 0.3s all ease-in-out;
+}
+
+.authButton:hover
+{
+    transform: scale(1.05);
+    color: white;
+    background: orange;
+    box-shadow: 0 0 5px whitesmoke;
+}
+
+
+
+#messageBar
+{
+    /* background: rgb(255, 75, 75);     Different colours for message bar
+    background: rgb(75, 175, 255);
+    background: rgb(75, 204, 255);
+    background: rgb(111, 255, 75); */
+    background: rgb(255, 177, 75);
+    color: whitesmoke;
+    margin: 0;
+    padding: 0;
+}
+
+#messageBar span
+{
+    color: white;
+    padding-bottom: 4px;
+    border-bottom: 1px solid white;
+    cursor: pointer;
+}
+
+#messageBar #alert
+{
+    width: 75%;
+    margin: auto;
+}
+
+#messageBar p
+{
+    width: 60%;
+    margin: center;
 }
