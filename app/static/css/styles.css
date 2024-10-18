@@ -1,0 +1,51 @@
+/* Main content styling */
+
+html, body
+{
+    background-color: whitesmoke;
+
+    flex-direction: column;
+    display: flex;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+}
+
+header
+{
+    background-color: white;
+}
+
+header .container
+{
+    width: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: auto;
+    padding: 20px;
+}
+
+header .container img
+{
+    width: 6%;
+    cursor: pointer;
+}
+
+main
+{
+    background: whitesmoke;
+}
+
+footer
+{
+    margin-top: auto;
+    text-align: center;
+    background-color: white;
+ 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
