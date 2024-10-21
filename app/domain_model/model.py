@@ -13,8 +13,8 @@ class Thread:
         self._time_created = time_created   # 1
         self._content = content             # 1
         self._topic = topic                 # 1
-        self._comments = List[Comment]      # 0->many
-        self._tag = List[Tag]               # 0->many
+        self._comments = []                 # 0->many
+        self._tag = []                      # 0->many
 
     @property
     def title(self) -> str:
@@ -88,7 +88,7 @@ class Comment:
         self._owner = owner                 # 1
         self._time_created = time_created   # 1
         self._content = content             # 1
-        self._comments = List[Comment]      # 0->many
+        self._comments = []                 # 0->many
 
     @property
     def owner(self) -> 'User':
@@ -150,7 +150,7 @@ class Topic:
     def __init__(self, title, time_created):
         self._title = title                 # 1
         self._time_created = time_created   # 1
-        self._threads = List[Thread]        # 0->many
+        self._threads = []                  # 0->many
 
     @property
     def title(self) -> str:
@@ -190,8 +190,8 @@ class User:
         self._username = username
         self._password = password
         self._time_created = time_created
-        self._threads = List[Thread]
-        self._comments = List[Comment]
+        self._threads = []
+        self._comments = []
 
     @property
     def username(self) -> str:
@@ -247,8 +247,8 @@ class User:
                 
 
 class SuperUser(User):
-    def __init__(self, username: str, password: str, time_created: str, threads: List['Thread'], comments: List['Comment'], colour: str, title: str):
-        super().__init__(username, password, time_created, threads, comments)
+    def __init__(self, username: str, password: str, time_created: str, colour: str, title: str):
+        super().__init__(username, password, time_created)
         self._colour = colour
         self._title = title
         

@@ -1,4 +1,5 @@
 from flask import Flask
+from pathlib import Path
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, clear_mappers
@@ -6,43 +7,50 @@ from sqlalchemy.pool import NullPool
 
 import app.adapters.repository as repo
 from app.adapters import database_repository
+from app.adapters.repository_populate import populate
 from app.adapters.orm import metadata, map_model_to_tables
 
-def create_app():
-    app = Flask(__name__)
-    app.config.from_object('config.Config')
 
-    if app.config['REPOSITORY'] == 'memory':
-      print(" * Repository Mode: memory")  
-      
-    elif app.config['REPOSITORY'] == 'database':
-      print(" * Repository Mode: database")
-      
-      database_uri = app.config['SQLALCHEMY_DATABASE_URI']
-      database_echo = app.config['SQLALCHEMY_ECHO']
-      database_engine = create_engine(database_uri, connect_args={"check_same_thread": False}, poolclass=NullPool,
-                                        echo=database_echo)
+def create_app(test_config=None):
+  app = Flask(__name__)
+  app.config.from_object('config.Config')
+  data_path = Path('app') / 'adapters' / 'data'
 
-      session_factory = sessionmaker(autocommit=False, autoflush=True, bind=database_engine)
-      repo.repo_instance = database_repository.SqlAlchemyRepository(session_factory)
+  if test_config is not None:
+    app.config.from_mapping(test_config)
+    data_path = app.config['TEST_DATA_PATH']
 
-      if app.config['TESTING'] == 'True' or len(database_engine.table_names()) == 0:
-        print("Creating mappings for new database")
-        clear_mappers()
-        metadata.create_all(database_engine)
-        for table in reversed(metadata.sorted_tables):
-          database_engine.execute(table.delete())
+  print(f" x Repository Mode: {app.config['REPOSITORY']}")
 
-        map_model_to_tables()
+  if app.config['REPOSITORY'] == 'memory':
+    pass
+  
+  elif app.config['REPOSITORY'] == 'database':
+    database_uri = app.config['SQLALCHEMY_DATABASE_URI']
+    database_echo = app.config['SQLALCHEMY_ECHO']
+    database_engine = create_engine(database_uri, connect_args={"check_same_thread": False}, poolclass=NullPool, echo=database_echo)
 
-        print("Finished mapping creation")
+    session_factory = sessionmaker(autocommit=False, autoflush=True, bind=database_engine)
+    repo.repo_instance = database_repository.SqlAlchemyRepository(session_factory)
 
-      else:
-        map_model_to_tables()
+    if app.config['TESTING'] == 'True' or len(database_engine.table_names()) == 0:
+      print(" x Creating mappings for new database")
+      clear_mappers()
+      metadata.create_all(database_engine)
+      for table in reversed(metadata.sorted_tables):
+        database_engine.execute(table.delete())
+
+      database_mode = True
+      map_model_to_tables()
+      populate(data_path, repo.repo_instance, database_mode)
         
-        
-    with app.app_context():
-        from .layout import layout
-        app.register_blueprint(layout.layout_blueprint)
+      print(" x Finished mapping creation")
 
-    return app
+    else:
+      map_model_to_tables()  
+        
+  with app.app_context():
+    from .layout import layout
+    app.register_blueprint(layout.layout_blueprint)
+
+  return app
