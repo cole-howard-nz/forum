@@ -27,6 +27,7 @@ def load_users(data_path: Path, repo: AbstractRepository):
             username=data_row[1],
             password=generate_password_hash(data_row[2]),
             time_created=date.fromisoformat(data_row[3]))
+        
         repo.add_user(user)
         users[data_row[0]] = user
     return users
@@ -41,7 +42,14 @@ def load_threads(data_path: Path, repo: AbstractRepository):
                 owner=repo.get_user_by_id(data_row[2]),
                 time_created=date.fromisoformat(data_row[3]),
                 content=data_row[4],
-                topic=data_row[5])
+                topic=repo.get_topic_by_id(data_row[5]))
+        
+        tags = data_row[6].split(';')
+        
+        for tag in tags:
+            tagObj = repo.get_tag_by_id(tag)
+            thread.add_tag(tagObj)
+            
         repo.add_thread(thread)
         threads[data_row[0]] = thread
     return threads
@@ -54,6 +62,7 @@ def load_tags(data_path: Path, repo: AbstractRepository):
         tag = Tag(
                 name=data_row[1],
                 colour=data_row[2])
+        
         repo.add_tag(tag)
         tags[data_row[0]] = tag
     return tags
@@ -63,11 +72,16 @@ def load_comments(data_path: Path, repo: AbstractRepository):
     comments_filename = str(Path(data_path) / "comments.csv")
     
     for data_row in read_csv_file(comments_filename):
+        found_thread=repo.get_thread_by_id(data_row[4])
+        
         comment = Comment(
                 owner = repo.get_user_by_id(data_row[1]),
                 time_created=date.fromisoformat(data_row[2]),
-                content=data_row[3])
-        repo.add_comment(comment)
+                content=data_row[3],
+                thread=found_thread)
+        
+        repo.add_comment_to_thread(comment, found_thread)
+        
         comments[data_row[0]] = comment
     return comments
 
@@ -79,6 +93,7 @@ def load_topics(data_path: Path, repo: AbstractRepository):
         topic = Topic(
                 title=data_row[1],
                 time_created=date.fromisoformat(data_row[2]))
+        
         repo.add_topic(topic)
         topics[data_row[0]] = topic
     return topics

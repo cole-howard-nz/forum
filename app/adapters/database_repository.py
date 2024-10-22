@@ -82,11 +82,18 @@ class SqlAlchemyRepository(AbstractRepository):
     def get_thread_by_id(self, thread_id: int) -> Thread:
         thread = None
         try:
-            thread = self._session_cm.session.query(Thread).filter(Thread._Thread_id == thread_id).one()
+            thread = self._session_cm.session.query(Thread).filter(Thread.id == thread_id).one()
         except NoResultFound:
             pass
 
         return thread
+    
+    def add_comment_to_thread(self, comment: Comment, thread: Thread):
+        with self._session_cm as scm:
+            thread.add_comment(comment)
+            scm.session.add(comment)
+            scm.session.add(thread)
+            scm.commit()
     # End of thread methods
     
     
@@ -95,6 +102,15 @@ class SqlAlchemyRepository(AbstractRepository):
         with self._session_cm as scm:
             scm.session.add(tag)
             scm.commit()
+            
+    def get_tag_by_id(self, tag_id: int):
+        tag = None
+        try:
+            tag = self._session_cm.session.query(Tag).filter(Tag.id == tag_id).one()
+        except NoResultFound:
+            pass
+
+        return tag
     # End of tag methods
          
          
@@ -103,6 +119,14 @@ class SqlAlchemyRepository(AbstractRepository):
         with self._session_cm as scm:
             scm.session.add(comment)
             scm.commit()
+    def get_comment_by_id(self, comment_id: int) -> Comment:
+        comment = None
+        try:
+            comment = self._session_cm.session.query(Comment).filter(Comment.id == comment_id).one()
+        except NoResultFound:
+            pass
+
+        return comment    
     # End of comment methods
       
       
@@ -111,6 +135,15 @@ class SqlAlchemyRepository(AbstractRepository):
         with self._session_cm as scm:
             scm.session.add(topic)
             scm.commit()
+            
+    def get_topic_by_id(self, topic_id: int) -> Topic:
+        topic = None
+        try:
+            topic = self._session_cm.session.query(Topic).filter(Topic.id == topic_id).one()
+        except NoResultFound:
+            pass
+
+        return topic
     # End of topic methods
     
     # SuperUser methods   

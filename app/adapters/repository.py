@@ -41,9 +41,25 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
     
     @abc.abstractmethod
+    def add_comment_to_thread(self, comment: Comment, thread: Thread):
+        raise NotImplementedError
+    
+    @abc.abstractmethod
     def add_topic(self, topic: Topic):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_topic_by_id(self, topic_id: int):
         raise NotImplementedError
     
     @abc.abstractmethod
     def add_superuser(self, superuser: SuperUser):
+        raise NotImplementedError
+    
+    @abc.abstractmethod
+    def get_tag_by_id(self, tag_id: int):
+        raise NotImplementedError
+    
+    @abc.abstractmethod
+    def get_comment_by_id(self, tag_id: int):
         raise NotImplementedError

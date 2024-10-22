@@ -84,10 +84,11 @@ class Thread:
 
 
 class Comment:
-    def __init__(self, owner, time_created, content):
+    def __init__(self, owner, time_created, content, thread):
         self._owner = owner                 # 1
         self._time_created = time_created   # 1
         self._content = content             # 1
+        self._thread = thread               # 1
         self._comments = []                 # 0->many
 
     @property
@@ -105,6 +106,14 @@ class Comment:
     @content.setter
     def content(self, new_content: str):
         self._content = new_content
+        
+    @property
+    def thread(self) -> Thread:
+        return self._thread
+
+    @thread.setter
+    def thread(self, new_thread: Thread):
+        self._thread = new_thread
 
     @property
     def comments(self) -> List['Comment']:
