@@ -14,7 +14,7 @@ users_table = Table( 'users', metadata,
 
 threads_table = Table( 'threads', metadata,
                     Column('id', Integer, primary_key=True, autoincrement=True),
-                    Column('title', String(127), unique=True, nullable=False),
+                    Column('title', String(127), nullable=False),
                     Column('owner_id', ForeignKey('users.id'), nullable=False),
                     Column('time_created', String(127), nullable=False),
                     Column('content', String(127), nullable=False),

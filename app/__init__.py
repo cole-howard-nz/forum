@@ -50,7 +50,7 @@ def create_app(test_config=None):
       map_model_to_tables()  
         
   with app.app_context():
-    from .layout import layout
-    app.register_blueprint(layout.layout_blueprint)
+    from .home import home
+    app.register_blueprint(home.home_blueprint)
 
   return app

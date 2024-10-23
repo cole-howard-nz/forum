@@ -3,10 +3,10 @@
 from flask import Blueprint, render_template
 
 
-layout_blueprint = Blueprint('layout', __name__)
+home_blueprint = Blueprint('home', __name__)
 
-@layout_blueprint.route('/', methods=['GET', 'POST'])
-def layout():
+@home_blueprint.route('/', methods=['GET', 'POST'])
+def home():
     return(
         render_template('/layout.html')
     )

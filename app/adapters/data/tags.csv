@@ -1,4 +1,7 @@
 id,name,colour
-1,General,orange
+1,Event,orange
 2,Important,red
-3,Event,yellow
+3,General,yellow
+4,Other,green
+5,Help,purple
+6,Removed,red
