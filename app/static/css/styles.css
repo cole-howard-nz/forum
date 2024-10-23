@@ -162,11 +162,13 @@ footer #footer-cred
 {
     display: flex;
     flex-direction: column;
-    height: 165px;
     box-shadow: 0 0 5px #CCCCCC;
+    background-color: white;
     margin-top: 30px;
-    border-radius: 4px;
+    border-radius: 8px;
     position: relative;
+    border: 3px solid #DDDDDD;
+    border-left: 6px solid orange;
 }
 
 .message-card
@@ -174,12 +176,17 @@ footer #footer-cred
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 1rem;
+    gap: .5rem;
     padding: 4px;
     margin: 4px;
-    border-radius: 4px;
     background-color: whitesmoke;
     box-shadow: 0 0 5px #CCCCCC;
+}
+
+.message-card i
+{
+    padding: 4px 6px 4px 6px;
+    cursor: pointer;
 }
 
 .message-card p
@@ -188,19 +195,30 @@ footer #footer-cred
     margin: 0;
 }
 
+.message-card #username
+{
+    transition: 0.3s ease-in-out all;
+    cursor: pointer;
+}
+
 .message-card #time
 {
     margin-left: auto;
     font-size: 12px;
 }
 
+.message-card #message
+{
+    font-size: 14px;
+}
+
 #shoutbox-ui
 {
-    border-radius: 4px;
-    position: absolute;
-    bottom: 2px;
-    left: 0;
-    width: 100%;
+    border-radius: 12px;
+    margin-top: 10px;
+    background: white;
+    padding: 6px 10px 6px 10px;
+    box-shadow: 0 0 5px #CCCCCC;
 }
 
 #shoutbox-ui div
@@ -216,7 +234,7 @@ footer #footer-cred
     width: 94%;
     border: none;
     background-color: white;
-    border-radius: 50px;
+    border-radius: 5px;
     padding-left: 8px;
     padding-right: 8px;
     color: #777777;
@@ -250,10 +268,67 @@ footer #footer-cred
 {
     padding: 4px 6px 4px 6px;
     border-radius: 50px;
-    background-color: rgb(255, 175, 28);
-    color: rgb(255, 240, 212);
 }
 
+.user
+{
+    color: #777777;
+}
+
+.user-bg
+{
+    border-radius: 50px;
+    color: rgb(255, 240, 212);
+    background-color: #777777;
+}
+
+.donator
+{
+    color: rgb(47, 219, 76);
+}
+
+.donator-bg
+{
+    border-radius: 50px;
+    color: rgb(255, 240, 212);
+    background-color: rgb(47, 219, 76);
+}
+
+.mod
+{
+    color: #49c9fc;
+}
+
+.mod-bg
+{
+    border-radius: 50px;
+    color: rgb(255, 240, 212);
+    background-color: #49c9fc;
+}
+
+.admin
+{
+    color: #f82b2b;
+}
+
+.admin-bg
+{
+    border-radius: 50px;
+    color: rgb(255, 240, 212);
+    background-color: #f82b2b;
+}
+
+.developer
+{
+    color: #2724e9;
+}
+
+.developer-bg
+{
+    border-radius: 50px;
+    color: rgb(255, 240, 212);
+    background-color: #2724e9;
+}
 
 
 
@@ -305,10 +380,11 @@ footer #footer-cred
 
 #messageBar
 {
-    /* background: rgb(255, 75, 75);     Different colours for message bar
-    background: rgb(75, 175, 255);
-    background: rgb(75, 204, 255);
-    background: rgb(111, 255, 75); */
+    /* Different colours for message bar */
+    /* background: rgb(255, 75, 75); */        
+    /* background: rgb(75, 175, 255); */
+    /* background: rgb(75, 204, 255); */
+    /* background: rgb(111, 255, 75); */
     background: rgb(255, 177, 75);
     color: whitesmoke;
     margin: 0;
