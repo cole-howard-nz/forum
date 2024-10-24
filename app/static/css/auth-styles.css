@@ -1,10 +1,10 @@
 #authPopup
 {
-    display: flex;
+    display: none;
     flex-direction: column;
     position: fixed;
 
-    background-color: whitesmoke;
+    background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 5px #CCCCCC;
 
@@ -16,6 +16,26 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+#authPopup #close-popup
+{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+
+    background-color: orange;
+    color: white;
+
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 6px;
+    padding-right: 6px;
+
+    cursor: pointer;
+
+    border-radius: 10px;
+    border: none;
 }
 
 #authPopup div
@@ -40,6 +60,21 @@
     margin-top: 24px;
     display: flex;
     flex-direction: column;
+}
+
+#authPopup form p
+{
+    margin: auto;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+#authPopup form p span
+{
+    cursor: pointer;
+    color: orange;
+    padding-bottom: 2px;
+    border-bottom: 1px solid orange;
 }
 
 #authPopup form div 
