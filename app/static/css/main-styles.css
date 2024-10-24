@@ -65,7 +65,7 @@
     align-items: center;
     cursor: pointer;
     transition: 0.3s ease-in-out all;
-    border-left: 8px solid orange;
+    border-left: 6px solid orange;
 }
 
 .popular-card:hover
@@ -112,6 +112,7 @@
 {
     background: white;
     border-collapse: collapse;
+    border-spacing: 0;
     width: 100%;
 }
 
@@ -125,11 +126,12 @@
     text-align: left;
     padding: 20px;
     vertical-align: top;
+    box-shadow: 0 0 0 1px whitesmoke;
 }
 
 #main-forum-table th:first-child, #main-forum-table td:first-child 
 {
-    width: 100%;
+    width: auto;
 }
 
 #main-forum-table #topics, #main-forum-table #comments, #main-forum-table #last-post
@@ -137,6 +139,11 @@
     white-space: nowrap;
     flex-grow: 0; 
     flex-shrink: 0;
+}
+
+#main-forum-table #last-post-container, #main-forum-table #comments, #main-forum-table #topics
+{
+    border-top: 2px solid whitesmoke;
 }
 
 #main-forum-table #last-post, #main-forum-table #forums 
@@ -173,11 +180,6 @@
 #main-forum-table #forums #subtopics
 {
     margin-top: auto;
-}
-
-#main-forum-table #forums #summary
-{
-    width: 95%;
 }
 
 #main-forum-table #forums #subtopics span

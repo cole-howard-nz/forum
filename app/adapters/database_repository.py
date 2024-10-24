@@ -1,8 +1,10 @@
-from sqlalchemy.orm.exc import NoResultFound
+from typing import List
 
 from sqlalchemy.orm import scoped_session
+from sqlalchemy.orm.exc import NoResultFound
 
-from app.domain_model.model import User, Thread, Tag, Comment, Topic, SuperUser
+
+from app.domain_model.model import User, Thread, Tag, Comment, Topic, SuperUser, Message
 from app.adapters.repository import AbstractRepository
 
 
@@ -151,5 +153,30 @@ class SqlAlchemyRepository(AbstractRepository):
         with self._session_cm as scm:
             scm.session.add(superuser)
             scm.commit()
+            
+    def get_superuser_by_id(self, superuser_id: int) -> SuperUser:
+        superuser = None
+        try:
+            superuser = self._session_cm.session.query(SuperUser).filter(SuperUser.user_id == superuser_id).one()
+        except NoResultFound:
+            pass
+
+        return superuser
     # End of SuperUser methods
+    
+    # Shoutbox Message methods   
+    def add_shoutbox_message(self, message: Message):
+        with self._session_cm as scm:
+            scm.session.add(message)
+            scm.commit()
+            
+    def get_shoutbox_messages(self) -> List[Message]:
+        messages = None
+        try:
+            messages = self._session_cm.session.query(Message).all()
+        except NoResultFound:
+            pass
+
+        return messages
+    # End of Shoutbox Message methods
     

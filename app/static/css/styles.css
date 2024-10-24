@@ -15,8 +15,10 @@ html, body
     font-family: 'Roboto Condensed';
 }
 
-
-
+#blur
+{
+    filter: blur(10px);
+}
 
 header
 {
@@ -221,7 +223,7 @@ footer #footer-cred
     box-shadow: 0 0 5px #CCCCCC;
 }
 
-#shoutbox-ui div
+#shoutbox-ui form
 {
     display: flex;
     justify-content: space-between;
@@ -229,7 +231,7 @@ footer #footer-cred
     padding: 6px;
 }
 
-#shoutbox-ui div input
+#shoutbox-ui form .comment-box
 {
     width: 94%;
     border: none;
@@ -388,7 +390,7 @@ footer #footer-cred
     background: rgb(255, 177, 75);
     color: whitesmoke;
     margin: 0;
-    padding: 0;
+    padding: 4px;
 }
 
 #messageBar span

@@ -1,0 +1,87 @@
+#authPopup
+{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+
+    background-color: whitesmoke;
+    border-radius: 10px;
+    box-shadow: 0 0 5px #CCCCCC;
+
+    width: 450px;
+    height: 350px;
+
+    z-index: 100;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#authPopup div
+{
+    width: 70%;
+    margin: auto;
+}
+
+#authPopup #header
+{
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+    padding-bottom: 6px;
+    width: fit-content;
+    margin: auto;
+    border-bottom: 2px solid #333333;
+}
+
+#authPopup form
+{
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+#authPopup form div 
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#authPopup form div p
+{
+    margin: 0;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+#authPopup form div input
+{
+    border: none;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+
+    margin-top: 2px;
+    margin-bottom: 14px;
+
+    padding: 4px 12px 4px 12px;
+    background-color: transparent;
+}
+
+#authPopup form #auth-submit
+{
+    border: none;
+    width: 70%;
+    margin: auto;
+    padding: 6px;
+    margin-bottom: 4px;
+    font-size: 12px;
+    font-family: 'Roboto Condensed';
+
+    background: orange;
+    color: whitesmoke;
+    cursor: pointer;
+
+    transition: 0.3s ease-in-out all;
+}

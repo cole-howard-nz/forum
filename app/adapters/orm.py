@@ -1,7 +1,7 @@
 from sqlalchemy import Table, MetaData, ForeignKey, Column, Integer, String
 from sqlalchemy.orm import mapper, relationship
 
-from app.domain_model.model import User, Thread, Tag, Comment, Topic, SuperUser
+from app.domain_model.model import User, Thread, Tag, Comment, Topic, SuperUser, Message
 
 
 metadata = MetaData()
@@ -49,6 +49,13 @@ thread_tags_table = Table( 'thread_tags', metadata,
                     Column('thread_id', ForeignKey('threads.id'), nullable=False),
                     Column('tag_id', ForeignKey('tags.id'), nullable=False))
 
+shoutbox_messages_table = Table( 'shoutbox_messages', metadata,
+                    Column('id', Integer, primary_key=True, autoincrement=True),
+                    Column('owner_id', ForeignKey('users.id'), nullable=False),
+                    Column('message', String(127), nullable=False),
+                    Column('time_created', String(127), nullable=False))
+
+
 # Todo: find a way to have nested comments
 # comment_comments_table = Table( 'comment_comments', metadata,
 #                     Column('id', Integer, primary_key=True, autoincrement=True),
@@ -92,3 +99,8 @@ def map_model_to_tables():
         '_title': topics_table.c.title,
         '_time_created': topics_table.c.time_created })
 
+    mapper(Message, shoutbox_messages_table, properties={
+        '_owner_id': shoutbox_messages_table.c.owner_id,
+        '_message': shoutbox_messages_table.c.message,
+        '_time_created': shoutbox_messages_table.c.time_created,
+    })

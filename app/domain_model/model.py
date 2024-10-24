@@ -1,10 +1,38 @@
 ''' Domain model classes '''
 
 # Overview:
-#  - Thread, Comment, Tag, Topic (Main Thread), User, SuperUser
+#  - Thread, Comment, Tag, Topic (Main Thread), User, SuperUser, Message (Shoutbox Message)
 
 from typing import List
 
+
+class Message:
+    def __init__(self, owner_id: int, message, time_created):
+        self._owner_id = owner_id
+        self._message = message
+        self._time_created = time_created
+    
+    @property
+    def owner_id(self) -> int:
+        return self._owner_id
+    
+    @property
+    def message(self) -> str:
+        return self._message
+    
+    @message.setter
+    def message(self, new_message: str):
+        self._message = new_message
+    
+    @property
+    def time_created(self) -> str:
+        return self._time_created
+    
+    @time_created.setter
+    def time_created(self, new_time_created: str):
+        self._time_created = new_time_created
+        
+    
 
 class Thread:
     def __init__(self, title, owner, time_created, content, topic):

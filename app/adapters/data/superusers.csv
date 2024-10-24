@@ -1,3 +1,3 @@
 id,user_id,time_created,colour,title
-1,1,2024-10-21,blue,Developer
-2,4,2024-10-21,red,SuperUser
+1,1,2024-10-21,blue,developer
+2,4,2024-10-21,red,admin
