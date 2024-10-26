@@ -25,17 +25,25 @@
     right: 15px;
 
     background-color: orange;
+    box-shadow: 0 0 5px #CCCCCC;
     color: white;
 
-    padding-top: 2px;
+    padding-top: 1px;
     padding-bottom: 2px;
-    padding-left: 6px;
-    padding-right: 6px;
+    padding-left: 4px;
+    padding-right: 4px;
 
     cursor: pointer;
 
     border-radius: 10px;
     border: none;
+
+    transition: ease-in-out all 0.3s;
+}
+
+#authPopup #close-popup:hover
+{
+    background-color: rgb(252, 151, 37);
 }
 
 #authPopup div
@@ -77,6 +85,12 @@
     border-bottom: 1px solid orange;
 }
 
+#authPopup form p span:hover
+{
+    color: rgb(252, 151, 37);
+    border-bottom: 1px solid rgb(252, 151, 37);
+}
+
 #authPopup form div 
 {
     display: flex;
@@ -109,9 +123,10 @@
     border: none;
     width: 70%;
     margin: auto;
-    padding: 6px;
+    padding: 8px;
+    margin-top: 2px;
     margin-bottom: 4px;
-    font-size: 12px;
+    font-size: 14px;
     font-family: 'Roboto Condensed';
 
     background: orange;
@@ -119,4 +134,9 @@
     cursor: pointer;
 
     transition: 0.3s ease-in-out all;
+}
+
+#authPopup form #auth-submit:hover
+{
+    background-color: rgb(252, 151, 37);
 }

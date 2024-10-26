@@ -1,6 +1,11 @@
 /* Main content styling */
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
+*
+{
+    font-family: 'Roboto Condensed';
+}
+
 html, body
 {
     background-color: whitesmoke;
@@ -11,8 +16,6 @@ html, body
 
     margin: 0;
     padding: 0;
-    
-    font-family: 'Roboto Condensed';
 }
 
 header
@@ -340,16 +343,15 @@ footer #footer-cred
     border-radius: 20px;
     cursor: pointer;
     transition: 0.3s all ease-in-out;
-    background: whitesmoke;
+    background: orange;
     box-shadow: 0 0 4px #CCCCCC;
-    color: black;
+    color: white;
 }
 
 #homeButton:hover
 {
     transform: scale(1.05);
-    color: white;
-    background: orange;
+    background-color: rgb(252, 151, 37);
     box-shadow: 0 0 5px whitesmoke;
 }
 
@@ -360,7 +362,8 @@ footer #footer-cred
     padding: 8px 15px 8px 15px;
     border-radius: 20px;
     cursor: pointer;
-    color: black;
+    color: white;
+    background: orange;
     transition: 0.3s all ease-in-out;
     box-shadow: 0 0 4px #CCCCCC;
 }
@@ -369,7 +372,7 @@ footer #footer-cred
 {
     transform: scale(1.05);
     color: white;
-    background: orange;
+    background-color: rgb(252, 151, 37);
     box-shadow: 0 0 5px whitesmoke;
 }
 
@@ -406,4 +409,11 @@ footer #footer-cred
 {
     width: 60%;
     margin: center;
+}
+
+#blur
+{
+    width: 100%;
+    height: 100%;
+    z-index: 50;
 }

@@ -1,9 +1,6 @@
-<div id="blur">
-</div>
-
 <div id="authPopup">
     <div>
-        <button id="close-popup">x</button>
+        <button id="close-popup">✖</button>
 
         <!-- <p id="header">Login to your account</p> -->
         <p id="header">Create a new account</p>
@@ -16,17 +13,20 @@
             
             <div>
                 <p>Password</p>
-                <input id="password-field" type="text" required />
+                <input id="password-field" type="password" required />
             </div>
+            
+            <!-- Add jinja if for signup/login -->
+                <div>
+                    <p>Email</p>
+                    <input id="email-field" type="email" requried />
+                </div>
+                    <!-- <button id="auth-submit">Login</button> -->
+                    <!-- <p>Forgot your password? <span>Recover</span> your account here</p> -->
 
-            <div>
-                <p>Email</p>
-                <input id="email-field" type="text" requried />
-            </div>
-
-            <p>Already have an account? <span>Log in</span> here</p>
-            <!-- <button id="auth-submit">Login</button> -->
-            <button id="auth-submit">Register</button>
+                    
+                <button id="auth-submit">Register</button>
+                <p>Already have an account? <span>Log in</span> here</p>
         </form>
     </div>
 </div>
