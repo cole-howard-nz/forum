@@ -1,10 +1,10 @@
-''' Layout service layer '''
+''' Authentication service layer '''
 
 from app.domain_model.model import Message
 from app.adapters.repository import AbstractRepository
 
+import datetime
 from typing import List
-from datetime import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Length
@@ -13,9 +13,9 @@ from wtforms.validators import DataRequired, Length
 class ShoutboxMessage(FlaskForm):
     message = StringField('comment', [
         DataRequired(),
-        Length(min=2)],
+        Length(min=2, message='Your message is too short')],
                             
-        render_kw={"class": "comment-box", "placeholder": "post a message", "value": "", "minlength": "2"})
+        render_kw={"class": "comment-box", "placeholder": "post a comment", "value": "", "minlength": "2"})
     
     submit = SubmitField('submit')
     
@@ -31,5 +31,5 @@ def get_shoutbox_messages(repo: AbstractRepository) -> List[Message]:
     return all_messages
 
 def add_shoutbox_message(form, repo: AbstractRepository):
-    new_message = Message(1, form.data['message'], datetime.now().strftime('%H:%M:%S'))
+    new_message = Message(1, form.data['message'], datetime.datetime.now().strftime("%d/%m/%Y %I:%M %p"))
     repo.add_shoutbox_message(new_message)

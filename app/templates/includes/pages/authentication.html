@@ -1,0 +1,44 @@
+<div id="authentication-container">
+    <div id="recent-users-grid">
+        <div class="recent-user-card">
+            <div>
+                <img src="../../../static/imgs/account.svg" alt="">
+                <p>overpowered23</p>
+            </div>
+
+            <p>created at <span>17:53</span></p>
+        </div>
+    </div>
+
+    <div id="auth-form">
+        {% if type == 'register' %}
+            <h3 id="header">Create an account</h3>
+        {% elif type == 'login' %}
+            <h3 id="header">Login to your account</h3>
+        {% endif %}
+        
+        <form method="POST" action="/auth/register">
+            <!-- Cross Site Request Forgery token -->
+            <div id="form-container">
+                <div class="input-container">
+                    <img src="../../../static/imgs/account.svg" alt="">
+                    <input id="input-username" type="text" />
+                </div>
+                
+                <div class="input-container">
+                    <img src="../../../static/imgs/lock.svg" alt="">
+                    <input id="input-password" type="password" />
+                </div>
+
+                {% if type == 'register' %}
+                    <button id="submit-button" type="submit">Register</button>
+                    <p>Already have an account? <span>Log in</span> here</p>
+                {% elif type == 'login' %}
+                    <button id="submit-button" type="submit">Log in</button>
+                    <p>Forgot your password? <span>Reset</span> it here</p>
+                {% endif %}
+                
+            </div>
+        </form>
+    </div>
+</div>

@@ -42,6 +42,13 @@ header .container
     font-family: 'sans-serif';
 }
 
+.logo a
+{
+    color: black;
+    text-decoration: none;
+    font-family: 'sans-serif';
+}
+
 .logo.mini
 {
     text-align: center;
@@ -70,7 +77,7 @@ header .container nav ul li:hover
 {
     transform: scale(1.05);
     color: white;
-    background: orange;
+    background: rgb(168, 168, 168);
     box-shadow: 0 0 5px whitesmoke;
     border-radius: 50px;
 }
@@ -127,6 +134,12 @@ footer .container
     padding: 15px;
 }
 
+footer .container a
+{
+    text-decoration: none;
+    color: black;
+}
+
 footer #footer-logo
 {
     font-size: 10px;
@@ -140,6 +153,12 @@ footer #footer-container
     gap: 1rem;
     padding: 4px 8px 4px 8px;
     border-radius: 25px;
+}
+
+footer #footer-container a
+{
+    text-decoration: none;
+    color: white;
 }
 
 footer #footer-cred
@@ -158,17 +177,34 @@ footer #footer-cred
     height: 126px;
 }
 
+#shoutbox-message-grid::-webkit-scrollbar 
+{
+    width: 6px;
+}
+
+#shoutbox-message-grid::-webkit-scrollbar-track 
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 50px;
+}
+
+#shoutbox-message-grid::-webkit-scrollbar-thumb 
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+
 #shoutbox-container
 {
     display: flex;
     flex-direction: column;
-    box-shadow: 0 0 5px #CCCCCC;
     background-color: white;
     margin-top: 30px;
     border-radius: 8px;
     position: relative;
-    border: 3px solid #DDDDDD;
-    border-left: 6px solid orange;
+    box-shadow: 0 0 2px #CCCCCC;
+    border: 1px solid #DDDDDD;
+    padding: 2px;
 }
 
 .message-card
@@ -212,21 +248,12 @@ footer #footer-cred
     font-size: 14px;
 }
 
-#shoutbox-ui
-{
-    border-radius: 12px;
-    margin-top: 10px;
-    background: white;
-    padding: 6px 10px 6px 10px;
-    box-shadow: 0 0 5px #CCCCCC;
-}
-
 #shoutbox-ui form
 {
     display: flex;
     justify-content: space-between;
     align-self: center;
-    padding: 6px;
+    padding: 2px;
 }
 
 #shoutbox-ui form .comment-box
@@ -234,29 +261,40 @@ footer #footer-cred
     width: 94%;
     border: none;
     background-color: white;
-    border-radius: 5px;
-    padding-left: 8px;
-    padding-right: 8px;
+}
+
+#shoutbox-ui form div
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border: none;
+    background-color: white;
     color: #777777;
-    box-shadow: 0 0 5px #CCCCCC;
+    box-shadow: 0 0 2px #CCCCCC;
+    border: 1px solid #DDDDDD;
+
+    border-radius: 8px;
+    padding: 4px 8px 4px 8px;
+    margin-top: 4px;
+    
+    width: 100%;
 }
 
 #shoutbox-ui #shoutbox-submit
 {
     border: none;
-    padding: 4px 6px 4px 4px;
-    border-radius: 50px;
-    background-color: rgb(255, 175, 28);
-    color: rgb(255, 240, 212);
-    cursor: pointer;
+    background-color: white;
+    color: #777777;
     transition: 0.3s ease-in-out all;
+    transform: scale(1.2);
 }
 
 #shoutbox-ui #shoutbox-submit:hover
 {
-    transform: scale(1.1);
-    color: white;
-    background-color: rgb(255, 196, 45);
+    transform: scale(1.4);
+    color: black;
 }
 
 #shoutbox-ui div input::placeholder
@@ -278,55 +316,59 @@ footer #footer-cred
 .user-bg
 {
     border-radius: 50px;
-    color: rgb(255, 240, 212);
+    color: white;
     background-color: #777777;
 }
 
 .donator
 {
+    font-weight: bold;
     color: rgb(47, 219, 76);
 }
 
 .donator-bg
 {
     border-radius: 50px;
-    color: rgb(255, 240, 212);
+    color: white;
     background-color: rgb(47, 219, 76);
 }
 
 .mod
 {
+    font-weight: bold;
     color: #49c9fc;
 }
 
 .mod-bg
 {
     border-radius: 50px;
-    color: rgb(255, 240, 212);
+    color: white;
     background-color: #49c9fc;
 }
 
 .admin
 {
+    font-weight: bold;
     color: #f82b2b;
 }
 
 .admin-bg
 {
     border-radius: 50px;
-    color: rgb(255, 240, 212);
+    color: white;
     background-color: #f82b2b;
 }
 
 .developer
 {
+    font-weight: bold;
     color: #2724e9;
 }
 
 .developer-bg
 {
     border-radius: 50px;
-    color: rgb(255, 240, 212);
+    color: white;
     background-color: #2724e9;
 }
 
@@ -343,7 +385,7 @@ footer #footer-cred
     border-radius: 20px;
     cursor: pointer;
     transition: 0.3s all ease-in-out;
-    background: orange;
+    background: rgb(168, 168, 168);
     box-shadow: 0 0 4px #CCCCCC;
     color: white;
 }
@@ -351,7 +393,7 @@ footer #footer-cred
 #homeButton:hover
 {
     transform: scale(1.05);
-    background-color: rgb(252, 151, 37);
+    background-color: black;
     box-shadow: 0 0 5px whitesmoke;
 }
 
@@ -363,7 +405,7 @@ footer #footer-cred
     border-radius: 20px;
     cursor: pointer;
     color: white;
-    background: orange;
+    background: rgb(168, 168, 168);
     transition: 0.3s all ease-in-out;
     box-shadow: 0 0 4px #CCCCCC;
 }
@@ -372,20 +414,25 @@ footer #footer-cred
 {
     transform: scale(1.05);
     color: white;
-    background-color: rgb(252, 151, 37);
+    background-color: black;
     box-shadow: 0 0 5px whitesmoke;
 }
 
+.authButton a
+{
+    text-decoration: none;
+    color: white;
+}
 
 
 #messageBar
 {
     /* Different colours for message bar */
-    /* background: rgb(255, 75, 75); */        
+    background: rgb(255, 75, 75);        
     /* background: rgb(75, 175, 255); */
     /* background: rgb(75, 204, 255); */
     /* background: rgb(111, 255, 75); */
-    background: rgb(255, 177, 75);
+    /* background: rgb(255, 177, 75); */
     color: whitesmoke;
     margin: 0;
     padding: 4px;

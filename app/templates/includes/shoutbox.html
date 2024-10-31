@@ -3,7 +3,6 @@
         {% if shoutbox_messages %}
             {% for item in shoutbox_messages %}
                 <div class="message-card">
-                    <i class="fa fa-user {{ item.title }}-bg"></i>
                     <p id="username"><span class='{{ item.title }}'>{{ item.owner }}</span></p>
                     <p id="message">{{ item.message }}</p>
                     <p id="time">{{ item.time_created }}</p>
@@ -16,8 +15,10 @@
 <div id="shoutbox-ui">
     <form method="POST" action="/post">
         {{ form.csrf_token }}
-            <i id="shoutbox-pfp" class="fa fa-user user-bg"></i>
-            {{ form.message }}
-            <button type='submit' id="shoutbox-submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+            <div>
+                <i id="shoutbox-pfp" class="fa fa-user user-bg"></i>
+                {{ form.message }}
+                <button type='submit' id="shoutbox-submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+            </div>
     </form>
 </div>

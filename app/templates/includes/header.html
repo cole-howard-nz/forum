@@ -1,6 +1,6 @@
 <header>
     <div class="container">
-        <p class="logo">forum.</p>
+        <p class="logo"><a href="{{ url_for('home.home') }}">forum.</a></p>
 
         <nav>
             <ul>
@@ -11,7 +11,7 @@
         </nav>
     
         <div>
-            <button class="authButton" type="button">register</button>
+            <button class="authButton" type="button"><a href="{{ url_for('authentication.home', type='register') }}">register</a></button>
         </div>
     </div>
 </header>

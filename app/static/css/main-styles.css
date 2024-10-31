@@ -40,7 +40,8 @@
 
 .recent-card p span
 {
-    color: orange;
+    color: rgb(168, 168, 168);
+    border-bottom: 1px solid rgb(168, 168, 168);
     font-size: 16px;
 }
 
@@ -65,7 +66,7 @@
     align-items: center;
     cursor: pointer;
     transition: 0.3s ease-in-out all;
-    border-left: 6px solid orange;
+    border-left: 6px solid rgb(168, 168, 168);
 }
 
 .popular-card:hover
@@ -78,7 +79,7 @@
 {
     margin-left: 16px;
     font-size: 42px;
-    color: orange;
+    color: rgb(168, 168, 168);
 }
 
 .popular-card p
@@ -92,10 +93,9 @@
     margin-right: 16px;
     font-size: 14px;
     margin-left: auto;
-    color: orange;
+    color: rgb(168, 168, 168);
+    border-bottom: 1px solid rgb(168, 168, 168);
 }
-
-
 
 
 
@@ -119,6 +119,11 @@
 #main-forum-table thead
 {
     background-color: whitesmoke;
+}
+
+#main-forum-table thead tr th
+{
+    border-bottom: 2px solid rgb(255, 75, 75);
 }
 
 #main-forum-table th, #main-forum-table td 
@@ -184,6 +189,7 @@
 
 #main-forum-table #forums #subtopics span
 {
-    color: orange;
+    color: rgb(168, 168, 168);
+    border-bottom: 1px solid rgb(168, 168, 168);
     cursor: pointer;
 }

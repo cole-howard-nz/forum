@@ -1,142 +1,151 @@
-#authPopup
+#authentication-container #auth-form
 {
-    display: none;
+    display: flex;
     flex-direction: column;
-    position: fixed;
-
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 5px #CCCCCC;
-
-    width: 450px;
-    height: 350px;
-
-    z-index: 100;
-
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-#authPopup #close-popup
-{
-    position: absolute;
-    top: 15px;
-    right: 15px;
-
-    background-color: orange;
-    box-shadow: 0 0 5px #CCCCCC;
-    color: white;
-
-    padding-top: 1px;
-    padding-bottom: 2px;
-    padding-left: 4px;
-    padding-right: 4px;
-
-    cursor: pointer;
-
-    border-radius: 10px;
-    border: none;
-
-    transition: ease-in-out all 0.3s;
-}
-
-#authPopup #close-popup:hover
-{
-    background-color: rgb(252, 151, 37);
-}
-
-#authPopup div
-{
-    width: 70%;
     margin: auto;
+
+    width: 50%;
 }
 
-#authPopup #header
+#authentication-container #auth-form #header
 {
-    font-size: 20px;
-    font-weight: 400;
     text-align: center;
-    padding-bottom: 6px;
-    width: fit-content;
-    margin: auto;
-    border-bottom: 2px solid #333333;
+    margin-top: 40px;
 }
 
-#authPopup form
+#form-container
 {
-    margin-top: 24px;
     display: flex;
     flex-direction: column;
-}
-
-#authPopup form p
-{
     margin: auto;
-    font-size: 14px;
-    margin-bottom: 8px;
+    margin-top: 10px;
+
+    gap: 8px;
 }
 
-#authPopup form p span
+.input-container
 {
+    box-shadow: 0 0 2px #CCCCCC;
+    background: white;
+    border-radius: 50px;
+    padding: 4px 6px 4px 6px;
+
+    display: flex;
+    width: 75%;
+    margin: auto;
+}
+
+.input-container img
+{
+    width: 20px;
+}
+
+.input-container input
+{
+    border: none;
+    margin-left: 4px;
+    background: transparent;
+    width: 96%;
+}
+
+#submit-button
+{
+    border: none;
+    background: linear-gradient(to right, black, rgb(51, 51, 51));
+    padding: 6px 8px 6px 8px;
+    width: 76%;
+    margin: auto;
+    color: white;
     cursor: pointer;
-    color: orange;
+}
+
+#form-container p
+{
+    text-align: center;
+}
+
+#form-container p span
+{
+    color: rgb(255, 75, 75); 
     padding-bottom: 2px;
-    border-bottom: 1px solid orange;
+    border-bottom: 1px solid rgb(255, 75, 75); 
+    cursor: pointer;
 }
 
-#authPopup form p span:hover
+
+#authentication-container #recent-users-grid
 {
-    color: rgb(252, 151, 37);
-    border-bottom: 1px solid rgb(252, 151, 37);
+    width: 100%;
+    margin-top: 30px;
+    padding-bottom: 2px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 0 2px #CCCCCC;
+    border: 1px solid #DDDDDD;
+
+    overflow-x: scroll;
+
+    display: flex;
+    justify-content: left;
+    align-items: center;
 }
 
-#authPopup form div 
+#recent-users-grid::-webkit-scrollbar 
+{
+    height: 8px;
+}
+
+#recent-users-grid::-webkit-scrollbar-track 
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 50px;
+}
+
+#recent-users-grid::-webkit-scrollbar-thumb 
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+
+.recent-user-card
+{
+    background-color: whitesmoke;
+    border-radius: 8px;
+    margin: 4px 6px 4px 6px;
+    padding: 4px 6px 4px 6px;
+    width: 150px;
+    box-shadow: 0 0 8px #CCCCCC;
+}
+
+.recent-user-card div
 {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+    justify-content: left;
+    align-content: center;
+    gap: 0.5rem;
 
-#authPopup form div p
-{
-    margin: 0;
-    font-size: 12px;
-    font-weight: 500;
-}
-
-#authPopup form div input
-{
-    border: none;
-    border: 1px solid #CCCCCC;
-    border-radius: 4px;
-
-    margin-top: 2px;
-    margin-bottom: 14px;
-
-    padding: 4px 12px 4px 12px;
-    background-color: transparent;
-}
-
-#authPopup form #auth-submit
-{
-    border: none;
-    width: 70%;
-    margin: auto;
-    padding: 8px;
-    margin-top: 2px;
     margin-bottom: 4px;
-    font-size: 14px;
-    font-family: 'Roboto Condensed';
-
-    background: orange;
-    color: whitesmoke;
-    cursor: pointer;
-
-    transition: 0.3s ease-in-out all;
 }
 
-#authPopup form #auth-submit:hover
+.recent-user-card div p
 {
-    background-color: rgb(252, 151, 37);
+    font-size: 16px;
+    margin: auto auto auto 0;
+}
+
+.recent-user-card img
+{
+    width: 32px;
+}
+
+.recent-user-card p
+{
+    margin: auto;
+    text-align: center;
+    font-size: 14px;
+}
+
+.recent-user-card p span
+{
+    font-weight: bold;
 }

@@ -12,25 +12,26 @@
     <link rel="stylesheet" href="../static/css/auth-styles.css">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <script src="../static/js/authPopup.js" defer="defer"></script>
 </head>
 
 <body>
-    {% include 'includes/authPopup.html' %}
+    {% include 'includes/header.html' %}
+    {% include 'includes/messageBar.html' %}
+    
+    <main>
 
-    <div id="blur">
-        {% include 'includes/header.html' %}
-        {% include 'includes/messageBar.html' %}
-    
-        <main>
+        {% if layout == 'authentication' %}
+            {% include 'includes/pages/authentication.html' %}
+
+        {% else %}
             {% include 'includes/shoutbox.html' %}
-    
+        
             {% include 'includes/main.html' %}
-        </main>
+        {% endif %}
+        
+    </main>
     
-        {% include 'includes/footer.html' %}
-    </div>
+    {% include 'includes/footer.html' %}
 </body>
 
 </html>
