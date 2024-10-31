@@ -5,31 +5,40 @@ from app.adapters.repository import AbstractRepository
 
 import datetime
 from typing import List
+
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired, Length
+from wtforms import PasswordField, StringField, SubmitField
+from wtforms.validators import ValidationError, DataRequired, Length
+
+from password_validator import PasswordValidator
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
-class ShoutboxMessage(FlaskForm):
-    message = StringField('comment', [
+class PasswordValid:
+    def __init__(self, message=None):
+        if not message:
+            message = u'enter a password that contains 8 characters, both upper and lower case letters and a digit'
+
+        self.message = message
+            
+    def __call__(self, form, field):
+        schema = PasswordValidator()
+        schema.min(8).has().uppercase() \
+                     .has().lowercase() \
+                     .has().digits() \
+                     .no().spaces()
+        
+        if not schema.validate(field.data):
+            raise ValidationError(self.message)
+    
+class RegistrationForm(FlaskForm):
+    username = StringField('username', [
         DataRequired(),
-        Length(min=2, message='Your message is too short')],
-                            
-        render_kw={"class": "comment-box", "placeholder": "post a comment", "value": "", "minlength": "2"})
+        Length(min=3)])
     
-    submit = SubmitField('submit')
+    password = PasswordField('password', [
+        DataRequired(),
+        PasswordValid()])
     
-
-
-def get_shoutbox_messages(repo: AbstractRepository) -> List[Message]:
-    all_messages = repo.get_shoutbox_messages()
+    submit = SubmitField('register', render_kw={"id": "submit-button"})
     
-    for message in all_messages:
-        message.owner = repo.get_user_by_id(message.owner_id).username
-        message.title = repo.get_superuser_by_id(message.owner_id).title if repo.get_superuser_by_id(message.owner_id) is not None else 'user'
-    
-    return all_messages
-
-def add_shoutbox_message(form, repo: AbstractRepository):
-    new_message = Message(1, form.data['message'], datetime.datetime.now().strftime("%d/%m/%Y %I:%M %p"))
-    repo.add_shoutbox_message(new_message)

@@ -72,6 +72,12 @@
     cursor: pointer;
 }
 
+#form-container p span a
+{
+    color: rgb(255, 75, 75); 
+    text-decoration: none;
+}
+
 
 #authentication-container #recent-users-grid
 {

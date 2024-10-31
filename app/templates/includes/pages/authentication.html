@@ -11,33 +11,45 @@
     </div>
 
     <div id="auth-form">
+        {% with messages = get_flashed_messages(category_filter=["error"]) %}
+          {% if messages %}
+            <div class="errors">
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+          {% endif %}
+        {% endwith %}
+
         {% if type == 'register' %}
-            <h3 id="header">Create an account</h3>
+            <h3 id="header">create an account</h3>
         {% elif type == 'login' %}
-            <h3 id="header">Login to your account</h3>
+            <h3 id="header">login to your account</h3>
         {% endif %}
         
         <form method="POST" action="/auth/register">
-            <!-- Cross Site Request Forgery token -->
+            {{ form.csrf_token }}
+
             <div id="form-container">
                 <div class="input-container">
                     <img src="../../../static/imgs/account.svg" alt="">
-                    <input id="input-username" type="text" />
+                    {{ form.username() }}
                 </div>
                 
                 <div class="input-container">
                     <img src="../../../static/imgs/lock.svg" alt="">
-                    <input id="input-password" type="password" />
+                    {{ form.password() }}
                 </div>
 
+                {{ form.submit() }}
+
                 {% if type == 'register' %}
-                    <button id="submit-button" type="submit">Register</button>
-                    <p>Already have an account? <span>Log in</span> here</p>
+                    <p>already have an account? <span><a href="{{ url_for('authentication.home', type='login') }}">log in</a></span> here</p>
                 {% elif type == 'login' %}
-                    <button id="submit-button" type="submit">Log in</button>
-                    <p>Forgot your password? <span>Reset</span> it here</p>
+                    <p>forgot your password? <span><a href="{{ url_for('home.home') }}">reset</a></span> it here</p>
                 {% endif %}
-                
             </div>
         </form>
     </div>
