@@ -16,7 +16,10 @@
             <div class="errors">
                 <ul>
                     {% for message in messages %}
-                        <li>{{ message }}</li>
+                        <div id="{{ loop.index0 }}-error-popup">
+                            <li>{{ message }}</li>
+                            <button id="close-error-popup" class="{{ loop.index0 }}"><img src="../../../static/imgs/white-close.svg" alt="Close"></button>
+                        </div>
                     {% endfor %}
                 </ul>
             </div>
@@ -46,7 +49,7 @@
                 {{ form.submit() }}
 
                 {% if type == 'register' %}
-                    <p>already have an account? <span><a href="{{ url_for('authentication.home', type='login') }}">log in</a></span> here</p>
+                    <p>already have an account? <span><a href="{{ url_for('authentication.login', type='login') }}">log in</a></span> here</p>
                 {% elif type == 'login' %}
                     <p>forgot your password? <span><a href="{{ url_for('home.home') }}">reset</a></span> it here</p>
                 {% endif %}

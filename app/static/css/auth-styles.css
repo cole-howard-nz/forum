@@ -4,13 +4,49 @@
     flex-direction: column;
     margin: auto;
 
-    width: 50%;
+    width: 56%;
 }
 
 #authentication-container #auth-form #header
 {
     text-align: center;
     margin-top: 40px;
+}
+
+#auth-form ul
+{
+    list-style: none;
+}
+
+#auth-form ul div
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-size: 14px;
+    color: white;
+    background: rgb(255, 75, 75);
+
+    padding: 6px;
+    border-radius: 4px;
+}
+
+#auth-form ul div button
+{
+    border: none;
+    cursor: pointer;
+    background: white;
+
+    width: 24px;
+    height: 24px;
+    padding: 4px;
+    border-radius: 50px;
+}
+
+#auth-form ul div button img
+{
+    color: white;
 }
 
 #form-container
