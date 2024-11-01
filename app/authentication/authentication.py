@@ -1,11 +1,10 @@
 ''' Authentication view layer '''
 
 
-from sqlite3 import IntegrityError
 from app.authentication import services
 from app.adapters import repository
 
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, session
 
 
 authentication_blueprint = Blueprint('authentication', __name__)
@@ -15,6 +14,7 @@ repo = repository.repo_instance
 @authentication_blueprint.route('/auth/register', methods=['GET', 'POST'])
 def register():
     form = services.RegistrationForm()
+    users = services.get_latest_users(30, repo)
     
     if form.validate_on_submit():
         try:
@@ -31,6 +31,7 @@ def register():
                 
     return( render_template('/layout.html',
                         form=form,
+                        users=users,
                         type='register',
                         layout='authentication'))
     
@@ -38,15 +39,28 @@ def register():
 @authentication_blueprint.route('/auth/login', methods=['GET', 'POST'])
 def login():
     form = services.LoginForm()
+    users = services.get_latest_users(30, repo)
     
     if form.validate_on_submit():
-        # get user from form.username.data (service)
-        # compare form password with real password (service)
-        # clear session then add to session (service)
-        
-        return redirect(url_for('home.home'))
+        try:
+            user = services.get_user(form.username.data, repo)
+            
+            services.check_password(user, form.password.data, repo)
+            
+            services.create_session(user)
+            
+            return redirect(url_for('home.home'))
+        except services.IncorrectPasswordException:
+            flash('incorrect password', 'error')
         
     return( render_template('/layout.html',
                         form=form,
+                        users=users,
                         type='login',
                         layout='authentication'))
+    
+@authentication_blueprint.route('/logout')
+def logout():
+    session.clear()
+
+    return redirect(url_for('home.home'))

@@ -30,6 +30,7 @@
 
     padding: 6px;
     border-radius: 4px;
+
 }
 
 #auth-form ul div button
@@ -155,8 +156,10 @@
     border-radius: 8px;
     margin: 4px 6px 4px 6px;
     padding: 4px 6px 4px 6px;
-    width: 150px;
     box-shadow: 0 0 8px #CCCCCC;
+
+    min-width: 150px;
+    overflow: hidden;
 }
 
 .recent-user-card div
@@ -177,7 +180,8 @@
 
 .recent-user-card img
 {
-    width: 32px;
+    min-width: 32px;
+    max-width: 32px;
 }
 
 .recent-user-card p

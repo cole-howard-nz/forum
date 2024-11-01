@@ -55,15 +55,27 @@ class SqlAlchemyRepository(AbstractRepository):
             scm.session.add(user)
             scm.commit()
 
-    def get_user(self, username: str) -> User:
-        user = None
+    def get_latest_users(self, amount) -> List[User]:
+        users = List[User]
         try:
-            user = self._session_cm.session.query(User).filter(User.username == username).one()
+            with self._session_cm as scm:
+                users = scm.session.query(User).order_by(User.id.desc()).limit(amount).all()
         except NoResultFound:
             pass
+        
+        return users
+
+    def get_user(self, username: str) -> User:
+        user = None
+        users = self._session_cm.session.query(User).all()
+
+        for current_user in users:
+            if username == current_user.username:
+                user = current_user
+                break
 
         return user
-    
+
     def get_user_by_id(self, user_id) -> User:
         user = None
         try:

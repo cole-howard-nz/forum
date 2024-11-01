@@ -1,7 +1,7 @@
-import abc
-
 from app.domain_model.model import User, Thread, Tag, Comment, Topic, SuperUser, Message
 
+import abc
+from typing import List
 
 repo_instance = None
 
@@ -14,6 +14,10 @@ class RepositoryException(Exception):
 class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def add_user(self, user: User):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_latest_users(self, amount) -> List[User]:
         raise NotImplementedError
 
     @abc.abstractmethod

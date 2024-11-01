@@ -1,13 +1,15 @@
 <div id="authentication-container">
     <div id="recent-users-grid">
-        <div class="recent-user-card">
-            <div>
-                <img src="../../../static/imgs/account.svg" alt="">
-                <p>overpowered23</p>
-            </div>
+        {% for user in users %}
+            <div class="recent-user-card">
+                <div>
+                    <img src="../../../static/imgs/account.svg" alt="">
+                    <p>{{ user.username }}</p>
+                </div>
 
-            <p>created at <span>17:53</span></p>
-        </div>
+                <p>created at <span>{{ user.time_created }}</span></p>
+            </div>
+        {% endfor %}
     </div>
 
     <div id="auth-form">
@@ -28,11 +30,15 @@
 
         {% if type == 'register' %}
             <h3 id="header">create an account</h3>
+
+            <form method="POST" action="/auth/register">
+
         {% elif type == 'login' %}
             <h3 id="header">login to your account</h3>
+
+            <form method="POST" action="/auth/login">
         {% endif %}
         
-        <form method="POST" action="/auth/register">
             {{ form.csrf_token }}
 
             <div id="form-container">
@@ -49,7 +55,7 @@
                 {{ form.submit() }}
 
                 {% if type == 'register' %}
-                    <p>already have an account? <span><a href="{{ url_for('authentication.login', type='login') }}">log in</a></span> here</p>
+                    <p>already have an account? <span><a href="{{ url_for('authentication.login') }}">log in</a></span> here</p>
                 {% elif type == 'login' %}
                     <p>forgot your password? <span><a href="{{ url_for('home.home') }}">reset</a></span> it here</p>
                 {% endif %}

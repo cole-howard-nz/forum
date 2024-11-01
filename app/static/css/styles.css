@@ -33,6 +33,13 @@ header .container
     margin: auto;
 }
 
+header .container div
+{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .logo
 {
     cursor: pointer;
