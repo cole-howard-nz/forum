@@ -14,25 +14,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     {% include 'includes/scripts.html' %}
+
 </head>
 
 <body>
+
     {% include 'includes/header.html' %}
     
     <main>
-
         {% if layout == 'authentication' %}
             {% include 'includes/pages/authentication.html' %}
-
         {% else %}
-            {% include 'includes/shoutbox.html' %}
-        
-            {% include 'includes/main.html' %}
+
+
+            {% if 'username' in session %}
+                {% include 'includes/shoutbox.html' %}
+
+                {% include 'includes/main.html' %}
+            {% else %}
+                {% include 'includes/mainNoAuth.html' %}
+            {% endif %}
         {% endif %}
-        
+
     </main>
     
     {% include 'includes/footer.html' %}
+
 </body>
 
 </html>

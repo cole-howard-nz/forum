@@ -1,6 +1,6 @@
 import csv
 from pathlib import Path
-from datetime import date
+from datetime import datetime, date
 
 from werkzeug.security import generate_password_hash
 
@@ -26,7 +26,7 @@ def load_users(data_path: Path, repo: AbstractRepository):
         user = User(
             username=data_row[1],
             password=generate_password_hash(data_row[2]),
-            time_created=date.fromisoformat(data_row[3]))
+            time_created=data_row[3])
         
         repo.add_user(user)
         users[data_row[0]] = user
@@ -40,7 +40,7 @@ def load_threads(data_path: Path, repo: AbstractRepository):
         thread = Thread(
                 title=data_row[1],
                 owner=repo.get_user_by_id(data_row[2]),
-                time_created=date.fromisoformat(data_row[3]),
+                time_created=data_row[3],
                 content=data_row[4],
                 topic=repo.get_topic_by_id(data_row[5]))
         
@@ -76,7 +76,7 @@ def load_comments(data_path: Path, repo: AbstractRepository):
         
         comment = Comment(
                 owner = repo.get_user_by_id(data_row[1]),
-                time_created=date.fromisoformat(data_row[2]),
+                time_created=data_row[2],
                 content=data_row[3],
                 thread=found_thread)
         
@@ -92,7 +92,7 @@ def load_topics(data_path: Path, repo: AbstractRepository):
     for data_row in read_csv_file(topics_filename):
         topic = Topic(
                 title=data_row[1],
-                time_created=date.fromisoformat(data_row[2]))
+                time_created=data_row[2])
         
         repo.add_topic(topic)
         topics[data_row[0]] = topic
@@ -108,7 +108,7 @@ def load_superusers(data_path: Path, repo: AbstractRepository):
         superuser = SuperUser(
                 username=user.username,
                 password=user.password,
-                time_created=date.fromisoformat(data_row[2]),
+                time_created=data_row[2],
                 colour=data_row[3],
                 title=data_row[4])
         

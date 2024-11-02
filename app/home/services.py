@@ -3,6 +3,7 @@
 from app.domain_model.model import Message
 from app.adapters.repository import AbstractRepository
 
+from flask import session
 from typing import List
 from datetime import datetime
 from flask_wtf import FlaskForm
@@ -31,5 +32,13 @@ def get_shoutbox_messages(repo: AbstractRepository) -> List[Message]:
     return all_messages
 
 def add_shoutbox_message(form, repo: AbstractRepository):
-    new_message = Message(1, form.data['message'], datetime.now().strftime('%H:%M:%S'))
+    if session['username']:
+        username = session['username']
+        
+    user = repo.get_user(username)
+    
+    new_message = Message(user.id, form.data['message'], datetime.now().strftime('%H:%M:%S'))
     repo.add_shoutbox_message(new_message)
+    
+def get_user(username: str, repo: AbstractRepository):
+    return repo.get_user(username)

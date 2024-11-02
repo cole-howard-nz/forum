@@ -1,6 +1,6 @@
 ''' Layout view layer '''
 
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, session
 
 from app.home import services
 from app.adapters import repository
@@ -14,6 +14,14 @@ repo = repository.repo_instance
 def home():
     shoutbox_messages = reversed(services.get_shoutbox_messages(repo))
     form = services.ShoutboxMessage()
+
+    if 'username' in session:
+        user = services.get_user(session['username'], repo)
+        
+        return( render_template('/layout.html',
+                        form=form,
+                        user=user,
+                        shoutbox_messages=shoutbox_messages))
 
     return( render_template('/layout.html',
                         form=form,

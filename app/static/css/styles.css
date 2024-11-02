@@ -21,6 +21,7 @@ html, body
 header
 {
     width: 100%;
+    background-color: white;
 }
 
 header .container
@@ -31,7 +32,10 @@ header .container
     justify-content: space-between;
 
     margin: auto;
+    margin-top: 10px;
     position: relative;
+
+    border-radius: 500px;
 }
 
 header .container div
@@ -39,6 +43,7 @@ header .container div
     display: flex;
     align-items: center;
     gap: 8px;
+
 }
 
 .logo
@@ -74,7 +79,7 @@ header .container nav ul li
 {
     background: whitesmoke;
     position: relative;
-    border-radius: 6px;
+    border-radius: 50px;
     padding: 8px 15px 8px 15px;
     margin: 0;
     cursor: pointer;
@@ -209,10 +214,9 @@ footer #footer-cred
     display: flex;
     flex-direction: column;
     background-color: white;
-    margin-top: 30px;
+    margin-top: 16px;
     border-radius: 8px;
     position: relative;
-    box-shadow: 0 0 2px #CCCCCC;
     border: 1px solid #DDDDDD;
     padding: 2px;
 }
@@ -282,14 +286,18 @@ footer #footer-cred
     border: none;
     background-color: white;
     color: #777777;
-    box-shadow: 0 0 2px #CCCCCC;
     border: 1px solid #DDDDDD;
 
     border-radius: 8px;
     padding: 4px 8px 4px 8px;
-    margin-top: 4px;
+    margin-top: 2px;
     
     width: 100%;
+}
+
+#shoutbox-ui form div img
+{
+    width: 24px;
 }
 
 #shoutbox-ui #shoutbox-submit
@@ -413,7 +421,6 @@ footer #footer-cred
     padding: 4px 4px 2px 4px;
     border-radius: 100%;
     cursor: pointer;
-    color: white;
     transition: 0.3s all ease-in-out;
     box-shadow: 0 0 4px #CCCCCC;
     z-index: 5;
@@ -422,18 +429,29 @@ footer #footer-cred
 .userButton:hover
 {
     filter: blur(2px);
+    transform: scale(1.05);
 }
 
 .userButton img
 {
     width: 36px;
     height: 36px;
-
 }
 
 #userInterface
 {
     position: relative;
+}
+
+#userName
+{
+    margin-right: 6px;
+    font-weight: bold;
+}
+
+#uid span
+{
+    color: goldenrod;
 }
 
 #uiPopup
@@ -442,15 +460,28 @@ footer #footer-cred
     top: 50%;
     right: 0;
     padding-top: 10px;
-    padding-right: 45px;
 
     background-color: whitesmoke;
     box-shadow: 0 0 4px #CCCCCC;
     border-radius: 4px;
 
     z-index: 4;
-    opacity: 0;
     transition: 0.2s ease-in-out all;
+
+    display: none;
+    flex-direction: column;
+}
+
+#uiPopup #uid
+{
+    margin: 0;
+}
+
+#uiPopup p
+{
+    text-align: center;
+    margin: 0;
+    margin-top: 26px;
 }
 
 #uiPopup ul
@@ -458,6 +489,8 @@ footer #footer-cred
     list-style: none;
     line-height: 24px;
     width: 190px;
+    padding-left: 0;
+    margin: 0 12px 12px 12px;
 }
 
 #uiPopup ul a
