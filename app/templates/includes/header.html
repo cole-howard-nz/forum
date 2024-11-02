@@ -12,10 +12,22 @@
     
         <div>
             {% if 'username' in session %}
-                <p>Hello, {{ session['username'] }}</p>
-                <button class="authButton" type="button"><a href="{{ url_for('authentication.logout') }}"><img src="../../static/imgs/sign-out.svg" alt=""></a></button>
+                <div id="userInterface">
+                    <button id="userButton" class="userButton" type="button"><img src="../../static/imgs/profile-picture.png" alt="User icon"></button>
+                    
+                    <div id="uiPopup">
+                        <ul>
+                            <li><img src="../../static/imgs/info.svg" alt="info icon"><a>account information</a></li> <!-- account information, personal info -->
+                            <li><img src="../../static/imgs/key.svg" alt="key icon"><a>view privileges</a></li>  <!-- view role and special privileges -->
+                            <li><img src="../../static/imgs/gear.svg" alt="gear icon"><a>change settings</a></li>    <!-- alter forum settings -->
+                            <a href="{{ url_for('authentication.logout') }}"><button class="signoutButton" type="button">sign out</button></a>
+                        </ul>
+                    </div>
+                </div>
+
             {% else %}
-                <button class="authButton" type="button"><a href="{{ url_for('authentication.register') }}">register</a></button>
+                <a href="{{ url_for('authentication.register') }}"><button class="authButton" type="button">register</button></a>
+                <a href="{{ url_for('authentication.login') }}"><button class="authButton" type="button">login</button></a>
             {% endif %}
         </div>
     </div>

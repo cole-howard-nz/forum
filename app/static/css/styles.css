@@ -31,6 +31,7 @@ header .container
     justify-content: space-between;
 
     margin: auto;
+    position: relative;
 }
 
 header .container div
@@ -139,6 +140,8 @@ footer .container
     display: flex;
     justify-content: space-between;
     padding: 15px;
+
+    position: relative;
 }
 
 footer .container a
@@ -404,6 +407,111 @@ footer #footer-cred
     box-shadow: 0 0 5px whitesmoke;
 }
 
+.userButton
+{
+    border: none;
+    padding: 4px 4px 2px 4px;
+    border-radius: 100%;
+    cursor: pointer;
+    color: white;
+    transition: 0.3s all ease-in-out;
+    box-shadow: 0 0 4px #CCCCCC;
+    z-index: 5;
+}
+
+.userButton:hover
+{
+    filter: blur(2px);
+}
+
+.userButton img
+{
+    width: 36px;
+    height: 36px;
+
+}
+
+#userInterface
+{
+    position: relative;
+}
+
+#uiPopup
+{
+    position: absolute;
+    top: 50%;
+    right: 0;
+    padding-top: 10px;
+    padding-right: 45px;
+
+    background-color: whitesmoke;
+    box-shadow: 0 0 4px #CCCCCC;
+    border-radius: 4px;
+
+    z-index: 4;
+    opacity: 0;
+    transition: 0.2s ease-in-out all;
+}
+
+#uiPopup ul
+{
+    list-style: none;
+    line-height: 24px;
+    width: 190px;
+}
+
+#uiPopup ul a
+{
+    text-decoration: none;
+}
+
+#uiPopup ul li
+{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-top: 6px;
+    padding: 2px 14px 2px 14px;
+    border-radius: 4px;
+    background-color: #EEEEEE;
+    transition: 0.2s ease-in-out all;
+
+    cursor: pointer;
+}
+
+#uiPopup ul li:hover
+{
+    background-color: black;
+    color: white;
+}
+
+#uiPopup ul li img
+{
+    width: 24px;
+}
+
+.signoutButton
+{
+    margin: auto;
+    margin-top: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    border: none;
+    background: black;
+    color: white;
+    padding: 8px;
+
+    cursor: pointer;
+}
+
+.signoutButton img
+{
+    margin-right: auto;
+}
 
 .authButton
 {

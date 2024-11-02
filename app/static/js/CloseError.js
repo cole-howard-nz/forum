@@ -1,7 +1,7 @@
-function CloseError(CLASS)
+function CloseError(CLASSES)
 {
     // Grab actual class name
-    CLASS = CLASS[0]
+    const CLASS = CLASSES[0]
 
     const ERROR_POPUP = document.getElementById(CLASS + '-error-popup');
     ERROR_POPUP.style.display = 'none';
@@ -10,11 +10,15 @@ function CloseError(CLASS)
 function Setup()
 {
     const CLOSE = document.getElementById('close-error-popup');
-    CLOSE.addEventListener('click', () => 
+
+    if (CLOSE)
     {
-        const ID = CLOSE.classList;
-        CloseError(ID);
-    });
+        CLOSE.addEventListener('click', () => 
+        {
+            const CLASSES = CLOSE.classList;
+            CloseError(CLASSES);
+        });
+    }
 }
 
 Setup();
