@@ -4,10 +4,16 @@ function ToggleInterface()
 {
     const POPUP = document.getElementById('uiPopup');
 
-    if (POPUP.style.display === 'none' || POPUP.style.display == '')
-        POPUP.style.display = 'flex';
+    if (POPUP.style.visibility === 'hidden' || POPUP.style.visibility == '')
+    {
+        POPUP.style.opacity = '1';
+        POPUP.style.visibility = 'visible';
+    }
     else
-        POPUP.style.display = 'none';
+    {
+        POPUP.style.opacity = '0';
+        POPUP.style.visibility = 'hidden';
+    }
 }
 
 function IconAnimation() 
@@ -18,8 +24,11 @@ function IconAnimation()
     if (!translate)
     {
         ICON.style.transform = 'translateX(-190%)';
-        NAME.style.display = 'none';
         translate = 1;
+
+        setTimeout(() => {
+            NAME.style.display = 'none';
+        }, 140);
     }
     else
     {

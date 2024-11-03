@@ -90,7 +90,7 @@ header .container nav ul li:hover
 {
     transform: scale(1.05);
     color: white;
-    background: rgb(168, 168, 168);
+    background: black;
     box-shadow: 0 0 5px whitesmoke;
     border-radius: 50px;
 }
@@ -466,9 +466,9 @@ footer #footer-cred
     border-radius: 4px;
 
     z-index: 4;
-    transition: 0.2s ease-in-out all;
+    transition: 0.2s ease-in all;
 
-    display: none;
+    visibility: hidden;
     flex-direction: column;
 }
 
