@@ -63,11 +63,14 @@
 
         <!-- Jinja forloop -->
         <div class="forum-row">
-            <div id="forum-col">
-                <p id="title">announcements</p>
-                <p id="desc">yo we stole jaydens moms car, free chicken pasta and milk at the crib. only members. stay hydareted real SUNNY out there FR</p>
-                <p>subtopics: <span>news</span> | <span>events</span></p>
-            </div>
+            <a href="{{ url_for('topic_view.view', topic='test') }}">
+                <div id="forum-col">
+                    <p id="title">announcements</p>
+                    <p id="desc">yo we stole jaydens moms car, free chicken pasta and milk at the crib. only members. stay hydareted real SUNNY out there FR</p>
+                    <p>subtopics: <span>news</span> | <span>events</span></p>
+                </div>
+            </a>
+           
             
             <div class="topics-col">
                 <p>33</p>

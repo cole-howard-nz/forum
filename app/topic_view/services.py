@@ -1,4 +1,4 @@
-''' Layout service layer '''
+''' Topic service layer '''
 
 from app import utils
 from app.utils import ShoutboxMessage
@@ -13,6 +13,6 @@ def get_shoutbox_messages(repo: AbstractRepository) -> List[Message]:
 
 def add_shoutbox_message(form, repo: AbstractRepository):
     utils.add_shoutbox_message(form, repo)
-    
+
 def get_user(username: str, repo: AbstractRepository):
     return utils.get_user(username, repo)

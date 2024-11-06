@@ -55,5 +55,8 @@ def create_app(test_config=None):
 
         from .authentication import authentication
         app.register_blueprint(authentication.authentication_blueprint)
+        
+        from .topic_view import topic_view
+        app.register_blueprint(topic_view.topic_view_blueprint)
 
     return app

@@ -1,3 +1,13 @@
+a
+{
+    text-decoration: none;
+}
+
+a:active
+{
+    color: inherit;
+}
+
 #main-blur
 {
     filter: blur(10px);

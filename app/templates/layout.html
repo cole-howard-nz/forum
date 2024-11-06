@@ -24,12 +24,14 @@
     <main>
         {% if layout == 'authentication' %}
             {% include 'includes/pages/authentication.html' %}
-        {% else %}
+        {% elif layout == 'topic' %}
+            {% include 'includes/pages/topic.html' %}
 
+
+        {% else %}
 
             {% if 'username' in session %}
                 {% include 'includes/shoutbox.html' %}
-
                 {% include 'includes/pages/main.html' %}
             {% else %}
                 {% include 'includes/pages/mainNoAuth.html' %}
