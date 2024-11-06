@@ -472,7 +472,17 @@ footer #footer-cred
     flex-direction: column;
 }
 
+#uiPopup #container
+{
+    display: block;
+}
+
 #uiPopup #uid
+{
+    margin: 0;
+}
+
+#uiPopup #title
 {
     margin: 0;
 }

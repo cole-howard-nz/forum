@@ -67,14 +67,17 @@ class SqlAlchemyRepository(AbstractRepository):
 
     def get_user(self, username: str) -> User:
         user = None
-        users = self._session_cm.session.query(User).all()
+        user = self._session_cm.session.query(User).filter(User._username == username).first()
 
-        for current_user in users:
-            if username == current_user.username:
-                user = current_user
-                break
+        superuser = self.get_superuser_by_id(user.id)
+        if superuser is not None:
+            print(f'{user.username} is a {superuser.title}')
+            user._title = superuser._title
+            user._colour = superuser._colour
+            user.is_superuser = True
+            
+        return user 
 
-        return user
 
     def get_user_by_id(self, user_id) -> User:
         user = None

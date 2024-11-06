@@ -3,7 +3,7 @@
         {% if shoutbox_messages %}
             {% for item in shoutbox_messages %}
                 <div class="message-card">
-                    <p id="username"><span class='{{ item.title }}'>{{ item.owner }}</span></p>
+                    <p id="username"><span class='{{ item.title }}'>{{ item.owner.username }}</span></p>
                     <p id="message">{{ item.message }}</p>
                     <p id="time">{{ item.time_created }}</p>
                 </div>

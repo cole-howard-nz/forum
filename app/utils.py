@@ -26,7 +26,7 @@ def get_shoutbox_messages(repo: AbstractRepository) -> List[Message]:
     all_messages = repo.get_shoutbox_messages()
     
     for message in all_messages:
-        message.owner = repo.get_user_by_id(message.owner_id).username
+        message.owner = repo.get_user_by_id(message.owner_id)
         message.title = repo.get_superuser_by_id(message.owner_id).title if repo.get_superuser_by_id(message.owner_id) is not None else 'user'
     
     return all_messages

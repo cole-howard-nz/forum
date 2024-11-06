@@ -12,17 +12,25 @@
         <div>
             {% if 'username' in session %}
                 <div id="userInterface">
-                    <p id="userName">{{ session['username'] }}</p>
+                    <p id="userName" class="{{ user._title }}">{{ session['username'] }}</p>
                     <button id="userButton" class="userButton" type="button"><img src="../../static/imgs/profile-picture.png" alt="User icon"></button>
                     
                     <div id="uiPopup">
-                        <p id="userName">{{ session['username'] }}</p>
-                        <p id="uid">(<span>uid {{ user.id }}</span>)</p>
+                        <div id="container">
+                            <p id="userName">{{ session['username'] }}</p>
+                            {% if user._title %} <p id="title" class="{{ user._title }}">{{ user._title }}</p> {% endif %}
+                            <p id="uid">(<span>uid {{ user.id }}</span>)</p>
+                        </div>
 
                         <ul>
                             <li><img src="../../static/imgs/info.svg" alt="info icon"><a>account information</a></li> <!-- account information, personal info -->
                             <li><img src="../../static/imgs/key.svg" alt="key icon"><a>view privileges</a></li>  <!-- view role and special privileges -->
                             <li><img src="../../static/imgs/gear.svg" alt="gear icon"><a>change settings</a></li>    <!-- alter forum settings -->
+
+                            {% if user.is_superuser %}
+                                <li><img src="../../static/imgs/lock.svg" alt="key icon"><a>moderator panel</a></li>  <!-- superuser specific menu -->
+                            {% endif %}
+
                             <a href="{{ url_for('authentication.logout') }}"><button class="signoutButton" type="button">sign out</button></a>
                         </ul>
                     </div>

@@ -1,4 +1,4 @@
-from sqlalchemy import Table, MetaData, ForeignKey, Column, Integer, String
+from sqlalchemy import Table, MetaData, UniqueConstraint, ForeignKey, Column, Integer, String
 from sqlalchemy.orm import mapper, relationship
 
 from app.domain_model.model import User, Thread, Tag, Comment, Topic, SuperUser, Message
@@ -42,7 +42,8 @@ superusers_table = Table( 'superusers', metadata,
                     Column('user_id', ForeignKey('users.id'), nullable=False),
                     Column('time_created', String(127), nullable=False),
                     Column('colour', String(127), nullable=False),
-                    Column('title', String(127), nullable=False))
+                    Column('title', String(127), nullable=False),
+                    UniqueConstraint('id', 'user_id', name='id_-_user_id'))
 
 thread_tags_table = Table( 'thread_tags', metadata,
                     Column('id', Integer, primary_key=True, autoincrement=True),
