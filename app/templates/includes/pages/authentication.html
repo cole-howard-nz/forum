@@ -1,5 +1,5 @@
 <div id="authentication-container">
-    <div id="recent-users-grid">
+    <!-- <div id="recent-users-grid">
         {% for user in users %}
             <div class="recent-user-card">
                 <div>
@@ -10,29 +10,28 @@
                 <p>created at <span>{{ user.time_created }}</span></p>
             </div>
         {% endfor %}
-    </div>
+    </div> -->
 
     <div id="auth-form">
         {% with messages = get_flashed_messages(category_filter=["error"]) %}
-          {% if messages %}
-            <div class="errors">
-                <ul>
-                    {% for message in messages %}
-                        <div id="{{ loop.index0 }}-error-popup">
-                            <li>{{ message }}</li>
-                            <button id="close-error-popup" class="{{ loop.index0 }}"><img src="../../../static/imgs/white-close.svg" alt="Close"></button>
-                        </div>
-                    {% endfor %}
-                </ul>
-            </div>
-          {% endif %}
+            {% if messages %}
+                <div class="errors">
+                    <ul>
+                        {% for message in messages %}
+                            <div id="{{ loop.index0 }}-error-popup">
+                                <li>{{ message }}</li>
+                                <button id="close-error-popup" class="{{ loop.index0 }}"><img src="../../../static/imgs/white-close.svg" alt="Close"></button>
+                            </div>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         {% endwith %}
 
         {% if type == 'register' %}
             <h3 id="header">create an account</h3>
 
             <form method="POST" action="/auth/register">
-
         {% elif type == 'login' %}
             <h3 id="header">login to your account</h3>
 
@@ -40,15 +39,14 @@
         {% endif %}
         
             {{ form.csrf_token }}
-
             <div id="form-container">
                 <div class="input-container">
-                    <img src="../../../static/imgs/profile-picture.png" alt="">
+                    <img src="../../../static/imgs/account.svg" alt="">
                     {{ form.username() }}
                 </div>
                 
                 <div class="input-container">
-                    <img src="../../../static/imgs/lock" alt="">
+                    <img src="../../../static/imgs/lock.svg" alt="">
                     {{ form.password() }}
                 </div>
 

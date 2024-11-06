@@ -30,9 +30,9 @@
             {% if 'username' in session %}
                 {% include 'includes/shoutbox.html' %}
 
-                {% include 'includes/main.html' %}
+                {% include 'includes/pages/main.html' %}
             {% else %}
-                {% include 'includes/mainNoAuth.html' %}
+                {% include 'includes/pages/mainNoAuth.html' %}
             {% endif %}
         {% endif %}
 
