@@ -59,4 +59,7 @@ def create_app(test_config=None):
         from .topic_view import topic_view
         app.register_blueprint(topic_view.topic_view_blueprint)
 
+        from .user import user
+        app.register_blueprint(user.user_blueprint)
+
     return app

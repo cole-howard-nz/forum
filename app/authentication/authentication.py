@@ -6,6 +6,8 @@ from app.adapters import repository
 
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session
 
+from functools import wraps
+
 
 authentication_blueprint = Blueprint('authentication', __name__)
 repo = repository.repo_instance
@@ -24,7 +26,7 @@ def register():
         except Exception:
             flash('username already taken', 'error')
         
-    # Flash errors from form so can be picked up in template
+    # Flash errors from form so they can be picked up in the template
     for _, field_errors in form.errors.items():
         for error in field_errors:
             flash(error, 'error')
@@ -64,3 +66,12 @@ def logout():
     session.clear()
 
     return redirect(url_for('home.home'))
+
+def auth_required(view):
+    @wraps(view)
+    def auth(**kwargs):
+        if session.get('username') is None:
+            return redirect(url_for('authentication.login'))
+
+        return view(**kwargs)
+    return auth

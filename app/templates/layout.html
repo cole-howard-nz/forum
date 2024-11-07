@@ -5,11 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>forum</title>
+    <title>munkeware</title>
+
+    <link rel="icon" href="../static/imgs/gorilla.png">
 
     <link rel="stylesheet" href="../static/css/styles.css">
     <link rel="stylesheet" href="../static/css/main-styles.css">
     <link rel="stylesheet" href="../static/css/auth-styles.css">
+    <link rel="stylesheet" href="../static/css/user-styles.css">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -21,13 +24,21 @@
     {% include 'includes/header.html' %}
     
     <main>
+        <!-- Custom pages  -->
         {% if layout == 'authentication' %}
             {% include 'includes/pages/authentication.html' %}
         {% elif layout == 'topic' %}
             {% include 'includes/pages/topic.html' %}
+        {% elif layout == 'privileges' %}
+            {% include 'includes/pages/privileges.html' %}
+        {% elif layout == 'settings' %}
+            {% include 'includes/pages/settings.html' %}
+        {% elif layout == 'panel' %}
+            {% include 'includes/pages/panel.html' %}
 
 
         {% else %}
+            <!-- Main page -->
 
             {% if 'username' in session %}
                 {% include 'includes/shoutbox.html' %}

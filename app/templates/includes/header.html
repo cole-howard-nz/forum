@@ -1,6 +1,6 @@
 <header>
     <div class="container">
-        <p class="logo"><a href="{{ url_for('home.home') }}">forum.</a></p>
+        <p class="logo"><a href="{{ url_for('home.home') }}">munkeware</a></p>
 
         <nav>
             <ul>
@@ -23,12 +23,11 @@
                         </div>
 
                         <ul>
-                            <li><img src="../../static/imgs/info.svg" alt="info icon"><a>account information</a></li> <!-- account information, personal info -->
-                            <li><img src="../../static/imgs/key.svg" alt="key icon"><a>view privileges</a></li>  <!-- view role and special privileges -->
-                            <li><img src="../../static/imgs/gear.svg" alt="gear icon"><a>change settings</a></li>    <!-- alter forum settings -->
+                            <a href="{{ url_for('user.privileges') }}"><li><img src="../../static/imgs/key.svg" alt="key icon">privileges</li></a>  <!-- view role and special privileges -->
+                            <a href="{{ url_for('user.settings') }}"><li><img src="../../static/imgs/gear.svg" alt="gear icon">settings</li></a>    <!-- alter forum settings -->
 
                             {% if user.is_superuser %}
-                                <li><img src="../../static/imgs/lock.svg" alt="key icon"><a>moderator panel</a></li>  <!-- superuser specific menu -->
+                                <a href="{{ url_for('user.panel') }}"><li><img src="../../static/imgs/lock.svg" alt="key icon">panel</li></a>  <!-- superuser specific menu -->
                             {% endif %}
 
                             <a href="{{ url_for('authentication.logout') }}"><button class="signoutButton" type="button">sign out</button></a>
