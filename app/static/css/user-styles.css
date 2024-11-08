@@ -82,22 +82,70 @@
     position: relative;
 }
 
-.options
-{
-    margin: auto;
-    margin-top: -8px; 
+#privileges .options {
+    width: 99%; 
+    margin: auto; 
+    margin-top: -8px;
     background-color: white;
     box-shadow: 0 1px 2px rgb(190, 190, 190);
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     padding-bottom: 8px;
     padding-top: 18px;
-    transition: 0.3s all ease-in-out;
+    transition: 0.2s all ease-in-out;
 }
+
+.options>div
+{
+    width: 33%;
+}
+
+.options #delete 
+{
+    width: 100%; 
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    justify-content: start;
+    align-items: center;
+    margin-top: 6px;
+    gap: 10px;
+    min-width: 256px;
+}
+
+.options #delete p, 
+.options #delete button     
+{
+    width: 100%; 
+    text-align: center;
+}
+
+.options #delete p 
+{
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.options #delete button 
+{
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 4px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.2s all ease;
+}
+
+.options #delete button:hover 
+{
+    background-color: #f82b2b;
+}
+
 
 #privileges #password
 {
-    width: fit-content;
+    width: 32%;
     margin-left: 12px;
 }
 
@@ -138,5 +186,12 @@
     margin-top: 8px;
     cursor: pointer;
     display: block;
+    transition: 0.2s all ease;
     width: 100%;
+    min-width: 245px;
+}
+
+#privileges #password button:hover
+{
+    background-color: #20c315; 
 }

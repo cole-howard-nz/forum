@@ -1,10 +1,7 @@
-function InterfaceToggle()
+function InterfaceToggle(SETTING_INTERFACE)
 {
-    const SETTING_INTERFACE = document.getElementById('toggleSettingInterface');
     const HEADER = SETTING_INTERFACE.closest(".header.settings");
     const OPTION_CONTAINER = HEADER.nextElementSibling;
-
-    console.log(OPTION_CONTAINER);
 
     if (OPTION_CONTAINER.style.visibility === 'hidden')
     {
@@ -19,20 +16,18 @@ function InterfaceToggle()
 
         setTimeout(() => {
             OPTION_CONTAINER.style.display = 'none';
-        }, 330);
+        }, 150);
     }
 }
 
 function Setup()
 {
-    const INTERFACE_TOGGLES = document.querySelectorAll('#toggleSettingInterface');
-    console.log(INTERFACE_TOGGLES);
+    const INTERFACE_TOGGLES = document.getElementsByClassName('toggleSettingInterface');
 
-    INTERFACE_TOGGLES.forEach(element => {
-        element.addEventListener('click', () =>
-        {
-            InterfaceToggle()
-        });
+    // Convert the HTMLCollection returned from getElementsByClassName to an array,
+    // this allows us to use forEach and iterate through our collection.
+    [...INTERFACE_TOGGLES].forEach(element => {
+        element.addEventListener('click', () => InterfaceToggle(element));
     });
 }
 
