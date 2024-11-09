@@ -2,7 +2,7 @@
 
 from app import utils
 from app.utils import ShoutboxMessage
-from app.domain_model.model import Message
+from app.domain_model.model import Message, Topic
 from app.adapters.repository import AbstractRepository
 
 from typing import List
@@ -16,3 +16,7 @@ def add_shoutbox_message(form, repo: AbstractRepository):
     
 def get_user(username: str, repo: AbstractRepository):
     return utils.get_user(username, repo)
+
+def get_topics(repo: AbstractRepository) -> List[Topic]:
+        topics = repo.get_all_topics()
+        return topics if topics else []

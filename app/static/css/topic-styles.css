@@ -1,0 +1,144 @@
+#forum
+{
+    margin-top: 16px;
+
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px #CCCCCC;
+    z-index: 3;
+}
+
+
+
+#topic .header, #topic #wrapper
+{
+    margin-top: 16px;
+
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px #CCCCCC;
+    padding: 2px 12px 4px 12px;
+    z-index: 3;
+}
+
+#topic #wrapper
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+}
+
+#topic #wrapper #filter
+{
+    display: flex;
+    align-content: center;
+}
+
+#topic .header h3, #topic .header p
+{
+    margin: 0;
+    font-size: 16px;
+    margin: 6px 0 6px 0;
+}
+
+#table #pagination
+{
+    display: flex;
+    align-items: center;
+}
+
+#table #pagination div, #topic #wrapper #filter
+{
+    font-size: 12px;
+    margin: 4px;
+    padding: 4px 8px 4px 8px;
+    color: white;
+    background-color: #333333;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s all ease;
+}
+
+#table #pagination div:hover, #topic #wrapper #filter:hover
+{
+    background-color: #EEEEEE;
+    border: 1px solid #333333;
+    color: #333333;
+}
+
+#table p
+{
+    margin: 0;
+}
+
+#table .thread
+{
+    display: grid;
+    grid-template-columns: 73% 12% 15%;
+    grid-template-columns: repeat(3, fit-content);
+
+    padding: 8px;
+    border-bottom: 1px solid #EEEEEE;
+}
+
+#table .thread:last-of-type
+{
+    border-bottom: none;
+}
+
+
+#table .author
+{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#table .author img
+{
+    border-radius: 100%;
+    width: 26px;
+    height: 26px;
+}
+
+
+#privileges .table
+{
+    margin-top: 16px;
+
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px #CCCCCC;
+}
+
+#privileges .table p
+{
+    margin: 0;
+}
+
+#privileges .table .table-head, 
+#privileges .table .table-row
+{
+    display: grid;
+    padding: 4px;
+    grid-template-columns: 5% 65% 15% 15%;
+}
+
+#privileges .table div:nth-child(even)
+{
+    background-color: rgb(252, 252, 252);
+}
+
+#privileges .table .table-head
+{
+    font-weight: bold;
+    background-color: whitesmoke;
+}
+
+#privileges .table div:last-of-type
+{
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}

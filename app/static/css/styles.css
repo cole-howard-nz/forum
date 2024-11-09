@@ -21,7 +21,6 @@ html, body
 header
 {
     width: 100%;
-    background-color: white;
 }
 
 header .container
@@ -130,7 +129,6 @@ main
 footer
 {
     margin-top: auto;
-    background-color: white;
  
     display: flex;
     align-items: center;

@@ -72,6 +72,10 @@ class AbstractRepository(abc.ABC):
     def get_topic_by_id(self, topic_id: int):
         raise NotImplementedError
     
+    @abc.abstractmethod
+    def get_all_topics(self) -> List[Topic]:
+        raise NotImplementedError
+    
     
     
     @abc.abstractmethod

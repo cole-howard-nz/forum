@@ -184,8 +184,9 @@ class Tag:
         
         
 class Topic:
-    def __init__(self, title, time_created):
+    def __init__(self, title, description, time_created):
         self._title = title                 # 1
+        self._description = description                 # 1
         self._time_created = time_created   # 1
         self._threads = []                  # 0->many
 
@@ -196,6 +197,14 @@ class Topic:
     @title.setter
     def title(self, new_title):
         self._title = new_title
+        
+    @property
+    def description(self) -> str:
+        return self._description
+
+    @description.setter
+    def description(self, new_description):
+        self._description = new_description
 
     @property
     def time_created(self) -> str:

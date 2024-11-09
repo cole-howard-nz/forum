@@ -92,7 +92,8 @@ def load_topics(data_path: Path, repo: AbstractRepository):
     for data_row in read_csv_file(topics_filename):
         topic = Topic(
                 title=data_row[1],
-                time_created=data_row[2])
+                description=data_row[2],
+                time_created=data_row[3])
         
         repo.add_topic(topic)
         topics[data_row[0]] = topic

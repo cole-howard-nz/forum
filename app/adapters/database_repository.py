@@ -161,6 +161,15 @@ class SqlAlchemyRepository(AbstractRepository):
             pass
 
         return topic
+    
+    def get_all_topics(self) -> List[Topic]:
+        topics = None
+        try:
+            topics = self._session_cm.session.query(Topic).all()
+        except NoResultFound:
+            pass
+
+        return topics
     # End of topic methods
     
     # SuperUser methods   

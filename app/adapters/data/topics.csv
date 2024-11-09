@@ -1,6 +1,4 @@
-id,title,time_created
-1,important,2024-11-01 17:52:35
-2,general,2024-11-01 17:52:35
-3,off Topic,2024-11-01 17:52:35
-4,gaming,2024-11-01 17:52:35
-5,computer science,2024-11-01 17:52:35
+id,title,description,time_created
+1,important,description,2024-11-01 17:52:35
+2,general,description,2024-11-01 17:52:35
+3,computer science,description,2024-11-01 17:52:35

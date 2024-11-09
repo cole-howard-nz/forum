@@ -53,90 +53,41 @@
 </div> -->
 
 <div id="forum">
+
     <div class="forum-wrapper">
         <div class="forum-columns">
-            <p>important</p>
+            <p></p>
             <p>topics</p>
             <p>comments</p>
             <p>last post</p>
         </div>
 
-        <!-- Jinja forloop -->
-        <div class="forum-row">
-            <a href="{{ url_for('topic_view.view', topic='test') }}">
-                <div id="forum-col">
-                    <p id="title">announcements</p>
-                    <p id="desc">yo we stole jaydens moms car, free chicken pasta and milk at the crib. only members. stay hydareted real SUNNY out there FR</p>
-                    <p>subtopics: <span>news</span> | <span>events</span></p>
+        {% for topic in topics %}
+            <div class="forum-row">
+                <a href="{{ url_for('topic_view.view', topic='{}-{}'.format(topic._title, topic.id)) }}">
+                    <div id="forum-col">
+                        <p id="title">{{ topic._title}}</p>
+                        <p id="desc">{{ topic._description}}</p>
+
+                        <!-- <p>subtopics: <span>news</span> | <span>events</span></p> -->
+                    </div>
+                </a>
+            
+                
+                <div class="topics-col">
+                    <p>0</p>
                 </div>
-            </a>
-           
-            
-            <div class="topics-col">
-                <p>33</p>
-            </div>
 
-            <div class="comments-col">
-                <p>247</p>
-            </div>
+                <div class="comments-col">
+                    <p>0</p>
+                </div>
 
-            <div class="last-posts-col">
-                <p id="title">warning: phishing and scam alert</p>
-                <p>2024-02-11 21:19:32</p>
-                <p id="author">by <span class="admin">admin</span></p>
+                <div class="last-posts-col">
+                    <p id="title">warning: phishing and scam alert</p>
+                    <p>may 1, 2024</p>
+                    <p id="author">by <span class="admin">admin</span></p>
+                </div>
             </div>
-        </div>
-
-        <div class="forum-row">
-            <div id="forum-col">
-                <p>updates</p>
-                <p id="desc">things like when i do ma washing and that.</p>
-            </div>
-            
-            <div class="topics-col">
-                <p>94</p>
-            </div>
-
-            <div class="comments-col">
-                <p>0</p>
-            </div>
-
-            <div class="last-posts-col">
-                <p id="title">update #94: security enhancements</p>
-                <p>2024-02-11 20:32:50</p>
-                <p id="author">by <span class="admin">admin</span></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="forum-wrapper">
-        <div class="forum-columns">
-            <p>important</p>
-            <p>topics</p>
-            <p>comments</p>
-            <p>last post</p>
-        </div>
-
-        <!-- Jinja forloop -->
-        <div class="forum-row">
-            <div id="forum-col">
-                <p>off topic</p>
-                <p id="desc">EHEHEHEHHEHEHEHEHEHEHEEHEHEHEHHEHEHEHEHEHEHEEHEHEHEHHEHEHEHEHEHEHEEHEHEHEHHEHEHEHEHEHEHEEHEHEHEHHEHEHEHEHEHEHEEHEHEHEHHEHEHEHEHEHEHEEHEHEHEHHEHEHEHEHEHEHEEHEHEHEHHEHEHEHEHEHEHEEHEHEHEHHEHEHEHEHEHEHEEHEHEHEHHEHEHEHEHEHEHEEHEHEHEHHEHEHEHEHEHEHE</p>
-            </div>
-            
-            <div class="topics-col">
-                <p>33</p>
-            </div>
-
-            <div class="comments-col">
-                <p>241231317</p>
-            </div>
-
-            <div class="last-posts-col">
-                <p id="title">warning: phishing and scam alertalertalertalertalertalert</p>
-                <p>2024-02-11 21:19:32</p>
-                <p id="author">by <span class="admin">admin</span></p>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
