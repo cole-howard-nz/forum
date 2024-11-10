@@ -35,7 +35,15 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
     
     @abc.abstractmethod
+    def get_all_threads(self) -> List[Thread]:
+        raise NotImplementedError
+    
+    @abc.abstractmethod
     def get_thread_by_id(self, thread_id: int) -> Thread:
+        raise NotImplementedError
+    
+    @abc.abstractmethod
+    def get_threads_by_topic(self, topic: str) -> List[Thread]:
         raise NotImplementedError
     
     
@@ -62,6 +70,10 @@ class AbstractRepository(abc.ABC):
     def get_comment_by_id(self, tag_id: int):
         raise NotImplementedError
     
+    @abc.abstractmethod
+    def get_comments_for_thread(self, thread_id: int):
+        raise NotImplementedError
+    
     
     
     @abc.abstractmethod
@@ -70,6 +82,10 @@ class AbstractRepository(abc.ABC):
 
     @abc.abstractmethod
     def get_topic_by_id(self, topic_id: int):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_topic_by_name(self, topic: str):
         raise NotImplementedError
     
     @abc.abstractmethod

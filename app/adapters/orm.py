@@ -35,6 +35,7 @@ comments_table = Table( 'comments', metadata,
 topics_table = Table( 'topics', metadata,
                     Column('id', Integer, primary_key=True, autoincrement=True),
                     Column('title', String(127), nullable=False),
+                    Column('description', String(127), nullable=False),
                     Column('time_created', String(127), nullable=False))
 
 superusers_table = Table( 'superusers', metadata,
@@ -98,6 +99,7 @@ def map_model_to_tables():
 
     mapper(Topic, topics_table, properties={
         '_title': topics_table.c.title,
+        '_description': topics_table.c.description,
         '_time_created': topics_table.c.time_created })
 
     mapper(Message, shoutbox_messages_table, properties={

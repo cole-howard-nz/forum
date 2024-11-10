@@ -95,6 +95,15 @@ class SqlAlchemyRepository(AbstractRepository):
         with self._session_cm as scm:
             scm.session.add(thread)
             scm.commit()
+            
+    def get_all_threads(self) -> List[Thread]:
+        threads = None
+        try:
+            threads = self._session_cm.session.query(Thread).all()
+        except NoResultFound:
+            pass
+
+        return threads
     
     def get_thread_by_id(self, thread_id: int) -> Thread:
         thread = None
@@ -111,6 +120,16 @@ class SqlAlchemyRepository(AbstractRepository):
             scm.session.add(comment)
             scm.session.add(thread)
             scm.commit()
+            
+    def get_threads_by_topic(self, topic: str) -> List[Thread]:
+        threads = self.get_all_threads()
+        filtered_threads = []
+        
+        for thread in threads:
+            if thread.topic.title == topic:
+                filtered_threads.append(thread)
+        
+        return filtered_threads
     # End of thread methods
     
     
@@ -136,6 +155,7 @@ class SqlAlchemyRepository(AbstractRepository):
         with self._session_cm as scm:
             scm.session.add(comment)
             scm.commit()
+            
     def get_comment_by_id(self, comment_id: int) -> Comment:
         comment = None
         try:
@@ -143,7 +163,16 @@ class SqlAlchemyRepository(AbstractRepository):
         except NoResultFound:
             pass
 
-        return comment    
+        return comment  
+     
+    def get_comments_for_thread(self, thread_id: int) -> List[Comment]:
+        comments = None
+        try:
+            comments = self._session_cm.session.query(Comment).filter(Comment.thread_id == thread_id).all()
+        except NoResultFound:
+            pass
+
+        return comments  
     # End of comment methods
       
       
@@ -157,6 +186,15 @@ class SqlAlchemyRepository(AbstractRepository):
         topic = None
         try:
             topic = self._session_cm.session.query(Topic).filter(Topic.id == topic_id).one()
+        except NoResultFound:
+            pass
+
+        return topic
+    
+    def get_topic_by_name(self, topic_name: str):
+        topic = None
+        try:
+            topic = self._session_cm.session.query(Topic).filter(Topic.title == topic_name).one()
         except NoResultFound:
             pass
 

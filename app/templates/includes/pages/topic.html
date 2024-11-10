@@ -1,7 +1,7 @@
 <div id="topic">
     <div class="header">
-        <h3>announcements</h3>
-        <p>important information regarding your mothers pregnancy</p>
+        <h3>{{ topic._title }}</h3>
+        <p>{{ topic._description }}</p>
     </div>
     
     <div id="table">
@@ -20,43 +20,27 @@
         </div>
         
         <div id="forum">
-            <div class="thread">
-                <div class="information">
-                    <p>Test thread</p>
-                    <p>by <span class="admin">cole</span>, may 1, 2024</p>
-                </div>
-                <div class="statistics">
-                    <p>0 comments</p>
-                    <p>0 views</p>
-                </div>
-                <div class="author">
-                    <img src="../../../static/imgs/cole_pfp.jpg" alt="">
-                    <div>
-                        <p class="admin">cole123</p>
-                        <p>may 4, 2024</p>
+            {% for thread in threads %}
+                <div class="thread">
+                    <a href="{{ url_for('thread_view.view', thread_id=thread.id, topic=topic._title) }}" style="text-decoration: none; color: black;">
+                        <div class="information">
+                            <p>{{ thread.title }}</p>
+                            <p>by <span class="{{ thread.owner.title }}">{{ thread.owner.username }}</span>, {{ thread.time_created }}</p>
+                        </div>
+                    </a>
+                    <div class="statistics">
+                        <p>0 comments</p>
+                        <p>0 views</p>
+                    </div>
+                    <div class="author">
+                        <img src="../../../static/imgs/cole_pfp.jpg" alt="">
+                        <div>
+                            <p class="admin">{{ thread.owner.username }}</p>
+                            <p>{{ thread.time_created }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-    
-            <div class="thread">
-                <div class="information">
-                    <p>Test thread</p>
-                    <p>by <span class="admin">cole</span>, may 1, 2024</p>
-                </div>
-                <div class="statistics">
-                    <p>0 comments</p>
-                    <p>0 views</p>
-                </div>
-                <div class="author">
-                    <img src="../../../static/imgs/cole_pfp.jpg" alt="">
-                    <div>
-                        <p>test</p>
-                        <p>may 4, 2024</p>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
-
-
 </div>
