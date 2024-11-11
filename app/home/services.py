@@ -19,4 +19,12 @@ def get_user(username: str, repo: AbstractRepository):
 
 def get_topics(repo: AbstractRepository) -> List[Topic]:
         topics = repo.get_all_topics()
+        
+        for topic in topics:
+            threads = repo.get_threads_by_topic(topic.title)
+            comments = sum(len(repo.get_comments_for_thread(thread.id)) for thread in threads)
+            
+            topic.thread_count = len(threads)
+            topic.comment_count = comments
+            
         return topics if topics else []

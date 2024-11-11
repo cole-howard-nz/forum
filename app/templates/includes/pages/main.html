@@ -57,7 +57,7 @@
     <div class="forum-wrapper">
         <div class="forum-columns">
             <p></p>
-            <p>topics</p>
+            <p>threads</p>
             <p>comments</p>
             <p>last post</p>
         </div>
@@ -75,11 +75,11 @@
             
                 
                 <div class="topics-col">
-                    <p>0</p>
+                    <p>{{ topic.thread_count }}</p>
                 </div>
 
                 <div class="comments-col">
-                    <p>0</p>
+                    <p>{{ topic.comment_count }}</p>
                 </div>
 
                 <div class="last-posts-col">

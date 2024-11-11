@@ -42,3 +42,8 @@ def add_shoutbox_message(form, repo: AbstractRepository):
     
 def get_user(username: str, repo: AbstractRepository):
     return repo.get_user(username)
+
+def plural_or_singular(word, len):
+    if len > 1:
+        return word + 's'
+    return word

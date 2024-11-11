@@ -20,7 +20,6 @@ def view(topic: str, thread_id: str):
     
     if 'username' in session:
         user = services.get_user(session['username'], repo)
-        print('end', thread)
         
         return( render_template('/layout.html',
                         user=user,

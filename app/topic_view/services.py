@@ -20,15 +20,24 @@ def get_all_topics(repo: AbstractRepository):
     return repo.get_all_topics()
 
 def get_threads_for_topics(topic: str, repo: AbstractRepository):
-    return repo.get_threads_by_topic(topic)
+    threads = repo.get_threads_by_topic(topic)
+    
+    for thread in threads:
+        count = len(repo.get_comments_for_thread(thread.id))
+        thread.comment_count = utils.plural_or_singular(f'{count} comment', count)
+        
+        # Todo: add view counters to threads
+        thread.view_count = 0
+    
+    return threads
 
-def get_topic(topic: str, repo: AbstractRepository):
-    topic = topic.split('-')[0]
+def get_topic(topic_name: str, repo: AbstractRepository):
+    topic_name = topic_name.split('-')[0]
     topics = repo.get_all_topics()
     
-    for current in topics:
-        print(current.title, topic)
-        if current.title == topic:
-            return current
+    
+    for topic in topics:
+        if topic.title == topic_name:
+            return topic
     
     return None
