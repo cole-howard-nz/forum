@@ -25,7 +25,8 @@ def view(topic: str, thread_id: str):
                         user=user,
                         topic=topic,
                         form=form,
-                        threads=comments,
+                        thread=thread,
+                        comments=comments,
                         layout='thread') )
 
     return( redirect(url_for('home.home')) )

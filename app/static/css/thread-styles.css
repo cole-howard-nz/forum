@@ -1,0 +1,61 @@
+#thread .header
+{
+    margin-top: 16px;
+
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px #CCCCCC;
+    padding: 2px 12px 4px 12px;
+
+    display: flex;
+    flex-direction: column;
+    gap: .7rem;
+}
+
+#thread .header #info
+{
+    margin-top: 6px;
+    padding-bottom: 4px;
+    padding-right: 2px;
+    padding-left: 2px;
+    border-bottom: 1px solid #7c7c7c;
+}
+
+#thread .header #info>*
+{
+    display: inline;
+}
+
+#thread .header #info h3
+{
+    font-size: 16px;
+}
+
+#thread .header div:last-of-type
+{
+    display: flex;
+    justify-content: left;
+    gap: 1rem;
+}
+
+#thread .header div:last-of-type div
+{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    font-size: 14px;
+    gap: 0;
+}
+
+#thread .header div:last-of-type div p
+{
+    margin: 0;
+}
+
+#thread .header div:last-of-type img
+{
+    width: 32px;
+    height: 32px;
+    border-radius: 100px;
+    align-self: center;
+}

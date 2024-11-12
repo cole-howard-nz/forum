@@ -1,0 +1,58 @@
+<div id="thread">
+    <div class="header">
+        <div id="info">
+            <h3>{{ thread.title }}</h3>
+        </div>
+        
+        <div>
+            <img src="../../../static/imgs/cole_pfp.jpg" alt="">
+            <div>
+                <!-- Todo: change class to potential superuser title -->
+                <p>by <span class="admin">{{ thread.owner.username }}</span></p>
+                <p>{{ thread.format_time_created }}</p>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <!-- <div id="table">
+        <div id="forum">
+            {% for thread in threads %}
+                <div class="thread">
+                    <a href="{{ url_for('thread_view.view', thread_id=thread.id, topic=topic._title) }}" style="text-decoration: none; color: black;">
+                        <div class="information">
+                            <p>{{ thread.title }}</p>
+                            <p>by <span class="{{ thread.owner.title }}">{{ thread.owner.username }}</span>, {{ thread.time_created }}</p>
+                        </div>
+                    </a>
+                    <div class="statistics">
+                        <p>{{ thread.comment_count }}</p>
+                        <p>0 views</p>
+                    </div>
+                    <div class="author">
+                        <img src="../../../static/imgs/cole_pfp.jpg" alt="">
+                        <div>
+                            <p class="admin">{{ thread.owner.username }}</p>
+                            <p>{{ thread.time_created }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div> -->
+
+        <!-- <div id="wrapper">
+            <div id="pagination">
+                <div>&lt;</div>
+                <div>1</div>
+                <div>2</div>
+                <div>3</div>
+                <div>4</div>
+                <div>5</div>
+                <div>&gt;</div>
+            </div>
+
+            <div id="filter">Sort</div>
+        </div> -->
+    </div>
+</div>

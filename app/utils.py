@@ -21,7 +21,6 @@ class ShoutboxMessage(FlaskForm):
     submit = SubmitField('submit')
     
 
-
 def get_shoutbox_messages(repo: AbstractRepository) -> List[Message]:
     all_messages = repo.get_shoutbox_messages()
     
@@ -47,3 +46,9 @@ def plural_or_singular(word, len):
     if len > 1:
         return word + 's'
     return word
+
+def date_time_formatter(time):
+    time = datetime.strptime(time, '%B %d, %Y') #%B %d, %Y
+    formated_time = time.strftime('%B %d, %Y').replace(' 0', ' ').lower()
+    
+    return formated_time
