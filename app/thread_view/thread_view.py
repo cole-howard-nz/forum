@@ -13,10 +13,9 @@ repo = repository.repo_instance
 @thread_view_blueprint.route('/<string:topic>/<string:thread_id>', methods=['GET'])
 def view(topic: str, thread_id: str):
     thread = services.get_thread_by_id(thread_id, repo)
-    string_thread = thread.title.split('-')[0]
     
     form = services.ShoutboxMessage()
-    comments = services.get_comments_for_thread(string_thread, repo)
+    comments = services.get_comments_for_thread(thread_id, repo)
     
     if 'username' in session:
         user = services.get_user(session['username'], repo)

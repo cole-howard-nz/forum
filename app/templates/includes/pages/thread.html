@@ -8,12 +8,57 @@
             <img src="../../../static/imgs/cole_pfp.jpg" alt="">
             <div>
                 <!-- Todo: change class to potential superuser title -->
-                <p>by <span class="admin">{{ thread.owner.username }}</span></p>
-                <p>{{ thread.format_time_created }}</p>
+                <p>created by <span class="admin"><a href="">{{ thread.owner.username }}</a></span></p>
+                <p>on {{ thread.format_time_created }}</p>
             </div>
         </div>
     </div>
     
+    <div class="header">
+        <div id="post-grid">
+            <div class="info">
+                <div>
+                    <p>{{ thread.owner.username }}</p>
+                    <p><span class="admin">admin</span></p>
+                    <img src="../../../static/imgs/cole_pfp.jpg" alt="">
+                
+                    <p id="small">8 threads</p>
+                    <p id="small">3 comments</p>
+                </div>
+            </div>
+            <div class="content">
+                <p>this post is stupid XDD</p>
+            </div>
+        </div>
+        <div class="signature">
+            big whales and stuzz
+        </div>
+    </div>
+
+    {% for comment in comments %}
+        <div class="header">
+            <div id="post-grid">
+                <div class="info">
+                    <div>
+                        <p>{{ comment.owner.username }}</p>
+                        <p><span class="admin">admin</span></p>
+                        <img src="../../../static/imgs/cole_pfp.jpg" alt="">
+                    
+                        <p id="small">8 threads</p>
+                        <p id="small">3 comments</p>
+                    </div>
+                </div>
+
+                <div class="content">
+                    <p>{{ comment.content }}</p>
+                </div>
+            </div>
+
+            <div class="signature">
+                big whales and stuzz
+            </div>
+        </div>
+    {% endfor %}
 
 
     <!-- <div id="table">

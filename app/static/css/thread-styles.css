@@ -18,7 +18,6 @@
     padding-bottom: 4px;
     padding-right: 2px;
     padding-left: 2px;
-    border-bottom: 1px solid #7c7c7c;
 }
 
 #thread .header #info>*
@@ -28,7 +27,7 @@
 
 #thread .header #info h3
 {
-    font-size: 16px;
+    font-size: 18px;
 }
 
 #thread .header div:last-of-type
@@ -36,6 +35,7 @@
     display: flex;
     justify-content: left;
     gap: 1rem;
+    margin-bottom: 4px;
 }
 
 #thread .header div:last-of-type div
@@ -45,6 +45,11 @@
     text-align: left;
     font-size: 14px;
     gap: 0;
+}
+
+#thread .header div:last-of-type div span a
+{
+    color: inherit;
 }
 
 #thread .header div:last-of-type div p
@@ -58,4 +63,58 @@
     height: 32px;
     border-radius: 100px;
     align-self: center;
+}
+
+#thread .header #post-grid
+{
+    display: grid;
+    grid-template-columns: 20% 80%;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #EEEEEE;
+}
+
+
+#thread .header #post-grid .info div
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+    gap: 0;
+    margin-top: 6px;
+}
+
+#thread .header #post-grid .info div p
+{
+    margin: 0;
+}
+
+#thread .header #post-grid .info div #small
+{
+    font-size: 14px;
+}
+
+#thread .header #post-grid .info>*
+{
+    margin: 0;
+}
+
+#thread .header #post-grid .info img
+{
+    width: 30%;
+    height: 30%;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    clip-path: circle();
+}
+
+#thread .header #post-grid .content p
+{
+    font-size: 14px;
+}
+
+#thread .header .signature
+{
+    font-size: 12px;
+    padding-bottom: 6px;
 }

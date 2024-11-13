@@ -7,8 +7,8 @@ from app.adapters.repository import AbstractRepository
 from typing import List
 
 
-def get_comments_for_thread(string_thread, repo: AbstractRepository):
-    return repo.get_comments_for_thread(string_thread)
+def get_comments_for_thread(thread_id, repo: AbstractRepository):
+    return repo.get_comments_for_thread(thread_id)
 
 def get_thread_by_id(thread_id, repo: AbstractRepository):
     thread = repo.get_thread_by_id(thread_id)
