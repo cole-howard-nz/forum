@@ -48,7 +48,11 @@ def plural_or_singular(word, len):
     return word
 
 def date_time_formatter(time):
-    time = datetime.strptime(time, '%B %d, %Y') #%B %d, %Y
-    formated_time = time.strftime('%B %d, %Y').replace(' 0', ' ').lower()
+    try:
+        time = datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
+    except:
+        time = datetime.strptime(time, '%B %d, %Y')
+        
+    formatted_time = time.strftime('%B %d, %Y').replace(' 0', ' ').lower()
     
-    return formated_time
+    return formatted_time

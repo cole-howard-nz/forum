@@ -1,4 +1,4 @@
-#thread .header
+#thread .header, #wrapper, #thread-ui
 {
     margin-top: 16px;
 
@@ -10,6 +10,20 @@
     display: flex;
     flex-direction: column;
     gap: .7rem;
+}
+
+
+#thread .header:first-of-type
+{
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 12px 4px 12px;
+}
+
+#thread .header:first-of-type div:last-of-type
+{
+    margin-top: 2px;
 }
 
 #thread .header #info
@@ -117,4 +131,125 @@
 {
     font-size: 12px;
     padding-bottom: 6px;
+}
+
+#pagination
+{
+    display: flex;
+    align-items: center;
+}
+
+#wrapper
+{
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+}
+
+#pagination div, #wrapper #filter
+{
+    font-size: 12px;
+    margin: 4px;
+    padding: 4px 8px 4px 8px;
+    color: white;
+    background-color: #333333;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s all ease;
+}
+
+#pagination div:hover, #wrapper #filter:hover
+{
+    background-color: #EEEEEE;
+    border: 1px solid #333333;
+    color: #333333;
+}
+
+
+#thread-ui
+{
+    flex-direction: row;
+    justify-content: end;
+    gap: 1rem;
+
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+}
+
+#thread-ui button
+{
+    width: fit-content;
+    font-size: 16px;
+    margin: 4px;
+    padding: 4px 8px 4px 8px;
+    color: white;
+    background-color: rgb(59, 126, 228);
+    border: 1px solid rgb(59, 126, 228);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s all ease;
+}
+
+#thread-ui button:hover
+{
+    background-color: #EEEEEE;
+    border: 1px solid #333333;
+    color: #333333;
+}
+
+#thread-ui button img
+{
+    width: 24px;
+}
+
+
+#thread-comment-ui
+{
+    margin-top: 16px;
+
+    background: white;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 1px 2px #CCCCCC;
+}
+
+#thread-comment-ui div form
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#thread-comment-ui img
+{
+    clip-path: circle();
+    margin: 12px;
+    width: 64px;
+}
+
+.thread-comment-input
+{
+    border: 1px solid #CCCCCC;
+    box-shadow: 0 0 2px #333333;
+    border-radius: 4px;
+    margin: 12px;
+
+    width: 100%;
+    height: 54px;
+}
+
+#thread-comment-ui button
+{
+    position: absolute;
+    bottom: 18px;
+    right: 16px;
+    border: none;
+    clip-path: circle();
+    background-color: rgb(59, 126, 228);
+    color: white;
+    padding-bottom: 3px;
+    cursor: pointer;
 }

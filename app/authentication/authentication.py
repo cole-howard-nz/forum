@@ -31,7 +31,7 @@ def register():
         for error in field_errors:
             flash(error, 'error')
                 
-    return( render_template('/layout.html',
+    return( render_template('/pages/authentication.html',
                         form=form,
                         users=users,
                         type='register',
@@ -55,7 +55,7 @@ def login():
         except services.IncorrectPasswordException:
             flash('incorrect password', 'error')
         
-    return( render_template('/layout.html',
+    return( render_template('/pages/authentication.html',
                         form=form,
                         users=users,
                         type='login',

@@ -1,3 +1,11 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ thread.title }}{% endblock %}
+
+{% block content %}
+
+{% include 'includes/messageBar.html' %}
+
 <div id="thread">
     <div class="header">
         <div id="info">
@@ -12,6 +20,10 @@
                 <p>on {{ thread.format_time_created }}</p>
             </div>
         </div>
+    </div>
+
+    <div id="thread-ui">
+        <a href="#thread-comment-ui"><button id="comment">comment</button></a>
     </div>
     
     <div class="header">
@@ -33,6 +45,20 @@
         <div class="signature">
             big whales and stuzz
         </div>
+    </div>
+
+    <div id="wrapper">
+        <div id="pagination">
+            <div>&lt;</div>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>&gt;</div>
+        </div>
+
+        <div id="filter">sort</div>
     </div>
 
     {% for comment in comments %}
@@ -60,44 +86,32 @@
         </div>
     {% endfor %}
 
+    <div id="wrapper">
+        <div id="pagination">
+            <div>&lt;</div>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>&gt;</div>
+        </div>
 
-    <!-- <div id="table">
-        <div id="forum">
-            {% for thread in threads %}
-                <div class="thread">
-                    <a href="{{ url_for('thread_view.view', thread_id=thread.id, topic=topic._title) }}" style="text-decoration: none; color: black;">
-                        <div class="information">
-                            <p>{{ thread.title }}</p>
-                            <p>by <span class="{{ thread.owner.title }}">{{ thread.owner.username }}</span>, {{ thread.time_created }}</p>
-                        </div>
-                    </a>
-                    <div class="statistics">
-                        <p>{{ thread.comment_count }}</p>
-                        <p>0 views</p>
-                    </div>
-                    <div class="author">
-                        <img src="../../../static/imgs/cole_pfp.jpg" alt="">
-                        <div>
-                            <p class="admin">{{ thread.owner.username }}</p>
-                            <p>{{ thread.time_created }}</p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div> -->
+        <div id="filter">sort</div>
+    </div>
 
-        <!-- <div id="wrapper">
-            <div id="pagination">
-                <div>&lt;</div>
-                <div>1</div>
-                <div>2</div>
-                <div>3</div>
-                <div>4</div>
-                <div>5</div>
-                <div>&gt;</div>
-            </div>
-
-            <div id="filter">Sort</div>
-        </div> -->
+    <div id="thread-comment-ui">
+        <div>
+            <form method="POST" action="/{{ topic }}/{{ thread.id }}">
+                {{ form.csrf_token }}
+                <img src="../../static/imgs/cole_pfp.jpg" alt="">
+                
+                <!-- <textarea id="thread-comment-input" placeholder="reply to this thread"></textarea> -->
+                {{ form.message }}
+                <button type='submit'><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+            </form>
+        </div>
     </div>
 </div>
+
+{% endblock %}

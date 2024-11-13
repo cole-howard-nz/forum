@@ -1,3 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ topic.title }}{% endblock %}
+
+
+{% block content %}
+
+{% include 'includes/messageBar.html' %}
+
+
 <div id="topic">
     <div class="header">
         <h3>{{ topic._title }}</h3>
@@ -15,8 +25,7 @@
                 <div>5</div>
                 <div>&gt;</div>
             </div>
-
-            <div id="filter">Sort</div>
+            <div id="filter">sort</div>
         </div>
         
         <div id="forum">
@@ -42,5 +51,20 @@
                 </div>
             {% endfor %}
         </div>
+
+        <div id="wrapper">
+            <div id="pagination">
+                <div>&lt;</div>
+                <div>1</div>
+                <div>2</div>
+                <div>3</div>
+                <div>4</div>
+                <div>5</div>
+                <div>&gt;</div>
+            </div>
+            <div id="filter">sort</div>
+        </div>
     </div>
 </div>
+
+{% endblock %}

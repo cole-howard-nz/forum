@@ -1,3 +1,9 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ type }}{% endblock %}
+
+{% block content %}
+
 <div id="authentication-container">
     <!-- <div id="recent-users-grid">
         {% for user in users %}
@@ -61,3 +67,5 @@
         </form>
     </div>
 </div>
+
+{% endblock %}

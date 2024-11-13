@@ -27,4 +27,6 @@ def get_topics(repo: AbstractRepository) -> List[Topic]:
             topic.thread_count = len(threads)
             topic.comment_count = comments
             
+            topic.last_post = repo.get_most_recent_post_in_topic(topic.id)
+            
         return topics if topics else []

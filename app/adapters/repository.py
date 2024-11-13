@@ -110,3 +110,7 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def get_shoutbox_messages(self):
         raise NotImplementedError
+    
+    @abc.abstractmethod
+    def get_most_recent_post_in_topic(self, topic_id: int):
+        raise NotImplementedError

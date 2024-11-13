@@ -1,8 +1,7 @@
-from typing import List
+from typing import List, Union
 
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm.exc import NoResultFound
-
 
 from app.domain_model.model import User, Thread, Tag, Comment, Topic, SuperUser, Message
 from app.adapters.repository import AbstractRepository
@@ -242,3 +241,5 @@ class SqlAlchemyRepository(AbstractRepository):
         return messages
     # End of Shoutbox Message methods
     
+    def get_most_recent_post_in_topic(self, topic_id: int) -> Union[Thread, Comment, None]:
+        return None

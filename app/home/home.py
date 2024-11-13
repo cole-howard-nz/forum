@@ -9,7 +9,6 @@ home_blueprint = Blueprint('home', __name__)
 repo = repository.repo_instance
 
 
-
 @home_blueprint.route('/', methods=['GET'])
 def home():
     shoutbox_messages = reversed(services.get_shoutbox_messages(repo))
@@ -19,13 +18,13 @@ def home():
     if 'username' in session:
         user = services.get_user(session['username'], repo)
         
-        return( render_template('/layout.html',
+        return( render_template('/pages/main.html',
                         form=form,
                         topics=topics,
                         user=user,
                         shoutbox_messages=shoutbox_messages))
 
-    return( render_template('/layout.html',
+    return( render_template('/pages/mainNoAuth.html',
                         form=form,
                         topics=topics,
                         shoutbox_messages=shoutbox_messages))

@@ -1,7 +1,7 @@
 <header>
     <div class="container">
         <div>
-            <p class="logo"><a href="{{ url_for('home.home') }}">munkeware</a></p>
+            <p class="logo"><a href="{{ url_for('home.home') }}">forum.</a></p>
 
             <nav>
                 <ul>
@@ -16,7 +16,7 @@
             {% if 'username' in session %}
                 <div id="userInterface">
                     <p id="userName" class="{{ user._title }}">{{ session['username'] }}</p>
-                    <button id="userButton" class="userButton" type="button"><img src="../../static/imgs/profile-picture.png" alt="User icon"></button>
+                    <button id="userButton" class="userButton" type="button"><img src="../../static/imgs/cole_pfp.jpg" alt="User icon"></button>
                     
                     <div id="uiPopup">
                         <div id="container">

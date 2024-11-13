@@ -12,8 +12,6 @@
 
 #topic .header, #topic #wrapper
 {
-    margin-top: 16px;
-
     background: white;
     border-radius: 8px;
     box-shadow: 0 1px 2px #CCCCCC;
@@ -26,13 +24,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 32px;
 }
 
 #topic #wrapper #filter
 {
     display: flex;
     align-content: center;
+}
+
+#topic #wrapper:last-of-type
+{
+    margin-top: -24px;
 }
 
 #topic .header h3, #topic .header p
@@ -86,6 +88,13 @@
 #table .thread:last-of-type
 {
     border-bottom: none;
+}
+
+#table .thread .information p:first-of-type
+{
+    font-weight: bold;
+    color: rgb(59, 126, 228);
+    cursor: pointer;
 }
 
 

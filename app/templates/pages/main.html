@@ -51,9 +51,16 @@
         </div>
     </div>
 </div> -->
+{% extends "layout.html" %}
+
+{% block title %}home{% endblock %}
+
+{% block content %}
+
+{% include 'includes/messageBar.html' %}
+{% include 'includes/shoutbox.html' %}
 
 <div id="forum">
-
     <div class="forum-wrapper">
         <div class="forum-columns">
             <p></p>
@@ -83,11 +90,11 @@
                 </div>
 
                 <div class="last-posts-col">
-                    <p id="title">warning: phishing and scam alert</p>
-                    <p>may 1, 2024</p>
-                    <p id="author">by <span class="admin">admin</span></p>
+                    <!-- <p id="title">warning: phishing and scam alert</p>
+                    <p>may 1, 2024</p> -->
                 </div>
             </div>
         {% endfor %}
     </div>
 </div>
+{% endblock %}

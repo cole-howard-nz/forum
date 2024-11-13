@@ -212,7 +212,6 @@ footer #footer-cred
     display: flex;
     flex-direction: column;
     background-color: white;
-    margin-top: 16px;
     border-radius: 8px;
     position: relative;
     border: 1px solid #DDDDDD;
@@ -592,6 +591,7 @@ footer #footer-cred
     color: whitesmoke;
     margin: 0;
     padding: 4px;
+    margin-bottom: 16px;
 }
 
 #messageBar span

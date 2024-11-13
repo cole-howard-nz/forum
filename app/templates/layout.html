@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>munkeware</title>
+    <title>forum. | {% block title %}home{% endblock %}</title>
 
-    <link rel="icon" href="../static/imgs/gorilla.png">
-
+    <link rel="icon" href="../static/imgs/favicon (2).ico">
     <link rel="stylesheet" href="../static/css/styles.css">
     <link rel="stylesheet" href="../static/css/main-styles.css">
     <link rel="stylesheet" href="../static/css/auth-styles.css">
@@ -26,37 +25,9 @@
     {% include 'includes/header.html' %}
     
     <main>
-        <!-- Custom pages  -->
-        {% if layout == 'authentication' %}
-            {% include 'includes/pages/authentication.html' %}
-        {% elif layout == 'topic' %}
-            {% include 'includes/pages/topic.html' %}
-        {% elif layout == 'thread' %}
-            {% include 'includes/pages/thread.html' %}
-
-        {% elif layout == 'privileges' %}
-            {% include 'includes/pages/privileges.html' %}
-        {% elif layout == 'settings' %}
-            {% include 'includes/pages/settings.html' %}
-        {% elif layout == 'panel' %}
-            {% include 'includes/pages/panel.html' %}
-
-
-        {% else %}
-            <!-- Main page -->
-
-            {% if 'username' in session %}
-                {% include 'includes/shoutbox.html' %}
-                {% include 'includes/pages/main.html' %}
-            {% else %}
-                {% include 'includes/pages/mainNoAuth.html' %}
-            {% endif %}
-        {% endif %}
-
+        {% block content %}{% endblock %}
     </main>
     
     {% include 'includes/footer.html' %}
-
 </body>
-
 </html>

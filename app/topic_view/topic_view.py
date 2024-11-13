@@ -21,7 +21,7 @@ def view(topic: str):
         user = services.get_user(session['username'], repo)
         topic = services.get_topic(topic, repo)
         
-        return( render_template('/layout.html',
+        return( render_template('/pages/topic.html',
                         user=user,
                         form=form,
                         topic=topic,
