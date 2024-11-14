@@ -22,6 +22,10 @@ def view(topic: str, thread_id: str):
     
     if 'username' in session:
         user = services.get_user(session['username'], repo)
+        
+        for comment in comments:
+            print('editted', comment.editted)
+        
         return( render_template('/pages/thread.html',
                         user=user,
                         form=form,
@@ -50,11 +54,22 @@ def post_comment(topic: str, thread_id: str):
     
     return redirect(url_for('thread_view.view', topic=topic, thread_id=thread_id))
 
-@thread_view_blueprint.route('/<string:topic>/<int:thread_id>/cmt_del=<int:comment_id>', methods=['GET'])
+@thread_view_blueprint.route('/<string:topic>/<int:thread_id>/del=<int:comment_id>', methods=['GET'])
 @auth_required
 def delete_comment(topic: str, thread_id: int, comment_id: int):
     services.delete_comment(comment_id, repo)
     flash(f'successfully deleted comment', 'success')
+    
+    return redirect(url_for('thread_view.view', topic=topic, thread_id=thread_id))
+
+@thread_view_blueprint.route('/<string:topic>/<int:thread_id>/edit=<int:comment_id>', methods=['POST'])
+@auth_required
+def edit_comment(topic: str, thread_id: int, comment_id: int):
+    form = services.CommentForm()
+    
+    if form.validate_on_submit():
+        services.edit_comment(form, comment_id, repo)
+        flash(f'successfully editted comment', 'success')
     
     return redirect(url_for('thread_view.view', topic=topic, thread_id=thread_id))
     

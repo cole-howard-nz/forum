@@ -108,11 +108,11 @@
 
                 <div class="content">
                     <div id="controls">
-                        <p>{{ comment.format_time_created }}</p>
+                        <p>{{ comment.format_time_created }} <span id="editted">{{ '(editted)' if comment.editted == 1 }}</span></p>
                         {% if comment._owner == user %}
                             <div id="owner-controls">
                                 <a>
-                                    <img id="edit-comment" class="edit-comment {{ comment.id }}" src="../../static/imgs/8666681_edit_icon.svg" alt="">
+                                    <img id="edit-comment" data-id="{{ comment.id }}" class="edit-comment {{ comment.id }}" src="../../static/imgs/8666681_edit_icon.svg" alt="">
                                 </a>
                                 
                                 <a href="{{ url_for('thread_view.delete_comment', thread_id=thread.id, topic=topic, comment_id=comment.id) }}">
@@ -121,9 +121,16 @@
                             </div>
                         {% endif %}
                     </div>
-                    <textarea id="{{ comment.id }}-textarea-edit" class="edit-comment-ui"></textarea>
-                    <button id="{{ comment.id }}-confirm-edit" class="edit-comment-button">confirm</button>
-                    <button id="{{ comment.id }}-cancel-edit" class="edit-comment-button">cancel</button>
+
+                    <form id="{{ comment.id }}-edit-comment" data-id="{{ comment.id }}" method="POST" action="/{{ topic }}/{{ thread.id }}/edit={{ comment.id }}" style="display: none;">
+                        {{ form.csrf_token }}
+                            
+                        {{ form.message() }}
+                        <button type="submit" id="{{ comment.id }}-confirm-edit" data-id="{{ comment.id }}">confirm</button>
+                        <button type="button" id="{{ comment.id }}-cancel-edit" class="edit-cancel" data-id="{{ comment.id }}">cancel</button>
+                    </form>
+                    
+
                     <p id="{{ comment.id }}-content">{{ comment.content }}</p>
                 </div>
             </div>

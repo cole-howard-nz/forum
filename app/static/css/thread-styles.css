@@ -170,6 +170,12 @@
     gap: 4px;
 }
 
+#thread .header #post-grid .content #controls #editted
+{
+    font-style: italic;
+    color: #777777;
+}
+
 #thread .header .signature
 {
     font-size: 12px;
@@ -286,7 +292,7 @@
     border-radius: 4px;
     margin: 12px;
 
-    width: 100%;
+    width: 98%;
     height: 54px;
 }
 

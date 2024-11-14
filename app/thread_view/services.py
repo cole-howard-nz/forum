@@ -51,6 +51,8 @@ def add_comment_to_thread(form, owner: User, thread, repo: AbstractRepository):
     owner.add_comment(comment)
     return comment
     
-    
 def delete_comment(comment_id, repo: AbstractRepository):
     repo.delete_comment(comment_id)
+
+def edit_comment(form, comment_id, repo: AbstractRepository):
+    repo.edit_comment(comment_id=comment_id, new_comment=form.message.data)

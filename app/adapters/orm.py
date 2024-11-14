@@ -31,6 +31,7 @@ comments_table = Table( 'comments', metadata,
                     Column('owner_id', ForeignKey('users.id'), nullable=False),
                     Column('thread_id', ForeignKey('threads.id'), nullable=False),
                     Column('time_created', String(127), nullable=False),
+                    Column('editted', Integer, nullable=True),
                     Column('content', String(127), nullable=False))
 
 topics_table = Table( 'topics', metadata,
@@ -97,6 +98,7 @@ def map_model_to_tables():
         '_owner': relationship(User, backref="_comments"),
         '_time_created': comments_table.c.time_created,
         '_content': comments_table.c.content,
+        '_editted': comments_table.c.editted,
         '_thread': relationship(Thread, backref='_comments')})
 
     mapper(Topic, topics_table, properties={

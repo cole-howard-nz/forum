@@ -118,6 +118,7 @@ class Comment:
         self._content = content             # 1
         self._thread = thread               # 1
         self._comments = []                 # 0->many
+        self._editted = 0
 
     @property
     def owner(self) -> 'User':
@@ -146,6 +147,14 @@ class Comment:
     @property
     def comments(self) -> List['Comment']:
         return self._comments
+    
+    @property
+    def editted(self) -> bool:
+        return self._editted
+
+    @editted.setter
+    def editted(self, new_editted: bool):
+        self._editted = new_editted
 
     @comments.setter
     def comments(self, new_comments: List['Comment']):

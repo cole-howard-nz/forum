@@ -180,6 +180,19 @@ class SqlAlchemyRepository(AbstractRepository):
             print('deleted', comment_id)
         except NoResultFound:
             pass
+        
+    def edit_comment(self, comment_id: int, new_comment: str):
+        comment = None
+        try:
+            comment = self._session_cm.session.query(Comment).filter(Comment.id == comment_id).one()
+            comment.content = new_comment
+            comment.editted = 1
+            
+            self._session_cm.commit()
+        except NoResultFound:
+            pass
+
+        return comment
     # End of comment methods
       
       

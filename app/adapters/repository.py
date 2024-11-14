@@ -78,6 +78,10 @@ class AbstractRepository(abc.ABC):
     def delete_comment(self, comment_id: int):
         raise NotImplementedError
     
+    @abc.abstractmethod
+    def edit_comment(self, comment_id: int, new_comment: str):
+        raise NotImplementedError
+    
     
     
     @abc.abstractmethod
