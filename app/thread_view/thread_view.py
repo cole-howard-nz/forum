@@ -40,7 +40,9 @@ def post_comment(topic: str, thread_id: str):
 
     if form.validate_on_submit():
         owner = services.get_user(session['username'], repo)
+        
         services.add_comment_to_thread(form, owner, thread, repo)
+        
         flash('true', 'posted')
         flash(f'successfully posted comment', 'success')
                 

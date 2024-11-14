@@ -94,18 +94,6 @@
             {% endif %}
         {% endwith %}
 
-            {% if comment._owner == user %}
-                <div id="owner-controls">
-                    <a href="{{ url_for('thread_view.delete_comment', thread_id=thread.id, topic=topic, comment_id=comment.id) }}">
-                        <img id="edit-comment" src="../../static/imgs/8666681_edit_icon.svg" alt="">
-                    </a>
-                    
-                    <a href="{{ url_for('thread_view.delete_comment', thread_id=thread.id, topic=topic, comment_id=comment.id) }}">
-                        <img id="delete-comment" src="../../static/imgs/rubbish-bin-svgrepo-com.svg" alt="">
-                    </a>
-                </div>
-            {% endif %}
-
             <div id="post-grid">
                 <div class="info">
                     <div>
@@ -119,8 +107,24 @@
                 </div>
 
                 <div class="content">
-                    <p>{{ comment.content }}</p>
-                    <p>{{ comment.format_time_created }}</p>
+                    <div id="controls">
+                        <p>{{ comment.format_time_created }}</p>
+                        {% if comment._owner == user %}
+                            <div id="owner-controls">
+                                <a>
+                                    <img id="edit-comment" class="edit-comment {{ comment.id }}" src="../../static/imgs/8666681_edit_icon.svg" alt="">
+                                </a>
+                                
+                                <a href="{{ url_for('thread_view.delete_comment', thread_id=thread.id, topic=topic, comment_id=comment.id) }}">
+                                    <img id="delete-comment" src="../../static/imgs/rubbish-bin-svgrepo-com.svg" alt="">
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <textarea id="{{ comment.id }}-textarea-edit" class="edit-comment-ui"></textarea>
+                    <button id="{{ comment.id }}-confirm-edit" class="edit-comment-button">confirm</button>
+                    <button id="{{ comment.id }}-cancel-edit" class="edit-comment-button">cancel</button>
+                    <p id="{{ comment.id }}-content">{{ comment.content }}</p>
                 </div>
             </div>
 

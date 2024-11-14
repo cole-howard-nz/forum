@@ -156,6 +156,20 @@
     margin-top: 8px;
 }
 
+#thread .header #post-grid .content #controls
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#thread .header #post-grid .content #controls div
+{
+    flex-direction: row;
+    gap: 4px;
+}
+
 #thread .header .signature
 {
     font-size: 12px;
@@ -300,17 +314,15 @@
 #owner-controls
 {
     display: flex;
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    gap: 4px;
+    flex-direction: row;
+    gap: 1rem;
 }
 
 #owner-controls #delete-comment, #owner-controls #edit-comment
 {
     background-color: black;
-    width: 18px;
-    padding: 4px;
+    width: 20px;
+    padding: 0 4px 0 4px;
     border-radius: 6px;
     cursor: pointer;
 }
@@ -394,4 +406,9 @@
 {
     width: 32px;
     clip-path: circle();
+}
+
+.edit-comment-ui, .edit-comment-button
+{
+    display: none;
 }
