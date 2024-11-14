@@ -1,3 +1,8 @@
+#thread .header
+{
+    position: relative;
+}
+
 #thread .header, #wrapper, #thread-ui
 {
     margin-top: 16px;
@@ -15,8 +20,8 @@
 
 #thread .header:first-of-type
 {
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: left;
     justify-content: space-between;
     padding: 4px 12px 4px 12px;
 }
@@ -24,6 +29,11 @@
 #thread .header:first-of-type div:last-of-type
 {
     margin-top: 2px;
+}
+
+#thread .header:first-of-type div:last-of-type #thread-ui
+{
+    margin-left: auto;
 }
 
 #thread .header #info
@@ -122,15 +132,40 @@
     clip-path: circle();
 }
 
+#thread .header #post-grid .content
+{
+    display: flex;
+    flex-direction: column;
+}
+
 #thread .header #post-grid .content p
 {
     font-size: 14px;
+}
+
+#thread .header #post-grid .content p:last-of-type
+{
+    font-size: 12px;
+    margin: 0;
+    margin-top: auto;
+}
+
+#thread .header #post-grid .content p:first-of-type
+{
+    font-size: 14px;
+    margin-top: 8px;
 }
 
 #thread .header .signature
 {
     font-size: 12px;
     padding-bottom: 6px;
+}
+
+#thread .header-last
+{
+    box-shadow: 0 0 6px goldenrod;
+    border: 1px solid goldenrod;
 }
 
 #pagination
@@ -250,6 +285,114 @@
     clip-path: circle();
     background-color: rgb(59, 126, 228);
     color: white;
-    padding-bottom: 3px;
+    padding: 4px 6px 4px 6px;
     cursor: pointer;
+    transition: 0.1s ease all;
+}
+
+#thread-comment-ui button:active
+{
+    transform: scale(1.045);
+    background-color: rgb(30, 90, 181);
+}
+
+
+#owner-controls
+{
+    display: flex;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    gap: 4px;
+}
+
+#owner-controls #delete-comment, #owner-controls #edit-comment
+{
+    background-color: black;
+    width: 18px;
+    padding: 4px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.success, .errors
+{
+    top: 16px;
+    z-index: 100;
+    position: sticky;
+}
+
+.success div, .errors div
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-size: 14px;
+    color: white;
+    background: rgb(28, 177, 5);
+
+    padding: 6px;
+    border-radius: 4px;
+}
+
+.success div button, .errors div button
+{
+    border: none;
+    cursor: pointer;
+    background: white;
+
+    width: 24px;
+    height: 24px;
+    padding: 4px;
+    border-radius: 50px;
+}
+
+.errors
+{
+    background: rgb(255, 75, 75);
+}
+
+
+#forum .thread
+{
+    margin-bottom: 8px;
+}
+
+#forum div:last-of-type
+{
+    margin-bottom: 0;
+}
+
+.thread
+{
+    display: grid;
+    grid-template-columns: 75% 10% 15%;
+    width: 100%;
+    padding: 4px;
+}
+
+.thread .author
+{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.thread .statistics 
+{
+    margin-bottom: 0;
+}
+
+.thread .information p, 
+.thread .statistics p,
+.thread .author p
+{
+    margin: 0;
+}
+
+.thread img
+{
+    width: 32px;
+    clip-path: circle();
 }

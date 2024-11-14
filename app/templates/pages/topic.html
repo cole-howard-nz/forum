@@ -14,7 +14,7 @@
         <p>{{ topic._description }}</p>
     </div>
     
-    <div id="table">
+    {% if threads|length > 10 %}
         <div id="wrapper">
             <div id="pagination">
                 <div>&lt;</div>
@@ -27,7 +27,9 @@
             </div>
             <div id="filter">sort</div>
         </div>
+    {% endif %}
         
+    <div id="table">
         <div id="forum">
             {% for thread in threads %}
                 <div class="thread">
@@ -52,6 +54,7 @@
             {% endfor %}
         </div>
 
+    {% if threads|length > 10 %}
         <div id="wrapper">
             <div id="pagination">
                 <div>&lt;</div>
@@ -64,6 +67,8 @@
             </div>
             <div id="filter">sort</div>
         </div>
+    {% endif %}
+    
     </div>
 </div>
 

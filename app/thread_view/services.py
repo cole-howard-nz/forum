@@ -11,12 +11,12 @@ from typing import List
 from datetime import datetime
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Length
 
 
 class CommentForm(FlaskForm):
-    message = StringField('comment', [
+    message = TextAreaField('comment', [
         DataRequired(),
         Length(min=2)],
                             
@@ -26,7 +26,12 @@ class CommentForm(FlaskForm):
 
 
 def get_comments_for_thread(thread_id, repo: AbstractRepository):
-    return repo.get_comments_for_thread(thread_id)
+    comments = repo.get_comments_for_thread(thread_id)
+    
+    for comment in comments:
+        comment.format_time_created = utils.date_time_formatter(comment.time_created)
+        
+    return comments
 
 def get_thread_by_id(thread_id, repo: AbstractRepository):
     thread = repo.get_thread_by_id(thread_id)
@@ -40,5 +45,9 @@ def get_user(username: str, repo: AbstractRepository):
 def add_comment_to_thread(form, owner, thread, repo: AbstractRepository):
     time = datetime.now().strftime('%B %d, %Y').replace(' 0', ' ').lower()
     comment = model.Comment(owner, time, form.data['message'], thread)
-    
     repo.add_comment_to_thread(comment, thread)
+    return comment
+    
+    
+def delete_comment(comment_id, repo: AbstractRepository):
+    repo.delete_comment(comment_id)

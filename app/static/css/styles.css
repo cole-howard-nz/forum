@@ -111,6 +111,8 @@ main
     width: 75%;
     margin-left: auto;
     margin-right: auto;
+
+    position: relative;
 }
 
 
@@ -604,7 +606,7 @@ footer #footer-cred
 
 #messageBar #alert
 {
-    width: 75%;
+    width: 98%;
     margin: auto;
 }
 

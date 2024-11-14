@@ -74,6 +74,10 @@ class AbstractRepository(abc.ABC):
     def get_comments_for_thread(self, thread_id: int) -> List[Comment]:
         raise NotImplementedError
     
+    @abc.abstractmethod
+    def delete_comment(self, comment_id: int):
+        raise NotImplementedError
+    
     
     
     @abc.abstractmethod

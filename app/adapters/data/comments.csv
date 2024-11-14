@@ -1,6 +1,1 @@
 id,owner_id,time_created,content,thread,comment
-1,1,2024-11-01 17:52:35,Test Comment 1,1,
-2,2,2024-11-01 17:52:35,Test Comment 2,1,
-3,2,2024-11-01 17:52:35,Test Comment 3,2,
-4,4,2024-11-01 17:52:35,Test Comment 4,3,
-5,5,2024-11-01 17:52:35,Test Comment 5,4,

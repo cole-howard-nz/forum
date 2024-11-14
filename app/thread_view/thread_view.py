@@ -1,6 +1,6 @@
 ''' Topic view layer '''
 
-from flask import Blueprint, render_template, redirect, url_for, session
+from flask import Blueprint, render_template, redirect, url_for, flash, session
 
 from app.thread_view import services
 from app.adapters import repository
@@ -41,9 +41,18 @@ def post_comment(topic: str, thread_id: str):
 
     if form.validate_on_submit():
         owner = services.get_user(session['username'], repo)
-        
         services.add_comment_to_thread(form, owner, thread, repo)
+        flash(f'successfully posted comment', 'success')
                 
-        return redirect(url_for('thread_view.view', topic=topic, thread_id=thread_id) + '#thread-comment-ui')
+        return redirect(url_for('thread_view.view', topic=topic, thread_id=thread_id, posted=True) + '#thread-comment-ui')
     
     return redirect(url_for('thread_view.view', topic=topic, thread_id=thread_id))
+
+@thread_view_blueprint.route('/<string:topic>/<int:thread_id>/cmt_del=<int:comment_id>', methods=['GET'])
+@auth_required
+def delete_comment(topic: str, thread_id: int, comment_id: int):
+    services.delete_comment(comment_id, repo)
+    flash(f'successfully deleted comment', 'success')
+    
+    return redirect(url_for('thread_view.view', topic=topic, thread_id=thread_id))
+    

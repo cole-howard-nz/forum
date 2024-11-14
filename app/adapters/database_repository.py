@@ -172,6 +172,14 @@ class SqlAlchemyRepository(AbstractRepository):
             pass
 
         return comments  
+    
+    def delete_comment(self, comment_id: int):
+        try:
+            self._session_cm.session.query(Comment).filter(Comment.id == comment_id).delete()
+            self._session_cm.session.commit()
+            print('deleted', comment_id)
+        except NoResultFound:
+            pass
     # End of comment methods
       
       
