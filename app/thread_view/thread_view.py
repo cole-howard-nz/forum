@@ -1,6 +1,6 @@
 ''' Topic view layer '''
 
-from flask import Blueprint, render_template, redirect, url_for, flash, session
+from flask import Blueprint, render_template, redirect, url_for, flash, request, session
 
 from app.thread_view import services
 from app.adapters import repository
@@ -22,11 +22,10 @@ def view(topic: str, thread_id: str):
     
     if 'username' in session:
         user = services.get_user(session['username'], repo)
-        
         return( render_template('/pages/thread.html',
                         user=user,
-                        topic=topic,
                         form=form,
+                        topic=topic,
                         thread=thread,
                         comments=comments,
                         layout='thread') )
@@ -42,9 +41,10 @@ def post_comment(topic: str, thread_id: str):
     if form.validate_on_submit():
         owner = services.get_user(session['username'], repo)
         services.add_comment_to_thread(form, owner, thread, repo)
+        flash('true', 'posted')
         flash(f'successfully posted comment', 'success')
                 
-        return redirect(url_for('thread_view.view', topic=topic, thread_id=thread_id, posted=True) + '#thread-comment-ui')
+        return redirect(url_for('thread_view.view', topic=topic, thread_id=thread_id) + '#thread-comment-ui')
     
     return redirect(url_for('thread_view.view', topic=topic, thread_id=thread_id))
 

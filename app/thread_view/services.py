@@ -5,6 +5,7 @@ import app.domain_model.model as model
 
 from app import utils
 from app.utils import ShoutboxMessage
+from app.domain_model.model import User
 from app.adapters.repository import AbstractRepository
 
 from typing import List
@@ -42,10 +43,12 @@ def get_thread_by_id(thread_id, repo: AbstractRepository):
 def get_user(username: str, repo: AbstractRepository):
     return utils.get_user(username, repo)
 
-def add_comment_to_thread(form, owner, thread, repo: AbstractRepository):
+def add_comment_to_thread(form, owner: User, thread, repo: AbstractRepository):
     time = datetime.now().strftime('%B %d, %Y').replace(' 0', ' ').lower()
     comment = model.Comment(owner, time, form.data['message'], thread)
     repo.add_comment_to_thread(comment, thread)
+    
+    owner.add_comment(comment)
     return comment
     
     

@@ -232,10 +232,11 @@ class Topic:
                 
 
 class User:
-    def __init__(self, username: str, password: str, time_created: str):
+    def __init__(self, username: str, password: str, time_created: str, signature = None):
         self._username = username
         self._password = password
         self._time_created = time_created
+        self._signature = signature
         self._threads = []
         self._comments = []
 
@@ -258,6 +259,14 @@ class User:
     @property
     def time_created(self) -> str:
         return self._time_created
+    
+    @property
+    def signature(self) -> str:
+        return self._signature
+    
+    @signature.setter
+    def signature(self, new_signature: str):
+        self._signature = new_signature
 
     @property
     def threads(self) -> List['Thread']:

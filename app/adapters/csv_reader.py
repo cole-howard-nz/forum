@@ -27,7 +27,8 @@ def load_users(data_path: Path, repo: AbstractRepository):
         user = User(
             username=data_row[1],
             password=generate_password_hash(data_row[2]),
-            time_created=utils.date_time_formatter(data_row[3]))
+            time_created=utils.date_time_formatter(data_row[3]),
+            signature=data_row[4])
         
         repo.add_user(user)
         users[data_row[0]] = user

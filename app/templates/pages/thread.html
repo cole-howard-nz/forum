@@ -50,8 +50,8 @@
                     <p><span class="admin">admin</span></p>
                     <img src="../../../static/imgs/cole_pfp.jpg" alt="">
                 
-                    <p id="small">8 threads</p>
-                    <p id="small">3 comments</p>
+                    <p id="small">{{ thread.owner.threads|length }} {{ 'thread' if thread.owner.threads|length == 1 else 'threads' }}</p>
+                        <p id="small">{{ thread.owner.comments|length }} {{ 'comment' if thread.owner.comments|length == 1 else 'comments' }}</p>
                 </div>
             </div>
             <div class="content">
@@ -60,7 +60,7 @@
             </div>
         </div>
         <div class="signature">
-            big whales and stuzz
+            <p>{{ thread.owner.signature }}</p>
         </div>
     </div>
 
@@ -82,16 +82,17 @@
 
     <!-- Jinja is so retarded, or maybe I am. its probably both tbh -->
     {% for comment in comments %}
-        {% if loop.last %}
-            {% if posted %}
-                <div class="header header-last">
+        {% with posted = get_flashed_messages(category_filter=["posted"]) %}
+            {% if loop.last %}
+                {% if posted %}  
+                    <div class="header header-last">
+                {% else %}
+                    <div class="header">
+                {% endif %}
             {% else %}
                 <div class="header">
             {% endif %}
-        {% else %}
-            <div class="header">
-        {% endif %}
-
+        {% endwith %}
 
             {% if comment._owner == user %}
                 <div id="owner-controls">
@@ -112,8 +113,8 @@
                         <p><span class="admin">admin</span></p>
                         <img src="../../../static/imgs/cole_pfp.jpg" alt="">
                     
-                        <p id="small">8 threads</p>
-                        <p id="small">3 comments</p>
+                        <p id="small">{{ comment.owner.threads|length }} {{ 'thread' if comment.owner.threads|length == 1 else 'threads' }}</p>
+                        <p id="small">{{ comment.owner.comments|length }} {{ 'comment' if comment.owner.comments|length == 1 else 'comments' }}</p>
                     </div>
                 </div>
 
@@ -124,7 +125,7 @@
             </div>
 
             <div class="signature">
-                big whales and stuzz
+                <p>{{ comment.owner.signature }}</p>
             </div>
         </div>
     {% endfor %}

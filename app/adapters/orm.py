@@ -10,6 +10,7 @@ users_table = Table( 'users', metadata,
                     Column('id', Integer, primary_key=True, autoincrement=True),
                     Column('username', String(127), unique=True, nullable=False),
                     Column('password', String(127), nullable=False),
+                    Column('signature', String(127), nullable=True),
                     Column('time_created', String(127), nullable=False))
 
 threads_table = Table( 'threads', metadata,
@@ -70,6 +71,7 @@ def map_model_to_tables():
         '_username': users_table.c.username,
         '_password': users_table.c.password,
         '_time_created': users_table.c.time_created,
+        '_signature': users_table.c.signature,
         '_superuser': relationship(SuperUser, uselist=False, back_populates='_user')})
 
     mapper(SuperUser, superusers_table, properties={

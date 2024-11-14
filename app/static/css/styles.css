@@ -585,11 +585,11 @@ footer #footer-cred
 #messageBar
 {
     /* Different colours for message bar */
-    background: rgb(255, 75, 75);        
+    /* background: rgb(255, 75, 75);         */
     /* background: rgb(75, 175, 255); */
     /* background: rgb(75, 204, 255); */
     /* background: rgb(111, 255, 75); */
-    /* background: rgb(255, 177, 75); */
+    background: rgb(247, 151, 26);
     color: whitesmoke;
     margin: 0;
     padding: 4px;
