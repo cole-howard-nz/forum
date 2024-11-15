@@ -8,7 +8,12 @@
     z-index: 3;
 }
 
-
+#topic .header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 #topic .header, #topic #wrapper
 {

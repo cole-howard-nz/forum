@@ -10,8 +10,14 @@
 
 <div id="topic">
     <div class="header">
-        <h3>{{ topic._title }}</h3>
-        <p>{{ topic._description }}</p>
+        <div>
+            <h3>{{ topic._title }}</h3>
+            <p>{{ topic._description }}</p>
+        </div>
+
+        <div id="thread-ui">
+            <a href="#thread-ui"><button id="comment">create a thread</button></a>
+        </div>
     </div>
     
     {% if threads|length > 10 %}
