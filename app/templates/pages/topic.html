@@ -16,33 +16,49 @@
         </div>
 
         <div id="thread-ui">
-            <a href="#thread-ui"><button id="comment">create a thread</button></a>
+            <button id="comment create-thread">create a thread</button>
         </div>
     </div>
     
-    {% if threads|length > 10 %}
-        <div id="wrapper">
-            <div id="pagination">
-                <div>&lt;</div>
-                <div>1</div>
-                <div>2</div>
-                <div>3</div>
-                <div>4</div>
-                <div>5</div>
-                <div>&gt;</div>
-            </div>
-            <div id="filter">sort</div>
+    <form method="POST" action="/" id='create-thread-form' style="display: none;">
+        <p id="header">create a thread</p>
+
+        <div>
+            <p>title</p>
+            <input type="text" id="topic-title">
+
+            <p>content</p>
+            <textarea id="topic-content"></textarea>
+
+            <button id="create-thread-button">create thread</button>
         </div>
-    {% endif %}
+    </form>
+
+    
         
     <div id="table">
+        {% if threads|length > 10 %}
+            <div id="wrapper">
+                <div id="pagination">
+                    <div>&lt;</div>
+                    <div>1</div>
+                    <div>2</div>
+                    <div>3</div>
+                    <div>4</div>
+                    <div>5</div>
+                    <div>&gt;</div>
+                </div>
+                <div id="filter">sort</div>
+            </div>
+        {% endif %}
+
         <div id="forum">
             {% for thread in threads %}
                 <div class="thread">
                     <a href="{{ url_for('thread_view.view', thread_id=thread.id, topic=topic._title) }}" style="text-decoration: none; color: black;">
                         <div class="information">
                             <p>{{ thread.title }}</p>
-                            <p>by <span class="{{ thread.owner.title }}">{{ thread.owner.username }}</span>, {{ thread.time_created }}</p>
+                            <p>by <span class="admin">{{ thread.owner.username }}</span>, {{ thread.time_created }}</p>
                         </div>
                     </a>
                     <div class="statistics">
