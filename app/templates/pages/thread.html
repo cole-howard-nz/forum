@@ -80,17 +80,17 @@
         </div>
     {% endif %}
 
-    <!-- Jinja is so retarded, or maybe I am. its probably both tbh -->
+    <!-- Jinja is so retarded, or maybe I am. its probably both -->
     {% for comment in comments %}
         {% with posted = get_flashed_messages(category_filter=["posted"]) %}
             {% if loop.last %}
                 {% if posted %}  
-                    <div class="header header-last">
+                    <div id="comment" class="header header-last">
                 {% else %}
-                    <div class="header">
+                    <div id="comment" class="header">
                 {% endif %}
             {% else %}
-                <div class="header">
+                <div id="comment" class="header">
             {% endif %}
         {% endwith %}
 
