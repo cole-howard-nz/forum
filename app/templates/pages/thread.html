@@ -55,8 +55,8 @@
                 </div>
             </div>
             <div class="content">
+                <p>posted {{ thread.format_time_created }}</p>
                 <p>this post is stupid XDD</p>
-                <p>{{ thread.format_time_created }}</p>
             </div>
         </div>
         <div class="signature">
@@ -108,7 +108,7 @@
 
                 <div class="content">
                     <div id="controls">
-                        <p>{{ comment.format_time_created }} <span id="editted">{{ '(editted)' if comment.editted == 1 }}</span></p>
+                        <p>posted {{ comment.format_time_created }} <span id="editted">{{ '(editted)' if comment.editted == 1 }}</span></p>
                         {% if comment._owner == user %}
                             <div id="owner-controls">
                                 <a>

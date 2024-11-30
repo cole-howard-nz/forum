@@ -177,7 +177,6 @@ class SqlAlchemyRepository(AbstractRepository):
         try:
             self._session_cm.session.query(Comment).filter(Comment.id == comment_id).delete()
             self._session_cm.session.commit()
-            print('deleted', comment_id)
         except NoResultFound:
             pass
         

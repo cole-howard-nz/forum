@@ -23,9 +23,6 @@ def view(topic: str, thread_id: str):
     if 'username' in session:
         user = services.get_user(session['username'], repo)
         
-        for comment in comments:
-            print('editted', comment.editted)
-        
         return( render_template('/pages/thread.html',
                         user=user,
                         form=form,
@@ -69,6 +66,8 @@ def edit_comment(topic: str, thread_id: int, comment_id: int):
     
     if form.validate_on_submit():
         services.edit_comment(form, comment_id, repo)
+        
+        flash('true', 'posted')
         flash(f'successfully editted comment', 'success')
     
     return redirect(url_for('thread_view.view', topic=topic, thread_id=thread_id))

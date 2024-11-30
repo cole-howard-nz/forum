@@ -151,9 +151,7 @@
 
 #thread .header #post-grid .content p:last-of-type
 {
-    font-size: 12px;
     margin: 0;
-    margin-top: auto;
 }
 
 #thread .header #post-grid .content p:first-of-type
@@ -190,8 +188,8 @@
 
 #thread .header-last
 {
-    box-shadow: 0 0 6px goldenrod;
-    border: 1px solid goldenrod;
+    transform: scale(1.01);
+    box-shadow: 0 1px 5px #ababab;
 }
 
 #pagination
