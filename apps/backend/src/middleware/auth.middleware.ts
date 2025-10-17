@@ -8,15 +8,14 @@ const isAuthenticated = async (req: Request, res: Response, func: NextFunction) 
       headers: req.headers as Record<string, string>
     })
 
-    if (!session || !session.user ) return res.status(401).json({ message: 'Not Authenticated' })
+    if (!session || !session.user ) return res.status(401).json({ message: 'No user in sesion' })
 
     // Attach the user in session to all requests using this middleware function
     req.sessionUser = session.user
     func()
     
   } catch (error) {
-    console.error(error)
-    return res.status(401).json({ message: 'Not Authenticated'})
+    return res.status(401).json({ message: 'Unexpected error', error })
   }
 }
 
