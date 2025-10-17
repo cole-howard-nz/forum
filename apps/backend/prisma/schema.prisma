@@ -64,9 +64,10 @@ model User {
   sessions      Session[]
   accounts      Account[]
 
-  // Custom fields
+  // Custom attributes
   posts         Post[]
   comments      Comment[]
+  votes         Vote[]
 
   @@unique([email])
   @@map("user")
@@ -84,40 +85,93 @@ model Group {
   
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @default(now()) @updatedAt
+
+  categories  Category[]
 }
 
 model Category {
   id          String    @id
+  groupId     String
   
   name        String
   description String?
 
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @default(now()) @updatedAt
+
+  group       Group?    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  posts       Post[]
 }
 
 model Post {
   id          String    @id
   userId      String
+  categoryId  String
 
-  name        String
-  description String?
+  title       String
+  content     String?   @db.Text
+
+  isPinned    Boolean   @default(false) 
+  isLocked    Boolean   @default(false)
+  viewCount   Int       @default(0)
 
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @default(now()) @updatedAt
 
   creator     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  comments    Comment[]
+  votes       Vote[]
+
+  @@index([userId])
+  @@index([createdAt])
+  @@index([categoryId])
+
 }
 
 model Comment {
   id          String    @id
   userId      String
+  postId      String    
+  parentId    String?   // Nested replies
 
-  name        String
-  description String?
+  content     String    @db.Text
 
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @default(now()) @updatedAt
 
   creator     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post        Post      @relation(fields: [postId], references: [id], onDelete: Cascade) 
+  parent      Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade) 
+  replies     Comment[] @relation("CommentReplies") 
+  votes       Vote[]
+
+  @@index([userId])
+  @@index([postId])
+  @@index([parentId])
+}
+
+enum VoteEnum {
+  LIKE
+  DISLIKE
+}
+
+model Vote {
+  id          String    @id @default(cuid())
+  userId      String
+  postId      String?
+  commentId   String?
+  type        VoteEnum
+  
+  createdAt   DateTime  @default(now())
+  
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post        Post?     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  comment     Comment?  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId])    // One vote, per user, per post
+  @@unique([userId, commentId]) // One vote, per user, per comment
+  @@index([postId])
+  @@index([commentId])
+  @@map("vote")
 }
