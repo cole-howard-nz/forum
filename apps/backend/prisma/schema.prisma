@@ -8,31 +8,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id            String    @id
-  name          String
-  email         String
-  emailVerified Boolean   @default(false)
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
-  sessions      Session[]
-  accounts      Account[]
-
-  @@unique([email])
-  @@map("user")
-}
-
 model Session {
-  id        String   @id
+  id        String        @id
   expiresAt DateTime
   token     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
   ipAddress String?
   userAgent String?
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([token])
   @@map("session")
@@ -58,12 +43,81 @@ model Account {
 }
 
 model Verification {
-  id         String   @id
+  id         String       @id
   identifier String
   value      String
   expiresAt  DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now()) @updatedAt
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @default(now()) @updatedAt
 
   @@map("verification")
+}
+
+model User {
+  id            String    @id
+  name          String
+  email         String
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  // Custom fields
+  posts         Post[]
+  comments      Comment[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+/*
+ *   Custom models
+ */
+
+model Group {
+  id          String    @id
+  
+  name        String
+  description String?
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+}
+
+model Category {
+  id          String    @id
+  
+  name        String
+  description String?
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+}
+
+model Post {
+  id          String    @id
+  userId      String
+
+  name        String
+  description String?
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+
+  creator     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Comment {
+  id          String    @id
+  userId      String
+
+  name        String
+  description String?
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+
+  creator     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
