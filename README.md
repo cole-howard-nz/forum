@@ -1,4 +1,11 @@
 # forum
 Community forum full stack web application
 
-TBC
+Temp Info Dump
+
+
+Migration Steps
+```bash
+npm run generate
+npm run migrate
+```
