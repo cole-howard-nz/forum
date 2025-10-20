@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express"
+import prisma from "../utils/prisma"
 
 const isRole = (allowedRoleIds: number | number[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -23,15 +24,28 @@ const isRole = (allowedRoleIds: number | number[]) => {
   }
 }
 
-const hasPermission = (req: Request, res: Response, func: NextFunction) => {
-  try {
+const hasPermission = (node: string) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userRoleId = req.sessionUser?.roleId
+      
+      if (!userRoleId)
+        return res.status(401).json({ msg: "Not Authorised" })
 
-    
+      const role = await prisma.role.findUnique({
+        where: { id: userRoleId },
+        include: { permissions: true }
+      })
 
-    func()
+      role?.permissions.forEach(permission => { 
+        if (permission.node === node) return next() 
+      })
 
-  } catch (error) {
-    return res.status(401).json({ msg: "Not Authorisied", error })
+      return res.status(403).json({ msg: "Insufficient permissions" })
+
+    } catch (error) {
+      return res.status(500).json({ msg: "Not Authorised", error })
+    }
   }
 }
 
