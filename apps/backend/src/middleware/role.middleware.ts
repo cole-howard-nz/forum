@@ -37,9 +37,13 @@ const hasPermission = (allowedNodes: string | string[]) => {
         include: { permissions: true }
       })
 
+      if (!role)
+        return res.status(401).json({ msg: "Not Authorised" })
+
       const nodes = Array.isArray(allowedNodes) ? allowedNodes : [allowedNodes]
 
-      const userHasPermission: boolean = role?.permissions.some(permission => nodes.includes(permission.node)) || false
+      // True if user has 'root' permission or any of the required permissions specified in allowedNodes
+      const userHasPermission: boolean = role.permissions.some(permission => permission.node === 'root' || nodes.includes(permission.node)) ?? false
 
       if (userHasPermission) return next()
 

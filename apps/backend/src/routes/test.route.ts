@@ -8,6 +8,6 @@ const router = Router()
 
 router.use(isAuthenticated)
 
-router.get('/', hasPermission(["ban-user", "*"]), TestController)
+router.get('/', hasPermission(["test-permission", "perm-issi-on"]), TestController)
 
 export default router
