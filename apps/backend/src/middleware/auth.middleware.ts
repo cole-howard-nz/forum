@@ -9,7 +9,7 @@ const isAuthenticated = async (req: Request, res: Response, func: NextFunction) 
       headers: req.headers as Record<string, string>
     })
 
-    if (!session || !session.user ) return res.status(401).json({ message: 'Not Authenticated' })
+    if (!session || !session.user ) return res.status(401).json({ message: 'No user in sesion' })
 
     const user = await prisma.user.findUnique({
       where: { id: session.user.id }
@@ -24,8 +24,7 @@ const isAuthenticated = async (req: Request, res: Response, func: NextFunction) 
     func()
     
   } catch (error) {
-    console.error(error)
-    return res.status(401).json({ message: 'Not Authenticated'})
+    return res.status(401).json({ message: 'Unexpected error', error })
   }
 }
 
