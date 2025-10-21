@@ -24,7 +24,7 @@ const isRole = (allowedRoleIds: number | number[]) => {
   }
 }
 
-const hasPermission = (node: string) => {
+const hasPermission = (allowedNodes: string | string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userRoleId = req.sessionUser?.roleId
@@ -37,9 +37,11 @@ const hasPermission = (node: string) => {
         include: { permissions: true }
       })
 
-      role?.permissions.forEach(permission => { 
-        if (permission.node === node) return next() 
-      })
+      const nodes = Array.isArray(allowedNodes) ? allowedNodes : [allowedNodes]
+
+      const userHasPermission: boolean = role?.permissions.some(permission => nodes.includes(permission.node)) || false
+
+      if (userHasPermission) return next()
 
       return res.status(403).json({ msg: "Insufficient permissions" })
 
