@@ -3,7 +3,7 @@
  */
 
 import { toNodeHandler } from "better-auth/node"
-import TestRoutes from "./routes/test.route"
+import ProfileRoutes from "./routes/profile.route"
 import auth from "./utils/auth"
 import express from "express"
 import cors from "cors"
@@ -24,6 +24,6 @@ APP.all("/api/auth/*splat", toNodeHandler(auth))
 
 
 // Routes
-APP.use("/api/test", TestRoutes)
+APP.use("/api/profile", ProfileRoutes)
 
 export default APP
