@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express"
 import prisma from "../utils/prisma"
+import { PERMISSIONS } from "../constants/permissions"
 
 const isRole = (allowedRoleIds: number | number[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -42,8 +43,10 @@ const hasPermission = (allowedNodes: string | string[]) => {
 
       const nodes = Array.isArray(allowedNodes) ? allowedNodes : [allowedNodes]
 
-      // True if user has 'root' permission or any of the required permissions specified in allowedNodes
-      const userHasPermission: boolean = role.permissions.some(permission => permission.node === 'root' || nodes.includes(permission.node)) ?? false
+      // True if user has 'root' permission or any of the required permissions
+      const userHasPermission: boolean = role.permissions.some(
+        permission => permission.node === PERMISSIONS.ROOT || nodes.includes(permission.node)
+      ) ?? false
 
       if (userHasPermission) return next()
 
@@ -55,4 +58,23 @@ const hasPermission = (allowedNodes: string | string[]) => {
   }
 }
 
-export { isRole, hasPermission }
+const checkUserPermission = async (userId: string, requiredNodes: string | string[]): Promise<boolean> => {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    include: {
+      role: {
+        include: { permissions: true }
+      }
+    }
+  })
+
+  if (!user?.role) return false
+
+  const nodes = Array.isArray(requiredNodes) ? requiredNodes : [requiredNodes]
+
+  return user.role.permissions.some(
+    permission => permission.node === PERMISSIONS.ROOT || nodes.includes(permission.node)
+  )
+}
+
+export { isRole, hasPermission, checkUserPermission, PERMISSIONS }
