@@ -1,25 +1,10 @@
 import { Request, Response } from "express"
 import prisma from "../utils/prisma"
 import auth from "../utils/auth"
-import { Prisma } from "@prisma/client";
-import { checkUserPermission, PERMISSIONS } from "../middleware/role.middleware";
+import { Prisma } from "@prisma/client"
+import { checkUserPermission, PERMISSIONS } from "../utils/role"
+import { PermissionNode } from "../constants/permissions"
 
-// DELETE profile for session user / userId
-
-const isOwnProfile = (sessionUserId: string | undefined, targetUserId: string): boolean => {
-  return sessionUserId === targetUserId
-}
-
-const getUserIdFromRequest = async (req: Request): Promise<string | null> => {
-  const { userId } = req.params
-  
-  if (userId && userId !== 'all') {
-    return userId
-  }
-  
-  const session = await auth.api.getSession({ headers: req.headers as Record<string, string> })
-  return session?.user?.id || null
-}
 
 const getAllProfiles = async (_: Request, res: Response) => {
   try {
@@ -78,15 +63,8 @@ const createProfile = async (req: Request, res: Response) => {
 
     // Check if creating profile for other user and sesson user has permission
     const sessionUserId = req.sessionUser?.id
-    if (!isOwnProfile(sessionUserId, targetUserId)) {
-      const hasPermission = await checkUserPermission(
-        sessionUserId || '', 
-        PERMISSIONS.PROFILE.MODIFY_OTHERS
-      )
-
-      if (!hasPermission) {
-        return res.status(403).json({ msg: "Insufficient permissions to create profile for other users" })
-      }
+    if (!isOwnProfile(sessionUserId, targetUserId) && !await userHasPermission(sessionUserId, PERMISSIONS.PROFILE.MODIFY_OTHERS)) {
+      return res.status(403).json({ msg: "Insufficient permission to create other users' profiles" })
     }
 
     // Check if profile already exists
@@ -133,15 +111,8 @@ const editProfile = async (req: Request, res: Response) => {
 
     // Check permission for edit profile
     const sessionUserId = req.sessionUser?.id
-    if (!isOwnProfile(sessionUserId, targetUserId)) {
-      const hasPermission = await checkUserPermission(
-        sessionUserId || '', 
-        PERMISSIONS.PROFILE.MODIFY_OTHERS
-      )
-
-      if (!hasPermission) {
-        return res.status(403).json({ msg: "Insufficient permissions to edit other users' profiles" })
-      }
+    if (!isOwnProfile(sessionUserId, targetUserId) && !await userHasPermission(sessionUserId, PERMISSIONS.PROFILE.MODIFY_OTHERS)) {
+      return res.status(403).json({ msg: "Insufficient permission to modify other users' profiles" })
     }
 
     // Build update data from schema
@@ -184,15 +155,8 @@ const deleteProfile = async (req: Request, res: Response) => {
 
     // Check permission for delete other profile
     const sessionUserId = req.sessionUser?.id
-    if (!isOwnProfile(sessionUserId, targetUserId)) {
-      const hasPermission = await checkUserPermission(
-        sessionUserId || '', 
-        PERMISSIONS.PROFILE.DELETE_OTHERS
-      )
-
-      if (!hasPermission) {
-        return res.status(403).json({ msg: "Insufficient permissions to delete other users' profiles" })
-      }
+    if (!isOwnProfile(sessionUserId, targetUserId) && !await userHasPermission(sessionUserId, PERMISSIONS.PROFILE.DELETE_OTHERS)) {
+      return res.status(403).json({ msg: "Insufficient permission to modify other users' profiles" })
     }
 
     const profile = await prisma.profile.findUnique({ where: { userId: targetUserId }})
@@ -206,6 +170,35 @@ const deleteProfile = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(500).json({ msg: "Unexpected error in deleteProfile", error })
   }
+}
+
+/*
+ *   Specific helper and utilities
+ */
+
+const isOwnProfile = (sessionUserId: string | undefined, targetUserId: string): boolean => {
+  return sessionUserId === targetUserId
+}
+
+const userHasPermission = async (userId: string | undefined, node: PermissionNode): Promise<boolean> => {
+  const hasPermission = await checkUserPermission(userId || '', node)
+
+  if (!hasPermission) {
+    return false
+  }
+
+  return true
+}
+
+const getUserIdFromRequest = async (req: Request): Promise<string | null> => {
+  const { userId } = req.params
+  
+  if (userId && userId !== 'all') {
+    return userId
+  }
+  
+  const session = await auth.api.getSession({ headers: req.headers as Record<string, string> })
+  return session?.user?.id || null
 }
 
 export { getAllProfiles, getProfile, createProfile, editProfile, deleteProfile }

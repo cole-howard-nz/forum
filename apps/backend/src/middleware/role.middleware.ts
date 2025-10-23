@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express"
 import prisma from "../utils/prisma"
-import { PERMISSIONS } from "../constants/permissions"
+import { PermissionNode, PERMISSIONS } from "../constants/permissions"
 
 const isRole = (allowedRoleIds: number | number[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -25,7 +25,7 @@ const isRole = (allowedRoleIds: number | number[]) => {
   }
 }
 
-const hasPermission = (allowedNodes: string | string[]) => {
+const hasPermission = (allowedNodes: PermissionNode | PermissionNode[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userRoleId = req.sessionUser?.roleId
@@ -58,23 +58,6 @@ const hasPermission = (allowedNodes: string | string[]) => {
   }
 }
 
-const checkUserPermission = async (userId: string, requiredNodes: string | string[]): Promise<boolean> => {
-  const user = await prisma.user.findUnique({
-    where: { id: userId },
-    include: {
-      role: {
-        include: { permissions: true }
-      }
-    }
-  })
 
-  if (!user?.role) return false
 
-  const nodes = Array.isArray(requiredNodes) ? requiredNodes : [requiredNodes]
-
-  return user.role.permissions.some(
-    permission => permission.node === PERMISSIONS.ROOT || nodes.includes(permission.node)
-  )
-}
-
-export { isRole, hasPermission, checkUserPermission, PERMISSIONS }
+export { isRole, hasPermission }
