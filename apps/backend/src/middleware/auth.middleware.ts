@@ -28,4 +28,4 @@ const isAuthenticated = async (req: Request, res: Response, func: NextFunction) 
   }
 }
 
-export default isAuthenticated
+export { isAuthenticated }

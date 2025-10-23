@@ -55,8 +55,8 @@ model Verification {
 
 model User {
   id            String    @id
-  name          String
-  email         String
+  name          String    @unique
+  email         String    
   emailVerified Boolean   @default(false)
   image         String?
   createdAt     DateTime  @default(now())
