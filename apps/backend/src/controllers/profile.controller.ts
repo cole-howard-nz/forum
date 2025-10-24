@@ -1,8 +1,8 @@
 import { Request, Response } from "express"
 import prisma from "../utils/prisma"
-import auth from "../utils/auth"
+import auth, { getUserIdFromRequest } from "../utils/auth"
 import { Prisma } from "@prisma/client"
-import { checkUserPermission, PERMISSIONS } from "../utils/role"
+import { checkUserPermission, PERMISSIONS, userHasPermission } from "../utils/role"
 import { PermissionNode } from "../constants/permissions"
 
 
@@ -25,7 +25,7 @@ const getProfile = async (req: Request, res: Response) => {
 
     // Handle ALL case
     if (userId === 'all') {
-      return getAllProfiles(req, res)
+      return await getAllProfiles(req, res)
     }
 
     // Get userId from params or session
@@ -178,27 +178,6 @@ const deleteProfile = async (req: Request, res: Response) => {
 
 const isOwnProfile = (sessionUserId: string | undefined, targetUserId: string): boolean => {
   return sessionUserId === targetUserId
-}
-
-const userHasPermission = async (userId: string | undefined, node: PermissionNode): Promise<boolean> => {
-  const hasPermission = await checkUserPermission(userId || '', node)
-
-  if (!hasPermission) {
-    return false
-  }
-
-  return true
-}
-
-const getUserIdFromRequest = async (req: Request): Promise<string | null> => {
-  const { userId } = req.params
-  
-  if (userId && userId !== 'all') {
-    return userId
-  }
-  
-  const session = await auth.api.getSession({ headers: req.headers as Record<string, string> })
-  return session?.user?.id || null
 }
 
 export { getAllProfiles, getProfile, createProfile, editProfile, deleteProfile }

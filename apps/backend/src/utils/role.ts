@@ -14,4 +14,14 @@ const checkUserPermission = async (userId: string, requiredNodes: PermissionNode
   return user.role.permissions.some(permission => permission.node === PERMISSIONS.ROOT || nodes.includes(permission.node))
 }
 
-export { checkUserPermission, PERMISSIONS }
+const userHasPermission = async (userId: string | undefined, node: PermissionNode): Promise<boolean> => {
+  const hasPermission = await checkUserPermission(userId || '', node)
+
+  if (!hasPermission) {
+    return false
+  }
+
+  return true
+}
+
+export { checkUserPermission, userHasPermission, PERMISSIONS }

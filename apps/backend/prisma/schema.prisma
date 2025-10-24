@@ -85,7 +85,7 @@ model User {
  */
 
 model Role {
-  id          String        @id
+  id          String        @id @default(cuid())
   
   name        String
   title       String
@@ -98,7 +98,7 @@ model Role {
 }
 
 model Permission {
-  id          String       @id
+  id          String       @id @default(cuid())
   
   node        String    
 
@@ -108,7 +108,7 @@ model Permission {
 }
 
 model Group {
-  id          String       @id
+  id          String       @id @default(cuid())
   
   name        String
   description String?
@@ -120,7 +120,7 @@ model Group {
 }
 
 model Category {
-  id          String    @id
+  id          String    @id @default(cuid())
   groupId     String?
   
   name        String
@@ -134,7 +134,7 @@ model Category {
 }
 
 model Post {
-  id          String    @id
+  id          String    @id @default(cuid())
   userId      String
   categoryId  String
 
@@ -160,7 +160,7 @@ model Post {
 }
 
 model Comment {
-  id          String    @id
+  id          String    @id @default(cuid())
   userId      String
   postId      String    
   parentId    String?   // Nested replies
