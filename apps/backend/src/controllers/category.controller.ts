@@ -22,7 +22,7 @@ const getAllCategories = async (req: Request, res: Response) => {
 // Get category by id
 const getCategoryById = async (req: Request, res: Response) => {
   try {
-    const { categoryId } = req.body
+    const { categoryId } = req.params
 
     // If no id, send all categories
     if (!categoryId) {
@@ -44,7 +44,7 @@ const getCategoryById = async (req: Request, res: Response) => {
 // Get categories by group
 const getCategoryByGroupId = async (req: Request, res: Response) => {
   try {
-    const { groupId } = req.body
+    const { groupId } = req.params
 
     // If no id, send all categories
     if (!groupId) {
@@ -120,23 +120,78 @@ const createCategory = async (req: Request, res: Response) => {
 // Edit category (Permission)
 const editCategory = async (req: Request, res: Response) => {
   try {
-    const sessionUserId = await getUserIdFromRequest(req)
-    if (!sessionUserId || (sessionUserId && !await userHasPermission(sessionUserId, PERMISSIONS.CATEGORY.MODIFY))) {
-      return res.status(403).send({ msg: "Insufficient permission to modify a category" })
+    if (!req.body || Object.keys(req.body).length === 0) {
+      return res.status(400).json({ msg: "No category information supplied to update" })
     }
 
-    const { categoryId } = req.body
-
+    const { categoryId } = req.params
+    
     if (!categoryId) {
-      return res.status(400).send({ msg: "No categoryId supplied in request" })
+      return res.status(401).json({ msg: "No categoryId supplied" })
     }
+
+    // Check permission for edit category
+    const sessionUserId = req.sessionUser?.id
+    const hasPermission = await userHasPermission(sessionUserId, PERMISSIONS.CATEGORY.MODIFY)
+    
+    if (!hasPermission) {
+      return res.status(403).json({ msg: "Insufficient permission to modify categories" })
+    }
+
+    // Build update data from schema
+    const attributes = Object.keys(Prisma.CategoryScalarFieldEnum)
+    const ignored = ["id", "createdAt", "updatedAt"]
+
+    const data: any = {}
+    attributes.forEach(attributes => {
+      if (!ignored.includes(attributes) && req.body[attributes] !== undefined) {
+        data[attributes] = req.body[attributes]
+      }
+    })
+
+    if (Object.keys(data).length === 0) {
+      return res.status(400).json({ msg: "No valid fields provided for update" })
+    }
+
+    // Update category
+    const category = await prisma.category.update({ where: { id: categoryId }, data })
+
+    return res.status(200).json({ msg: `Edited category ${ category.name }`, category })
 
   } catch (error) {
-    res.status(500).send({ msg: "Unexpected error in editCategory", error })
+    return res.status(500).json({ msg: "Unexpected error in editCategory", error })
   }
 }
 
 // Delete category (Permission)
+const deleteCategory = async (req: Request, res: Response) => {
+  try {
+    const { categoryId } = req.params
+    
+    if (!categoryId) {
+      return res.status(401).json({ msg: "No categoryId supplied" })
+    }
+
+    // Check permission for delete category
+    const sessionUserId = req.sessionUser?.id
+    const hasPermission = await userHasPermission(sessionUserId, PERMISSIONS.CATEGORY.DELETE)
+    
+    if (!hasPermission) {
+      return res.status(403).json({ msg: "Insufficient permission to delete categories" })
+    }
+
+    const category = await prisma.category.findUnique({ where: { id: categoryId }})
+    if (!category) {
+      return res.status(401).json({ msg: "No category found with supplied categoryId" })
+    }
+
+    await prisma.category.delete({ where: { id: categoryId }})
+    return res.status(200).json({ msg: `Deleted category for categoryId: ${ categoryId }` })
+
+  } catch (error) {
+    return res.status(500).json({ msg: "Unexpected error in deleteCategory", error })
+  }
+}
 
 
-export { getAllCategories, getCategoryById, getCategoryByGroupId, createCategory, editCategory }
+export { getAllCategories, getCategoryById, getCategoryByGroupId, createCategory, editCategory, deleteCategory }
