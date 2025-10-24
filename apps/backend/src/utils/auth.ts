@@ -6,6 +6,7 @@ import { prismaAdapter } from "better-auth/adapters/prisma"
 import { betterAuth } from "better-auth"
 import prisma from "./prisma"
 import { FRONTEND_URL } from "../app"
+import { Request } from "express"
 
 // https://www.better-auth.com/docs/installation
 const auth = betterAuth({
@@ -35,7 +36,17 @@ const auth = betterAuth({
   ],
 })
 
-
+const getUserIdFromRequest = async (req: Request): Promise<string | null> => {
+  const { userId } = req.params
+  
+  if (userId && userId !== 'all') {
+    return userId
+  }
+  
+  const session = await auth.api.getSession({ headers: req.headers as Record<string, string> })
+  return session?.user?.id || null
+}
 
 export default auth
+export { getUserIdFromRequest }
 

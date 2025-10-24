@@ -2,8 +2,10 @@
  *   App instance
  */
 
-import { toNodeHandler } from "better-auth/node"
+import CategoryRoutes from "./routes/category.route"
 import ProfileRoutes from "./routes/profile.route"
+
+import { toNodeHandler } from "better-auth/node"
 import auth from "./utils/auth"
 import express from "express"
 import cors from "cors"
@@ -25,5 +27,6 @@ APP.all("/api/auth/*splat", toNodeHandler(auth))
 
 // Routes
 APP.use("/api/profile", ProfileRoutes)
+APP.use("/api/category", CategoryRoutes)
 
 export default APP
