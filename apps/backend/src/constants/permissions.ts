@@ -28,6 +28,13 @@ export const PERMISSIONS = {
     DELETE: 'role:delete',
     ASSIGN: 'role:assign',
   },
+
+  // Category permissions
+  CATEGORY: {
+    CREATE: 'category:create',
+    MODIFY: 'category:modify',
+    DELETE: 'category:delete',
+  },
   
 }
 
