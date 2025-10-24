@@ -84,6 +84,7 @@ model User {
  *   Custom models
  */
 
+// RBAC
 model Role {
   id          String        @id @default(cuid())
   
@@ -107,6 +108,8 @@ model Permission {
   roles        Role[]      @relation(name: "PermissionToRole")
 }
 
+
+// FORUM
 model Group {
   id          String       @id @default(cuid())
   

@@ -4,6 +4,7 @@
 
 import CategoryRoutes from "./routes/category.route"
 import ProfileRoutes from "./routes/profile.route"
+import GroupRoutes from "./routes/group.route"
 
 import { toNodeHandler } from "better-auth/node"
 import auth from "./utils/auth"
@@ -28,5 +29,6 @@ APP.all("/api/auth/*splat", toNodeHandler(auth))
 // Routes
 APP.use("/api/profile", ProfileRoutes)
 APP.use("/api/category", CategoryRoutes)
+APP.use("/api/group", GroupRoutes)
 
 export default APP
