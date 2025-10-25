@@ -35,6 +35,13 @@ export const PERMISSIONS = {
     MODIFY: 'category:modify',
     DELETE: 'category:delete',
   },
+
+  // Group permissions
+  GROUP: {
+    CREATE: 'group:create',
+    MODIFY: 'group:modify',
+    DELETE: 'group:delete',
+  },
   
 }
 
