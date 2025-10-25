@@ -117,7 +117,7 @@ const createGroup = async (req: Request, res: Response) => {
 
     const prismaCategoryAttributes = Object.keys(Prisma.GroupScalarFieldEnum)
     const ignoredAttributes = ["id", "createdAt", "updatedAt"]
-    const optionalAttributes = ["description"]
+    const optionalAttributes = ["description", "viewPermissionId", "postPermissionId"]
 
     // Get required attributes
     const requiredAttributes = prismaCategoryAttributes.filter( attr => !ignoredAttributes.includes(attr) && !optionalAttributes.includes(attr) )
