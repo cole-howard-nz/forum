@@ -172,4 +172,5 @@ const getMostViewedPosts = async (req: Request, res: Response) => {
 
 // getMostDownVotedPosts
 
+
 export { getAllPosts, getPostsByUser, getPostsByAlphabet, getHiddenPosts, getLockedPosts, getPinnedPosts, getMostViewedPosts }
