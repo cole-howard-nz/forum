@@ -1,9 +1,8 @@
 import { Request, Response } from "express"
 import prisma from "../utils/prisma"
-import auth, { getUserIdFromRequest } from "../utils/auth"
+import { getUserIdFromRequest } from "../utils/auth"
 import { Prisma } from "@prisma/client"
-import { checkUserPermission, PERMISSIONS, userHasPermission } from "../utils/role"
-import { PermissionNode } from "../constants/permissions"
+import { PERMISSIONS, userHasPermission } from "../utils/role"
 
 
 const getAllProfiles = async (_: Request, res: Response) => {
