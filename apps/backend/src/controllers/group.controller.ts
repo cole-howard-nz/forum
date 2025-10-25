@@ -40,6 +40,73 @@ const getGroupById = async (req: Request, res: Response) => {
   }
 }
 
+// Get groups by alphabetical sort on name
+const getGroupsByAlphabet = async (req: Request, res: Response) => {
+  try {
+    const { amount } = req.body
+
+    const limit = amount ? parseInt(amount, 10) : undefined
+
+    if (limit !== undefined && (isNaN(limit) || limit <= 0)) {
+      return res.status(400).send({ msg: "Invalid amount parameter" })
+    }
+
+    // Fetch groups sorted alphabetically by name
+    const groups = await prisma.group.findMany({
+      orderBy: { name: 'asc' },
+        include: { 
+          categories: { 
+            orderBy: { name: 'asc' } 
+          } 
+        },
+      ...(limit && { take: limit })
+    })
+
+    const message = limit ? `Sending ${ limit } groups sorted alphabetically` : "Sending all groups sorted alphabetically"
+    return res.status(200).send({ msg: message, groups })
+
+  } catch (error) {
+    return res.status(500).send({ msg: "Unexpected error in getGroupsByAttribute" })
+  }
+}
+
+// Get groups by number of posts
+const getGroupsByPosts = async (req: Request, res: Response) => {
+  try {
+    const { amount } = req.body
+
+    const limit = amount ? parseInt(amount, 10) : undefined
+
+    if (limit !== undefined && (isNaN(limit) || limit <= 0)) {
+      return res.status(400).send({ msg: "Invalid amount parameter" })
+    }
+
+    // Fetch groups sorted numerically by posts
+    const groups = await prisma.group.findMany({
+      include: { 
+        categories: { 
+          include: {
+            posts: true
+          }
+        } 
+      },
+    })
+
+    const groupsWithPostCount = groups.map(group => ({
+      ...group,
+        postCount: group.categories.reduce((total, category) => total + category.posts.length, 0)
+    })).sort((a, b) => b.postCount - a.postCount)
+
+    const result = limit ? groupsWithPostCount.slice(0, limit) : groupsWithPostCount
+
+    const message = limit ? `Sending ${ limit } groups sorted by post count` : "Sending all groups sorted alphabetically"
+    return res.status(200).send({ msg: message, groups: result })
+
+  } catch (error) {
+    return res.status(500).send({ msg: "Unexpected error in getGroupsByAttribute" })
+  }
+}
+
 // Create group (Permission)
 const createGroup = async (req: Request, res: Response) => {
   try {
@@ -164,4 +231,4 @@ const deleteGroup = async (req: Request, res: Response) => {
 }
 
 
-export { getAllGroups, getGroupById, createGroup, editGroup, deleteGroup }
+export { getAllGroups, getGroupById, getGroupsByAlphabet, getGroupsByPosts, createGroup, editGroup, deleteGroup }
