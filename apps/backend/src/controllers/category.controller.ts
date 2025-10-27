@@ -8,10 +8,28 @@ import { PERMISSIONS, userHasPermission } from "../utils/role"
 // Get all categories
 const getAllCategories = async (req: Request, res: Response) => {
   try {
-     const categories = await prisma.category.findMany()
-     if (!categories || !(categories.length > 1)) {
+    if (!req.sessionUser) {
+      return res.status(401).send({ msg: "Unauthorised" })
+    }
+
+    const { hasRoot, permissionIds } = await getUserPermissions(req.sessionUser.roleId!)
+
+    const categories = hasRoot
+      ? await prisma.category.findMany({ include: { group: true } })
+      : await prisma.category.findMany({
+          where: {
+            OR: [
+              { viewPermissionId: null },
+              { viewPermissionId: { in: permissionIds } }
+            ]
+          },
+          include: { group: true }
+        })
+
+    if (!categories || categories.length === 0) {
       return res.status(200).json({ msg: "No categories found" })
-     }
+    }
+
     return res.status(200).send({ msg: "Sending all categories", categories })
 
   } catch (error) {
@@ -29,7 +47,23 @@ const getCategoryById = async (req: Request, res: Response) => {
       return await getAllCategories(req, res)
     }
 
-    const category = await prisma.category.findUnique({ where: { id: categoryId }})
+    if (!req.sessionUser) {
+      return res.status(401).send({ msg: "Unauthorised" })
+    }
+
+    const { hasRoot, permissionIds } = await getUserPermissions(req.sessionUser.roleId!)
+
+    // Check if user can view this category
+    const canView = await canViewCategory(categoryId, permissionIds, hasRoot)
+    if (!canView) {
+      return res.status(403).send({ msg: "You don't have permission to view this category" })
+    }
+
+    const category = await prisma.category.findUnique({ 
+      where: { id: categoryId },
+      include: { group: true }
+    })
+
     if (!category) {
       return res.status(404).json({ msg: `Cannot find category with id: ${ categoryId }` })
     }
@@ -51,14 +85,41 @@ const getCategoryByGroupId = async (req: Request, res: Response) => {
       return await getAllCategories(req, res)
     }
 
+    if (!req.sessionUser) {
+      return res.status(401).send({ msg: "Unauthorised" })
+    }
+
+    const { hasRoot, permissionIds } = await getUserPermissions(req.sessionUser.roleId!)
+
+    // Check if user can view this group
+    const canViewGroupAccess = await canViewGroup(groupId, permissionIds, hasRoot)
+    if (!canViewGroupAccess) {
+      return res.status(403).send({ msg: "You don't have permission to view this group" })
+    }
+
     // Attempt to find group with id
-    const group = await prisma.group.findUnique({ where: { id: groupId }})
+    const group = await prisma.group.findUnique({ where: { id: groupId } })
     if (!group) {
       return res.status(404).json({ msg: `Cannot find group with id: ${ groupId }` })
     }
 
-    // Attempt to find categories within group
-    const categories = await prisma.category.findMany({ where: { groupId }})
+    // Attempt to find categories within group with permission filtering
+    const categories = hasRoot
+      ? await prisma.category.findMany({ 
+          where: { groupId },
+          include: { group: true }
+        })
+      : await prisma.category.findMany({ 
+          where: { 
+            groupId,
+            OR: [
+              { viewPermissionId: null },
+              { viewPermissionId: { in: permissionIds } }
+            ]
+          },
+          include: { group: true }
+        })
+
     if (!categories || categories.length === 0) {
       return res.status(200).json({ msg: "No categories found" })
     }
@@ -191,6 +252,55 @@ const deleteCategory = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(500).json({ msg: "Unexpected error in deleteCategory", error })
   }
+}
+
+const getUserPermissions = async (userId: string) => {
+  const sessionRole = await prisma.role.findUnique({ 
+    where: { id: userId }, 
+    include: { permissions: true }
+  })
+
+  let hasRoot = false
+  const permissionIds = sessionRole?.permissions.map(p => {
+    if (p.node === PERMISSIONS.ROOT) {
+      hasRoot = true
+    }
+    return p.id
+  }) || []
+
+  return { hasRoot, permissionIds }
+}
+
+const canViewCategory = async (categoryId: string, permissionIds: string[], hasRoot: boolean): Promise<boolean> => {
+  if (hasRoot) return true
+
+  const category = await prisma.category.findFirst({
+    where: {
+      id: categoryId,
+      OR: [
+        { viewPermissionId: null },
+        { viewPermissionId: { in: permissionIds } }
+      ]
+    }
+  })
+
+  return !!category
+}
+
+const canViewGroup = async (groupId: string, permissionIds: string[], hasRoot: boolean): Promise<boolean> => {
+  if (hasRoot) return true
+
+  const group = await prisma.group.findFirst({
+    where: {
+      id: groupId,
+      OR: [
+        { viewPermissionId: null },
+        { viewPermissionId: { in: permissionIds } }
+      ]
+    }
+  })
+
+  return !!group
 }
 
 
