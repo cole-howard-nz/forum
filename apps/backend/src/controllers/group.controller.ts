@@ -192,23 +192,21 @@ const createGroup = async (req: Request, res: Response) => {
   try {
     const sessionUserId = await getUserIdFromRequest(req)
     if (!sessionUserId || (sessionUserId && !await userHasPermission(sessionUserId, PERMISSIONS.GROUP.CREATE))) {
-      return res.status(403).send({ msg: "Insufficient permission to create a group" })
+      return res.status(403).send({ msg: "Insufficient permission to create a category"})
     }
 
     const prismaCategoryAttributes = Object.keys(Prisma.GroupScalarFieldEnum)
     const ignoredAttributes = ["id", "createdAt", "updatedAt"]
-    const optionalFields = ["description", "viewPermissionId", "postPermissionId"]
+    const optionalAttributes = ["description", "viewPermissionId", "postPermissionId"]
 
     // Get required attributes
-    const requiredFields = prismaCategoryAttributes.filter(
-      attr => !ignoredAttributes.includes(attr) && !optionalFields.includes(attr)
-    )
+    const requiredAttributes = prismaCategoryAttributes.filter( attr => !ignoredAttributes.includes(attr) && !optionalAttributes.includes(attr) )
 
     let data: any = {}
     let missingFields: string[] = []
 
     // Check for required fields
-    optionalFields.forEach(attribute => {
+    requiredAttributes.forEach(attribute => {
       if (req.body[attribute] === undefined || req.body[attribute] === "") {
         missingFields.push(attribute)
       } else {
@@ -217,20 +215,15 @@ const createGroup = async (req: Request, res: Response) => {
     })
 
     // Add optional fields if provided
-    optionalFields.forEach(field => {
-      if (req.body[field] !== undefined && req.body[field] !== "") {
-        data[field] = req.body[field]
+    optionalAttributes.forEach(attribute => {
+      if (req.body[attribute] !== undefined) {
+        data[attribute] = req.body[attribute]
       }
     })
 
     // Check if any required fields are missing
     if (missingFields.length > 0) {
-      return res.status(400).json({ 
-        msg: "Missing required fields to create Group", 
-        missingFields, 
-        requiredFields, 
-        optionalFields 
-      })
+      return res.status(400).json({ msg: "Missing required fields to create Group", missingFields, requiredFields: requiredAttributes, optionalFields: optionalAttributes })
     }
 
     const group = await prisma.group.create({ data })
