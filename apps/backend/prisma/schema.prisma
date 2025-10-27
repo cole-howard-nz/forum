@@ -94,46 +94,60 @@ model Role {
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
 
-  permissions Permission[] @relation(name: "PermissionToRole")
+  permissions Permission[] @relation("PermissionToRole")
   users       User[]
 }
 
 model Permission {
-  id          String       @id @default(cuid())
+  id                   String         @id @default(cuid())
   
-  node        String    
+  node                 String    
 
-  createdAt   DateTime     @default(now())
+  createdAt            DateTime       @default(now())
 
-  roles        Role[]      @relation(name: "PermissionToRole")
+  roles                Role[]         @relation("PermissionToRole")
+  groupsView           Group[]        @relation("GroupViewPermission")
+  groupsPost           Group[]        @relation("GroupPostPermission")
+  categoriesView       Category[]     @relation("CategoryViewPermission")
+  categoriesPost       Category[]     @relation("CategoryPostPermission")
 }
 
 
 // FORUM
 model Group {
-  id          String       @id @default(cuid())
+  id                  String          @id @default(cuid())
   
-  name        String
-  description String?
-  
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now()) @updatedAt
+  name                String
+  description         String?
 
-  categories  Category[]
+  viewPermissionId    String?
+  postPermissionId    String?
+
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @default(now()) @updatedAt
+
+  categories          Category[]
+  viewPermission      Permission?     @relation("GroupViewPermission", fields: [viewPermissionId], references: [id])
+  postPermission      Permission?     @relation("GroupPostPermission", fields: [postPermissionId], references: [id])
 }
 
 model Category {
-  id          String    @id @default(cuid())
-  groupId     String?
+  id                  String          @id @default(cuid())
+  groupId             String?
   
-  name        String
-  description String?
+  name                String
+  description         String?
 
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now()) @updatedAt
+  viewPermissionId    String?
+  postPermissionId    String?
 
-  group       Group?    @relation(fields: [groupId], references: [id], onDelete: Cascade)
-  posts       Post[]
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @default(now()) @updatedAt
+
+  posts               Post[]
+  group               Group?          @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  viewPermission      Permission?     @relation("CategoryViewPermission", fields: [viewPermissionId], references: [id])
+  postPermission      Permission?     @relation("CategoryPostPermission", fields: [postPermissionId], references: [id])
 }
 
 model Post {
